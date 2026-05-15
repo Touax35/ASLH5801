@@ -46,6 +46,7 @@ ASXXXX =	as1802		\
 		asf8		\
 		asgb		\
 		ash8		\
+		aslh5801	\
 		asm8c		\
 		aspdp11		\
 		aspic		\
@@ -131,6 +132,7 @@ SRCF2MC8=	$(ASXBAS)asf2mc8/
 SRCF8=		$(ASXBAS)asf8/
 SRCGB=		$(ASXBAS)asgb/
 SRCH8=		$(ASXBAS)ash8/
+SRCLH5801=	$(ASXBAS)aslh5801/
 SRCM8C=		$(ASXBAS)asm8c/
 SRCPDP11=	$(ASXBAS)aspdp11/
 SRCPIC=		$(ASXBAS)aspic/
@@ -977,6 +979,26 @@ ash8 :		$(ASXX) $(ASH8)
 		cp ash8 $(DSTEXE)ash8
 		strip $(DSTEXE)ash8
 		chmod 755 $(DSTEXE)ash8
+
+
+####################################################################
+# ASLH5801
+####################################################################
+
+ASLH5801 =	lh5801pst.o lh5801mch.o lh5801adr.o
+
+lh5801pst.o :	$(SRCLH5801)lh5801pst.c $(SRCLH5801)lh5801.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+lh5801mch.o :	$(SRCLH5801)lh5801mch.c $(SRCLH5801)lh5801.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+lh5801adr.o :	$(SRCLH5801)lh5801adr.c $(SRCLH5801)lh5801.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+
+aslh5801 :	$(ASXX) $(ASLH5801)
+		$(LD) $(LDFLAGS) -o aslh5801 $(ASXX) $(ASLH5801)
+		cp aslh5801 $(DSTEXE)aslh5801
+		strip $(DSTEXE)aslh5801
+		chmod 755 $(DSTEXE)aslh5801
 
 
 ####################################################################

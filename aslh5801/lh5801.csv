@@ -1,0 +1,311 @@
+ADC,(ab),A3 a b
+ADC,(U),23
+ADC,(X),03
+ADC,(Y),13
+ADC,#(ab),FD A3 a b
+ADC,#(U),FD 23
+ADC,#(X),FD 03
+ADC,#(Y),FD 13
+ADC,i,B3 i
+ADC,UH,A2
+ADC,UL,22
+ADC,XH,82
+ADC,XL,02
+ADC,YH,92
+ADC,YL,12
+ADI,(ab) i,EF a b i
+ADI,(U) i,6F i
+ADI,(X) i,4F i
+ADI,(Y) i,5F i
+ADI,#(ab) i,FD EF a b i
+ADI,#(U) i,FD 6F i
+ADI,#(X) i,FD 4F i
+ADI,#(Y) i,FD 5F i
+ADI,A i,B3 i
+ADR,U,FD EA
+ADR,X,FD CA
+ADR,Y,FD DA
+AEX,,F1
+AM0,,FD CE
+AM1,,FD DE
+AND,(ab),A9 a b
+AND,(U),29
+AND,(X),09
+AND,(Y),19
+AND,#(ab),FD A9 a b
+AND,#(U),FD 29
+AND,#(X),FD 09
+AND,#(Y),FD 19
+ANI,(ab) i,E9 a b i
+ANI,(U) i,69 i
+ANI,(X) i,49 i
+ANI,(Y) i,59 i
+ANI,#(ab) i,FD E9 a b i
+ANI,#(U) i,FD 69 i
+ANI,#(X) i,FD 49 i
+ANI,#(Y) i,FD 59 i
+ANI,A i,B9 i
+ATP,,FD CC
+ATT,,FD EC
+BCH,-i,9E i
+BCH,+i,8E i
+BCR,-i,91 i
+BCR,+i,81 i
+BCS,-i,93 i
+BCS,+i,83 i
+BHR,-i,95 i
+BHR,+i,85 i
+BHS,-i,97 i
+BHS,+i,87 i
+BII,(ab) i,ED a b i
+BII,(U) i,6D i
+BII,(X) i,4D i
+BII,(Y) i,5D i
+BII,#(ab) i,FD ED a b i
+BII,#(U) i,FD 6D i
+BII,#(X) i,FD 4D i
+BII,#(Y) i,FD 5D i
+BII,A i,BF i
+BIT,(ab),AF a b
+BIT,(U),2F
+BIT,(X),0F
+BIT,(Y),1F
+BIT,#(ab),FD AF a b
+BIT,#(U),FD 2F
+BIT,#(X),FD 0F
+BIT,#(Y),FD 1F
+BVR,-i,9D i
+BVR,+i,8D i
+BVS,-i,9F i
+BVS,+i,8F i
+BZR,-i,99 i
+BZR,+i,89 i
+BZS,-i,9B i
+BZS,+i,8B i
+CDV,,FD 8E
+CIN,,F7
+CPA,(ab),A7 a b
+CPA,(U),27
+CPA,(X),07
+CPA,(Y),17
+CPA,#(ab),FD A7 a b
+CPA,#(U),FD 27
+CPA,#(X),FD 07
+CPA,#(Y),FD 17
+CPA,UH,A6
+CPA,UL,26
+CPA,XH,86
+CPA,XL,06
+CPA,YH,96
+CPA,YL,16
+CPI,A i,B7 i
+CPI,UH i,6C i
+CPI,UL i,6E i
+CPI,XH i,4C i
+CPI,XL i,4E i
+CPI,YH i,5C i
+CPI,YL i,5E i
+DCA,(U),AC
+DCA,(X),8C
+DCA,(Y),9C
+DCA,#(U),FD AC
+DCA,#(X),FD 8C
+DCA,#(Y),FD 9C
+DCS,(U),2C
+DCS,(X),0C
+DCS,(Y),1C
+DCS,#(U),FD 2C
+DCS,#(X),FD 0C
+DCS,#(Y),FD 1C
+DEC,A,DF
+DEC,U,66
+DEC,UH,FD 62
+DEC,UL,62
+DEC,X,46
+DEC,XH,FD 42
+DEC,XL,42
+DEC,Y,56
+DEC,YH,FD 52
+DEC,YL,52
+DRL,(X),D7
+DRL,#(X),FD D7
+DRR,(X),D3
+DRR,#(X),FD D3
+EAI,i,BD i
+HLT,,FD B1
+INC,A,DD
+INC,U,64
+INC,UH,FD 60
+INC,UL,60
+INC,X,44
+INC,XH,FD 40
+INC,XL,40
+INC,Y,54
+INC,YH,FD 50
+INC,YL,50
+ITA,,FD BA
+JMP,ab,BA a b
+LDA,(ab),A5 a b
+LDA,(U),25
+LDA,(X),05
+LDA,(Y),15
+LDA,#(ab),FD A5 a b
+LDA,#(U),FD 25
+LDA,#(X),FD 05
+LDA,#(Y),FD 15
+LDA,UH,A4
+LDA,UL,24
+LDA,XH,84
+LDA,XL,04
+LDA,YH,94
+LDA,YL,14
+LDE,U,67
+LDE,X,47
+LDE,Y,57
+LDI,A i,B5 i
+LDI,S ab,AA a b
+LDI,UH i,68 i
+LDI,UL i,6A i
+LDI,XH i,48 i
+LDI,XL i,4A i
+LDI,YH i,58 i
+LDI,YL i,5A i
+LDX,P,FD 58
+LDX,S,FD 48
+LDX,U,FD 28
+LDX,X,FD 08
+LDX,Y,FD 18
+LIN,U,65
+LIN,X,45
+LIN,Y,55
+LOP,UL i,88 i
+NOP,,38
+OFF,,FD 4C
+ORA,(ab),AB a b
+ORA,(U),2B
+ORA,(X),0B
+ORA,(Y),1B
+ORA,#(ab),FD AB a b
+ORA,#(U),FD 2B
+ORA,#(X),FD 0B
+ORA,#(Y),FD 1B
+ORI,(ab) i,EB a b i
+ORI,(U) i,6B i
+ORI,(X) i,4B i
+ORI,(Y) i,5B i
+ORI,#(ab) i,FD EB a b i
+ORI,#(U) i,FD 6B i
+ORI,#(X) i,FD 4B i
+ORI,#(Y) i,FD 5B i
+ORI,A i,BB i
+POP,A,FD 8A
+POP,U,FD 2A
+POP,X,FD 0A
+POP,Y,FD 1A
+PSH,A,FD C8
+PSH,U,FD A8
+PSH,X,FD 88
+PSH,Y,FD 98
+RDP,,FD C0
+REC,,F9
+RIE,,FD BE
+ROL,,DB
+ROR,,D1
+RPU,,E3
+RPV,,B8
+RTI,,8A
+RTN,,9A
+SBC,(ab),A1 a b
+SBC,(U),21
+SBC,(X),01
+SBC,(Y),11
+SBC,#(ab),FD A1 a b
+SBC,#(U),FD 21
+SBC,#(X),FD 01
+SBC,#(Y),FD 11
+SBC,UH,A0
+SBC,UL,20
+SBC,XH,80
+SBC,XL,00
+SBC,YH,90
+SBC,YL,10
+SBI,A i,B1 i
+SDE,U,63
+SDE,X,43
+SDE,Y,53
+SDP,,FD C1
+SEC,,FB
+SHL,,D9
+SHR,,D5
+SIE,,FD 81
+SIN,U,61
+SIN,X,41
+SIN,Y,51
+SJP,ab,BE a b
+SPU,,E1
+SPV,,A8
+STA,(ab),AE a b
+STA,(U),2E
+STA,(X),0E
+STA,(Y),1E
+STA,#(ab),FD AE a b
+STA,#(U),FD 2E
+STA,#(X),FD 0E
+STA,#(Y),FD 1E
+STA,UH,28
+STA,UL,2A
+STA,XH,08
+STA,XL,0A
+STA,YH,18
+STA,YL,1A
+STX,P,FD 5E
+STX,S,FD 4E
+STX,U,FD 6A
+STX,X,FD 4A
+STX,Y,FD 5A
+TIN,,F5
+TTA,,FD AA
+VCR,i,C1 i
+VCS,i,C3 i
+VEJ,C0,C0
+VEJ,C2,C2
+VEJ,C4,C4
+VEJ,C6,C6
+VEJ,C8,C8
+VEJ,CA,CA
+VEJ,CC,CC
+VEJ,CE,CE
+VEJ,D0,D0
+VEJ,D2,D2
+VEJ,D4,D4
+VEJ,D6,D6
+VEJ,D8,D8
+VEJ,DA,DA
+VEJ,DC,DC
+VEJ,DE,DE
+VEJ,E0,E0
+VEJ,E2,E2
+VEJ,E4,E4
+VEJ,E6,E6
+VEJ,E8,E8
+VEJ,EA,EA
+VEJ,EC,EC
+VEJ,EE,EE
+VEJ,F0,F0
+VEJ,F2,F2
+VEJ,F4,F4
+VEJ,F6,F6
+VHR,i,C5 i
+VHS,i,C7 i
+VMJ,i,CD i
+VVS,i,CF i
+VZR,i,C9 i
+VZS,i,CB i
+XOR,(ab),AD a b
+XOR,(U),2D
+XOR,(X),0D
+XOR,(Y),1D
+XOR,#(ab),FD AD a b
+XOR,#(U),FD 2D
+XOR,#(X),FD 0D
+XOR,#(Y),FD 1D
