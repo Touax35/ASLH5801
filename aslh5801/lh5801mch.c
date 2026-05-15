@@ -690,11 +690,11 @@ machine(struct mne *mp)
 //			break;
 		}
 	}
-	/*
-	 * Translate To External Format
-	 */
-	if (opcycles == OPCY_NONE) { opcycles  =  CYCL_NONE; } else
-	if (opcycles  & OPCY_NONE) { opcycles |= (CYCL_NONE | 0x3F00); }
+//	/*
+//	 * Translate To External Format
+//	 */
+//	if (opcycles == OPCY_NONE) { opcycles  =  CYCL_NONE; } else
+//	if (opcycles  & OPCY_NONE) { opcycles |= (CYCL_NONE | 0x3F00); }
 }
 
 /*
