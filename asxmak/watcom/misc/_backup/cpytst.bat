@@ -8,3 +8,4 @@ copy /Y tstscn.bat ..\..\vs13\misc\tstscn.bat
 copy /Y tstscn.bat ..\..\vs15\misc\tstscn.bat
 copy /Y tstscn.bat ..\..\vs19\misc\tstscn.bat
 copy /Y tstscn.bat ..\..\vs22\misc\tstscn.bat
+

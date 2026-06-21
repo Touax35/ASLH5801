@@ -37,9 +37,9 @@ CREATETARGETDIR	=
 
 LIBS		= 
 
-CFLAGS		=  -ms -C -S -3 -a2 -c -g -gd 
+CFLAGS		=  -Ae -ms -C -S -3 -a2 -c -g -gd 
 LFLAGS		=  /CO /DE /XN
-DEFINES		= 
+DEFINES		= -D_DEBUG=1 
 !ELSE
 OUTPUTDIR	= ..\build
 !IF EXIST (..\build)
@@ -56,7 +56,7 @@ CREATETARGETDIR	= if not exist $(TARGETDIR)\*.* md $(TARGETDIR)
 
 LIBS		= 
 
-CFLAGS		=  -A -r -J -ml -o+time -3 -a2 -c 
+CFLAGS		=  -A -Ae -r -J -mlu -o+time -3 -a2 -c 
 LFLAGS		=  /DE /PACKF /XN
 DEFINES		= 
 !ENDIF

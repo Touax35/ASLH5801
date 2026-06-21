@@ -1,15 +1,15 @@
 !define BLANK ""
-R:\asxv5pxx\asxmak\watcom\build\s19os9.obj : R:\asxv5pxx\S19OS9\s19os9.c .AU&
+R:\asxv6pxx\asxmak\watcom\build\s19os9.obj : R:\asxv6pxx\S19OS9\s19os9.c .AU&
 TODEPEND
  @R:
- cd R:\asxv5pxx\asxmak\watcom\build
+ cd R:\asxv6pxx\asxmak\watcom\build
  *wcc386 ..\..\..\S19OS9\s19os9.c -i=..\..\..\asxxsrc;C:\WATCOM\h;C:\WATCOM\&
 h\nt -w4 -e25 -zq -od -d2 -6r -bt=nt -mf
 
-R:\asxv5pxx\asxmak\watcom\build\s19os9.exe : R:\asxv5pxx\asxmak\watcom\build&
+R:\asxv6pxx\asxmak\watcom\build\s19os9.exe : R:\asxv6pxx\asxmak\watcom\build&
 \s19os9.obj .AUTODEPEND
  @R:
- cd R:\asxv5pxx\asxmak\watcom\build
+ cd R:\asxv6pxx\asxmak\watcom\build
  @%write s19os9.lk1 FIL s19os9.obj
  @%append s19os9.lk1 
 !ifneq BLANK ""

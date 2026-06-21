@@ -24,9 +24,8 @@ DISASM		= OBJ2ASM
 LNK		= LINK
 DLLS		= 
 
-HEADERS		= ..\..\..\AS78K0S\r78k0s.h ..\..\..\AS78K0S\r78ks.h ..\..\..\asxxsrc\asxxxx.h  \
-		C:\SC\INCLUDE\stdlib.h C:\SC\INCLUDE\stdio.h C:\SC\INCLUDE\setjmp.h C:\SC\INCLUDE\string.h  \
-		C:\SC\INCLUDE\time.h 
+HEADERS		= ..\..\..\AS78K0S\r78ks.h ..\..\..\asxxsrc\asxxxx.h C:\SC\INCLUDE\stdlib.h  \
+		C:\SC\INCLUDE\stdio.h C:\SC\INCLUDE\setjmp.h C:\SC\INCLUDE\string.h C:\SC\INCLUDE\time.h 
 
 DEFFILE		= as78k0s.DEF
 

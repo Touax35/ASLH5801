@@ -1,5 +1,5 @@
 .after
  copy /Y asxscn.exe ..\exe\
-project : R:\asxv5pxx\asxmak\watcom\build\asxscn.exe .SYMBOLIC
+project : R:\asxv6pxx\asxmak\watcom\build\asxscn.exe .SYMBOLIC
 
-!include R:\asxv5pxx\asxmak\watcom\build\asxscn.mk1
+!include R:\asxv6pxx\asxmak\watcom\build\asxscn.mk1

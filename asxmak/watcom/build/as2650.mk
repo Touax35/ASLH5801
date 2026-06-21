@@ -1,5 +1,5 @@
 .after
  copy /Y as2650.exe ..\exe\
-project : R:\asxv5pxx\asxmak\watcom\build\as2650.exe .SYMBOLIC
+project : R:\asxv6pxx\asxmak\watcom\build\as2650.exe .SYMBOLIC
 
-!include R:\asxv5pxx\asxmak\watcom\build\as2650.mk1
+!include R:\asxv6pxx\asxmak\watcom\build\as2650.mk1

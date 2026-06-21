@@ -76,7 +76,7 @@ PAR		= PROJS BATS OBJS
 
 RCDEFINES	= 
 
-INCLUDES	= -Ir:\asxv5pxx\asxxsrc -Ir:\asxv5pxx\asz280
+INCLUDES	= -I..\..\..\asxxsrc
 
 INCLUDEDOBJS	= 
 

@@ -20,6 +20,12 @@
  * Alan R. Baldwin
  * 721 Berkeley St.
  * Kent, Ohio  44240
+ * 
+ * 
+ * Ported by Lionel Tchernatinsky
+ * from the ASZ80 assembler.
+ *
+ * lionel at tchernatins dot ky
  */
 
 #include "asxxxx.h"
@@ -78,40 +84,40 @@ addr(struct expr *esp)
 				}
 			} 
 			else if ((c1 = getnb()) == LFIND) {
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_IND_ME1_IMMED;
 				if ((c = getnb()) != RTIND)
 					xerr('a', "Missing ')'.");
 			} 
 			else {
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_IMMED;
 			}
 		} 
 		else {
 			unget(c1);
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_IMMED;
 		}
 	}
 	else if (c == '+') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_PDISPL;
 	}
 	else if (c == '-') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_NDISPL;
 	}
 	else if (c == LFIND) {
 
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IND_IMMED;
 		if ((c = getnb()) != RTIND)
 			xerr('a', "Missing ')'.");
 	} 
 	else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	}
 	return (esp->e_mode);
@@ -151,7 +157,7 @@ addr_VEJ(struct expr *esp)
 	} 
 	else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	}
 	return (esp->e_mode);

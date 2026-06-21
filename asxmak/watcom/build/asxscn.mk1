@@ -1,15 +1,15 @@
 !define BLANK ""
-R:\asxv5pxx\asxmak\watcom\build\asxxscan.obj : R:\asxv5pxx\ASXXMISC\asxxscan&
+R:\asxv6pxx\asxmak\watcom\build\asxxscan.obj : R:\asxv6pxx\ASXXMISC\asxxscan&
 .c .AUTODEPEND
  @R:
- cd R:\asxv5pxx\asxmak\watcom\build
+ cd R:\asxv6pxx\asxmak\watcom\build
  *wcc386 ..\..\..\ASXXMISC\asxxscan.c -i=..\..\..\asxxsrc;C:\WATCOM\h;C:\WAT&
 COM\h\nt -w4 -e25 -zq -od -d2 -6r -bt=nt -mf
 
-R:\asxv5pxx\asxmak\watcom\build\asxscn.exe : R:\asxv5pxx\asxmak\watcom\build&
+R:\asxv6pxx\asxmak\watcom\build\asxscn.exe : R:\asxv6pxx\asxmak\watcom\build&
 \asxxscan.obj .AUTODEPEND
  @R:
- cd R:\asxv5pxx\asxmak\watcom\build
+ cd R:\asxv6pxx\asxmak\watcom\build
  @%write asxscn.lk1 FIL asxxscan.obj
  @%append asxscn.lk1 
 !ifneq BLANK ""

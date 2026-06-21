@@ -1,6 +1,6 @@
 .after
  copy /Y ascheck.exe ..\exe\
 
-project : R:\asxv5pxx\asxmak\watcom\build\ascheck.exe .SYMBOLIC
+project : R:\asxv6pxx\asxmak\watcom\build\ascheck.exe .SYMBOLIC
 
-!include R:\asxv5pxx\asxmak\watcom\build\ascheck.mk1
+!include R:\asxv6pxx\asxmak\watcom\build\ascheck.mk1

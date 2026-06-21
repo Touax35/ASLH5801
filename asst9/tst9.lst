@@ -1,0 +1,2778 @@
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 1
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                              1 	.title	ST9 Test
+                              2 
+                     0012     3 	N  = 0x12
+                     5678     4 	NN = 0x5678
+                              5 
+                     0000     6 	B0 = 0
+                     0001     7 	B1 = 1
+                     0002     8 	B2 = 2
+                     0003     9 	B3 = 3
+                     0004    10 	B4 = 4
+                     0005    11 	B5 = 5
+                     0006    12 	B6 = 6
+                     0007    13 	B7 = 7
+                             14 
+                             15 	.define	M	"N + xN"
+                             16 	.define	MM	"NN + xNN"
+                             17 
+                             18 	.globl	xN, xNN
+                             19 	.globl	X0, X1, X2, X3, X4, X5, X6, X7
+                             20 
+                              2 	; yn, yyn, Yn, and YYn Defined
+                             24 
+                             25 	;
+                             26 	; OR
+                             27 	;
+                             28 	; OR (byte) Register, Register
+   0000 02 37                29 	or	y3,y7		; 02 37
+   0002 03 35                30 	or	y3,(y5)		; 03 35
+   0004 04 90 50             31 	or	Y50,Y90		; 04 90 50
+   0007 04 90 D3             32 	or	y3,Y90		; 04 90 D3
+   000A 04 D7 50             33 	or	Y50,y7		; 04 D7 50
+   000D E6 30 06             34 	or	(y6),Y30	; E6 30 06
+   0010 E6 D3 0A             35 	or	(yA),y3		; E6 D3 0A
+   0013 E7 0C 40             36 	or	Y40,(yC)	; E7 0C 40
+                             37 
+                             38 	; OR (byte) Register, Memory
+   0016 72 03 07             39 	or	Y7,(yy2)	; 72 03 07
+   0019 72 05 D6             40 	or	y6,(yy4)	; 72 05 D6
+   001C B4 07 05             41 	or	Y5,(yy6)+	; B4 07 05
+   001F B4 09 D4             42 	or	y4,(yy8)+	; B4 09 D4
+   0022 C2 0B 03             43 	or	Y3,-(yyA)	; C2 0B 03
+   0025 C2 0D D2             44 	or	y2,-(yyC)	; C2 0D D2
+   0028 60 9E 01             45 	or	y1,yy8(yyE)	; 60 9E 01
+   002B 7F 03 12 05          46 	or	Y5,N(yy2)	; 7F 03 12 05
+   002F 7F 05 12 DF          47 	or	yF,N(yy4)	; 7F 05 12 DF
+   0033 C4 0C 56 78          48 	or	yC,NN		; C4 0C 56 78
+   0037 7F 06 56 78 01       49 	or	Y1,NN(yy6)	; 7F 06 56 78 01
+   003C 7F 08 56 78 D2       50 	or	y2,NN(yy8)	; 7F 08 56 78 D2
+                     0001    51 .ifdef	GLOBAL
+   0041 7F 03r12 05          52 	or	Y5,*M(yy2)	; 7F 03 12 05		; Global -> Forced Short Form
+   0045 7F 05r12 DF          53 	or	yF,*M(yy4)	; 7F 05 12 DF		; Global -> Forced Short Form
+   0049 7F 02s00r12 05       54 	or	Y5,M(yy2)	; 7F 02 00 12 05	; Global -> Long Form
+   004E 7F 04s00r12 DF       55 	or	yF,M(yy4)	; 7F 04 00 12 DF	; Global -> Long Form
+   0053 C4 0Cs56r78          56 	or	yC,MM		; C4 0C 56 78
+   0057 7F 06s56r78 01       57 	or	Y1,MM(yy6)	; 7F 06 56 78 01
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 2
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   005C 7F 08s56r78 D2       58 	or	y2,MM(yy8)	; 7F 08 56 78 D2
+                             59 .endif
+                             60 
+                             61 	; OR (byte) Memory, Register
+   0061 72 00 50             62 	or	(yy0),Y50	; 72 00 50
+   0064 72 02 D8             63 	or	(yy2),y8	; 72 02 D8
+   0067 B4 04 60             64 	or	(yy4)+,Y60	; B4 04 60
+   006A B4 06 D7             65 	or	(yy6)+,y7	; B4 06 D7
+   006D C2 08 70             66 	or	-(yy8),Y70	; C2 08 70
+   0070 C2 0A D6             67 	or	-(yyA),y6	; C2 0A D6
+   0073 60 DF 05             68 	or	yyC(yyE),y5	; 60 DF 05
+   0076 26 0B 12 80          69 	or	N(yyA),Y80	; 26 0B 12 80
+   007A 26 09 12 D4          70 	or	N(yy8),y4	; 26 09 12 D4
+   007E C5 03 56 78          71 	or	NN,y3		; C5 03 56 78
+   0082 26 06 56 78 90       72 	or	NN(yy6),Y90	; 26 06 56 78 90
+   0087 26 04 56 78 D2       73 	or	NN(yy4),y2	; 26 04 56 78 D2
+                     0001    74 .ifdef	GLOBAL
+   008C 26 0Br12 80          75 	or	*M(yyA),Y80	; 26 0B 12 80		; Global -> Forced Short Form
+   0090 26 09r12 D4          76 	or	*M(yy8),y4	; 26 09 12 D4		; Global -> Forced Short Form
+   0094 26 0As00r12 80       77 	or	M(yyA),Y80	; 26 0A 00 12 80	; Global -> Long Form
+   0099 26 08s00r12 D4       78 	or	M(yy8),y4	; 26 08 00 12 D4	; Global -> Long Form
+   009E C5 03s56r78          79 	or	MM,y3		; C5 03 56 78
+   00A2 26 06s56r78 90       80 	or	MM(yy6),Y90	; 26 06 56 78 90
+   00A7 26 04s56r78 D2       81 	or	MM(yy4),y2	; 26 04 56 78 D2
+                             82 .endif
+                             83 
+                             84 	; OR (byte) Memory, Memory
+   00AC 73 04 60             85 	or	(YY60),(yy4)	; 73 04 60
+   00AF 73 08 D6             86 	or	(yy6),(yy8)	; 73 08 D6
+                             87 
+                             88 	; OR (byte) All, Immediate
+   00B2 05 70 12             89 	or	Y70,#N		; 05 70 12
+   00B5 05 DB 12             90 	or	yB,#N		; 05 DB 12
+   00B8 F3 02 12             91 	or	(yy2),#N	; F3 02 12
+   00BB 2F 01 12 56 78       92 	or	NN,#N		; 2F 01 12 56 78
+                     0001    93 .ifdef	GLOBAL
+   00C0 05 70r12             94 	or	Y70,#M		; 05 70 12
+   00C3 05 DBr12             95 	or	yB,#M		; 05 DB 12
+   00C6 F3 02r12             96 	or	(yy2),#M	; F3 02 12
+   00C9 2F 01r12s56r78       97 	or	MM,#M		; 2F 01 12 56 78
+                             98 .endif
+                             99 
+                            100 	;
+                            101 	; ORW
+                            102 	;
+                            103 	; OR (Word) - Register, Register
+   00CE 0E 24               104 	orw	yy2,yy4		; 0E 24
+   00D0 07 20 06            105 	orw	YY6,YY20	; 07 20 06
+   00D3 07 30 D8            106 	orw	yy8,YY30	; 07 30 D8
+   00D6 07 DA 40            107 	orw	YY40,yyA	; 07 DA 40
+   00D9 96 50 00            108 	orw	(y0),YY50	; 96 50 00
+   00DC 96 DC 01            109 	orw	(y1),yyC	; 96 DC 01
+   00DF A6 02 60            110 	orw	YY60,(y2)	; A6 02 60
+   00E2 A6 04 DE            111 	orw	yyE,(y4)	; A6 04 DE
+                            112 
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 3
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                            113 	; OR (Word) - Register, Memory
+   00E5 0E 03               114 	orw	yy0,(yy2)	; 0E 03
+   00E7 7E 04 10            115 	orw	YY10,(yy4)	; 7E 04 10
+   00EA D5 07 20            116 	orw	YY20,(yy6)+	; D5 07 20
+   00ED D5 0B D8            117 	orw	yy8,(yyA)+	; D5 0B D8
+   00F0 C3 0D 30            118 	orw	YY30,-(yyC)	; C3 0D 30
+   00F3 C3 01 DE            119 	orw	yyE,-(yy0)	; C3 01 DE
+   00F6 60 46 02            120 	orw	yy2,yy4(yy6)	; 60 46 02
+   00F9 86 09 12 40         121 	orw	YY40,N(yy8)	; 86 09 12 40
+   00FD 86 0D 12 DA         122 	orw	yyA,N(yyC)	; 86 0D 12 DA
+   0101 E2 0E 56 78         123 	orw	yyE,NN		; E2 0E 56 78
+   0105 86 00 56 78 50      124 	orw	YY50,NN(yy0)	; 86 00 56 78 50
+   010A 86 04 56 78 D2      125 	orw	yy2,NN(yy4)	; 86 04 56 78 D2
+                     0001   126 .ifdef	GLOBAL
+   010F 86 09r12 40         127 	orw	YY40,*M(yy8)	; 86 09 12 40		; Global -> Forced Short Form
+   0113 86 0Dr12 DA         128 	orw	yyA,*M(yyC)	; 86 0D 12 DA		; Global -> Forced Short Form
+   0117 86 08s00r12 40      129 	orw	YY40,M(yy8)	; 86 08 00 12 40	; Global -> Long Form
+   011C 86 0Cs00r12 DA      130 	orw	yyA,M(yyC)	; 86 0C 00 12 DA	; Global -> Long Form
+   0121 E2 0Es56r78         131 	orw	yyE,MM		; E2 0E 56 78
+   0125 86 00s56r78 50      132 	orw	YY50,MM(yy0); 86 00 56 78 50
+   012A 86 04s56r78 D2      133 	orw	yy2,MM(yy4)	; 86 04 56 78 D2
+                            134 .endif
+                            135 
+                            136 	; OR (Word) - Memory, Register
+   012F 0E 12               137 	orw	(yy0),yy2	; 0E 12
+   0131 BE 05 10            138 	orw	(yy4),YY10	; BE 05 10
+   0134 D5 06 20            139 	orw	(yy6)+,YY20	; D5 06 20
+   0137 D5 08 DA            140 	orw	(yy8)+,yyA	; D5 08 DA
+   013A C3 0C 30            141 	orw	-(yyC),YY30	; C3 0C 30
+   013D C3 0E D0            142 	orw	-(yyE),yy0	; C3 0E D0
+   0140 60 25 06            143 	orw	yy2(yy4),yy6	; 60 25 06
+   0143 86 09 12 41         144 	orw	N(yy8),YY40	; 86 09 12 41
+   0147 86 0B 12 DD         145 	orw	N(yyA),yyC	; 86 0B 12 DD
+   014B E2 0D 56 78         146 	orw	NN,yyC		; E2 0D 56 78
+   014F 86 0E 56 78 61      147 	orw	NN(yyE),YY60	; 86 0E 56 78 61
+   0154 86 00 56 78 D3      148 	orw	NN(yy0),yy2	; 86 00 56 78 D3
+                     0001   149 .ifdef	GLOBAL
+   0159 86 09r12 41         150 	orw	*M(yy8),YY40	; 86 09 12 41		; Global -> Forced Short Form
+   015D 86 0Br12 DD         151 	orw	*M(yyA),yyC	; 86 0B 12 DD		; Global -> Forced Short Form
+   0161 86 08s00r12 41      152 	orw	M(yy8),YY40	; 86 08 00 12 41	; Global -> Long Form
+   0166 86 0As00r12 DD      153 	orw	M(yyA),yyC	; 86 0A 00 12 DD	; Global -> Long Form
+   016B E2 0Ds56r78         154 	orw	MM,yyC		; E2 0D 56 78
+   016F 86 0Es56r78 61      155 	orw	MM(yyE),YY60	; 86 0E 56 78 61
+   0174 86 00s56r78 D3      156 	orw	MM(yy0),yy2	; 86 00 56 78 D3
+                            157 .endif
+                            158 
+                            159 	; OR (Word) - Memory, Memory
+   0179 0E 13               160 	orw	(yy0),(yy2)	; 0E 13
+                            161 
+                            162 	; OR (Word) - All, Immediate
+   017B 07 11 56 78         163 	orw	YY10,#NN	; 07 11 56 78
+   017F 07 D5 56 78         164 	orw	yy4,#NN		; 07 D5 56 78
+   0183 BE 08 56 78         165 	orw	(yy8),#NN	; BE 08 56 78
+   0187 06 0B 12 56 78      166 	orw	N(yyA),#NN	; 06 0B 12 56 78
+   018C 06 0C 56 78 56 78   167 	orw	NN(yyC),#NN	; 06 0C 56 78 56;78
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 4
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0192 36 01 56 78 56 78   168 	orw	NN,#NN		; 36 01 56 78 56;78
+                     0001   169 .ifdef	GLOBAL
+   0198 07 11s56r78         170 	orw	YY10,#MM	; 07 11 56 78
+   019C 07 D5s56r78         171 	orw	yy4,#MM		; 07 D5 56 78
+   01A0 BE 08s56r78         172 	orw	(yy8),#MM	; BE 08 56 78
+   01A4 06 0Br12s56r78      173 	orw	*M(yyA),#MM	; 06 0B 12 56 78	; Global -> Forced Short Form
+   01A9 06 0As00r12s56r78   174 	orw	M(yyA),#MM	; 06 0A 00 12 56;78	; Global -> Long Form
+   01AF 06 0Cs56r78s56r78   175 	orw	MM(yyC),#MM	; 06 0C 56 78 56;78
+   01B5 36 01s56r78s56r78   176 	orw	MM,#MM		; 36 01 56 78 56;78
+                            177 .endif
+                            178 
+                            179 	;
+                            180 	; AND
+                            181 	;
+                            182 	; AND (byte) Register, Register
+   01BB 12 37               183 	and	y3,y7		; 12 37
+   01BD 13 35               184 	and	y3,(y5)		; 13 35
+   01BF 14 90 50            185 	and	Y50,Y90		; 14 90 50
+   01C2 14 90 D3            186 	and	y3,Y90		; 14 90 D3
+   01C5 14 D7 50            187 	and	Y50,y7		; 14 D7 50
+   01C8 E6 30 16            188 	and	(y6),Y30	; E6 30 16
+   01CB E6 D3 1A            189 	and	(yA),y3		; E6 D3 1A
+   01CE E7 1C 40            190 	and	Y40,(yC)	; E7 1C 40
+                            191 
+                            192 	; AND (byte) Register, Memory
+   01D1 72 13 07            193 	and	Y7,(yy2)	; 72 13 07
+   01D4 72 15 D6            194 	and	y6,(yy4)	; 72 15 D6
+   01D7 B4 17 05            195 	and	Y5,(yy6)+	; B4 17 05
+   01DA B4 19 D4            196 	and	y4,(yy8)+	; B4 19 D4
+   01DD C2 1B 03            197 	and	Y3,-(yyA)	; C2 1B 03
+   01E0 C2 1D D2            198 	and	y2,-(yyC)	; C2 1D D2
+   01E3 60 9E 11            199 	and	y1,yy8(yyE)	; 60 9E 11
+   01E6 7F 13 12 05         200 	and	Y5,N(yy2)	; 7F 13 12 05
+   01EA 7F 15 12 DF         201 	and	yF,N(yy4)	; 7F 15 12 DF
+   01EE C4 1C 56 78         202 	and	yC,NN		; C4 1C 56 78
+   01F2 7F 16 56 78 01      203 	and	Y1,NN(yy6)	; 7F 16 56 78 01
+   01F7 7F 18 56 78 D2      204 	and	y2,NN(yy8)	; 7F 18 56 78 D2
+                     0001   205 .ifdef	GLOBAL
+   01FC 7F 13r12 05         206 	and	Y5,*M(yy2)	; 7F 13 12 05		; Global -> Forced Short Form
+   0200 7F 15r12 DF         207 	and	yF,*M(yy4)	; 7F 15 12 DF		; Global -> Forced Short Form
+   0204 7F 12s00r12 05      208 	and	Y5,M(yy2)	; 7F 12 00 12 05	; Global -> Long Form
+   0209 7F 14s00r12 DF      209 	and	yF,M(yy4)	; 7F 14 00 12 DF	; Global -> Long Form
+   020E C4 1Cs56r78         210 	and	yC,MM		; C4 1C 56 78
+   0212 7F 16s56r78 01      211 	and	Y1,MM(yy6)	; 7F 16 56 78 01
+   0217 7F 18s56r78 D2      212 	and	y2,MM(yy8)	; 7F 18 56 78 D2
+                            213 .endif
+                            214 
+                            215 	; AND (byte) Memory, Register
+   021C 72 10 50            216 	and	(yy0),Y50	; 72 10 50
+   021F 72 12 D8            217 	and	(yy2),y8	; 72 12 D8
+   0222 B4 14 60            218 	and	(yy4)+,Y60	; B4 14 60
+   0225 B4 16 D7            219 	and	(yy6)+,y7	; B4 16 D7
+   0228 C2 18 70            220 	and	-(yy8),Y70	; C2 18 70
+   022B C2 1A D6            221 	and	-(yyA),y6	; C2 1A D6
+   022E 60 DF 15            222 	and	yyC(yyE),y5	; 60 DF 15
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 5
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0231 26 1B 12 80         223 	and	N(yyA),Y80	; 26 1B 12 80
+   0235 26 19 12 D4         224 	and	N(yy8),y4	; 26 19 12 D4
+   0239 C5 13 56 78         225 	and	NN,y3		; C5 13 56 78
+   023D 26 16 56 78 90      226 	and	NN(yy6),Y90	; 26 16 56 78 90
+   0242 26 14 56 78 D2      227 	and	NN(yy4),y2	; 26 14 56 78 D2
+                     0001   228 .ifdef	GLOBAL
+   0247 26 1Br12 80         229 	and	*M(yyA),Y80	; 26 1B 12 80		; Global -> Forced Short Form
+   024B 26 19r12 D4         230 	and	*M(yy8),y4	; 26 19 12 D4		; Global -> Forced Short Form
+   024F 26 1As00r12 80      231 	and	M(yyA),Y80	; 26 1A 00 12 80	; Global -> Long Form
+   0254 26 18s00r12 D4      232 	and	M(yy8),y4	; 26 18 00 12 D4	; Global -> Long Form
+   0259 C5 13s56r78         233 	and	MM,y3		; C5 13 56 78
+   025D 26 16s56r78 90      234 	and	MM(yy6),Y90	; 26 16 56 78 90
+   0262 26 14s56r78 D2      235 	and	MM(yy4),y2	; 26 14 56 78 D2
+                            236 .endif
+                            237 
+                            238 	; AND (byte) Memory, Memory
+   0267 73 14 60            239 	and	(YY60),(yy4)	; 73 14 60
+   026A 73 18 D6            240 	and	(yy6),(yy8)	; 73 18 D6
+                            241 
+                            242 	; AND (byte) All, Immediate
+   026D 15 70 12            243 	and	Y70,#N		; 15 70 12
+   0270 15 DB 12            244 	and	yB,#N		; 15 DB 12
+   0273 F3 12 12            245 	and	(yy2),#N	; F3 12 12
+   0276 2F 11 12 56 78      246 	and	NN,#N		; 2F 11 12 56 78
+                     0001   247 .ifdef	GLOBAL
+   027B 15 70r12            248 	and	Y70,#M		; 15 70 12
+   027E 15 DBr12            249 	and	yB,#M		; 15 DB 12
+   0281 F3 12r12            250 	and	(yy2),#M	; F3 12 12
+   0284 2F 11r12s56r78      251 	and	MM,#M		; 2F 11 12 56 78
+                            252 .endif
+                            253 
+                            254 	;
+                            255 	; ANDW
+                            256 	;
+                            257 	; AND (Word) - Register, Register
+   0289 1E 24               258 	andw	yy2,yy4		; 1E 24
+   028B 17 20 06            259 	andw	YY6,YY20	; 17 20 06
+   028E 17 30 D8            260 	andw	yy8,YY30	; 17 30 D8
+   0291 17 DA 40            261 	andw	YY40,yyA	; 17 DA 40
+   0294 96 50 10            262 	andw	(y0),YY50	; 96 50 10
+   0297 96 DC 11            263 	andw	(y1),yyC	; 96 DC 11
+   029A A6 12 60            264 	andw	YY60,(y2)	; A6 12 60
+   029D A6 14 DE            265 	andw	yyE,(y4)	; A6 14 DE
+                            266 
+                            267 	; AND (Word) - Register, Memory
+   02A0 1E 03               268 	andw	yy0,(yy2)	; 1E 03
+   02A2 7E 14 10            269 	andw	YY10,(yy4)	; 7E 14 10
+   02A5 D5 17 20            270 	andw	YY20,(yy6)+	; D5 17 20
+   02A8 D5 1B D8            271 	andw	yy8,(yyA)+	; D5 1B D8
+   02AB C3 1D 30            272 	andw	YY30,-(yyC)	; C3 1D 30
+   02AE C3 11 DE            273 	andw	yyE,-(yy0)	; C3 11 DE
+   02B1 60 46 12            274 	andw	yy2,yy4(yy6)	; 60 46 12
+   02B4 86 19 12 40         275 	andw	YY40,N(yy8)	; 86 19 12 40
+   02B8 86 1D 12 DA         276 	andw	yyA,N(yyC)	; 86 1D 12 DA
+   02BC E2 1E 56 78         277 	andw	yyE,NN		; E2 1E 56 78
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 6
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   02C0 86 10 56 78 50      278 	andw	YY50,NN(yy0)	; 86 10 56 78 50
+   02C5 86 14 56 78 D2      279 	andw	yy2,NN(yy4)	; 86 14 56 78 D2
+                     0001   280 .ifdef	GLOBAL
+   02CA 86 19r12 40         281 	andw	YY40,*M(yy8)	; 86 19 12 40		; Global -> Forced Short Form
+   02CE 86 1Dr12 DA         282 	andw	yyA,*M(yyC)	; 86 1D 12 DA		; Global -> Forced Short Form
+   02D2 86 18s00r12 40      283 	andw	YY40,M(yy8)	; 86 18 00 12 40	; Global -> Long Form
+   02D7 86 1Cs00r12 DA      284 	andw	yyA,M(yyC)	; 86 1C 00 12 DA	; Global -> Long Form
+   02DC E2 1Es56r78         285 	andw	yyE,MM		; E2 1E 56 78
+   02E0 86 10s56r78 50      286 	andw	YY50,MM(yy0)	; 86 10 56 78 50
+   02E5 86 14s56r78 D2      287 	andw	yy2,MM(yy4)	; 86 14 56 78 D2
+                            288 .endif
+                            289 
+                            290 	; AND (Word) - Memory, Register
+   02EA 1E 12               291 	andw	(yy0),yy2	; 1E 12
+   02EC BE 15 10            292 	andw	(yy4),YY10	; BE 15 10
+   02EF D5 16 20            293 	andw	(yy6)+,YY20	; D5 16 20
+   02F2 D5 18 DA            294 	andw	(yy8)+,yyA	; D5 18 DA
+   02F5 C3 1C 30            295 	andw	-(yyC),YY30	; C3 1C 30
+   02F8 C3 1E D0            296 	andw	-(yyE),yy0	; C3 1E D0
+   02FB 60 25 16            297 	andw	yy2(yy4),yy6	; 60 25 16
+   02FE 86 19 12 41         298 	andw	N(yy8),YY40	; 86 19 12 41
+   0302 86 1B 12 DD         299 	andw	N(yyA),yyC	; 86 1B 12 DD
+   0306 E2 1D 56 78         300 	andw	NN,yyC		; E2 1D 56 78
+   030A 86 1E 56 78 61      301 	andw	NN(yyE),YY60	; 86 1E 56 78 61
+   030F 86 10 56 78 D3      302 	andw	NN(yy0),yy2	; 86 10 56 78 D3
+                     0001   303 .ifdef	GLOBAL
+   0314 86 19r12 41         304 	andw	*M(yy8),YY40	; 86 19 12 41		; Global -> Forced Short Form
+   0318 86 1Br12 DD         305 	andw	*M(yyA),yyC	; 86 1B 12 DD		; Global -> Forced Short Form
+   031C 86 18s00r12 41      306 	andw	M(yy8),YY40	; 86 18 00 12 41	; Global -> Long Form
+   0321 86 1As00r12 DD      307 	andw	M(yyA),yyC	; 86 1A 00 12 DD	; Global -> Long Form
+   0326 E2 1Ds56r78         308 	andw	MM,yyC		; E2 1D 56 78
+   032A 86 1Es56r78 61      309 	andw	MM(yyE),YY60	; 86 1E 56 78 61
+   032F 86 10s56r78 D3      310 	andw	MM(yy0),yy2	; 86 10 56 78 D3
+                            311 .endif
+                            312 
+                            313 	; AND (Word) - Memory, Memory
+   0334 1E 13               314 	andw	(yy0),(yy2)	; 1E 13
+                            315 
+                            316 	; AND (Word) - All, Immediate
+   0336 17 11 56 78         317 	andw	YY10,#NN	; 17 11 56 78
+   033A 17 D5 56 78         318 	andw	yy4,#NN		; 17 D5 56 78
+   033E BE 18 56 78         319 	andw	(yy8),#NN	; BE 18 56 78
+   0342 06 1B 12 56 78      320 	andw	N(yyA),#NN	; 06 1B 12 56 78
+   0347 06 1C 56 78 56 78   321 	andw	NN(yyC),#NN	; 06 1C 56 78 56;78
+   034D 36 11 56 78 56 78   322 	andw	NN,#NN		; 36 11 56 78 56;78
+                     0001   323 .ifdef	GLOBAL
+   0353 17 11s56r78         324 	andw	YY10,#MM	; 17 11 56 78
+   0357 17 D5s56r78         325 	andw	yy4,#MM		; 17 D5 56 78
+   035B BE 18s56r78         326 	andw	(yy8),#MM	; BE 18 56 78
+   035F 06 1Br12s56r78      327 	andw	*M(yyA),#MM	; 06 1B 12 56 78	; Global -> Forced Short Form
+   0364 06 1As00r12s56r78   328 	andw	M(yyA),#MM	; 06 1A 00 12 56;78	; Global -> Long Form
+   036A 06 1Cs56r78s56r78   329 	andw	MM(yyC),#MM	; 06 1C 56 78 56;78
+   0370 36 11s56r78s56r78   330 	andw	MM,#MM		; 36 11 56 78 56;78
+                            331 .endif
+                            332 
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 7
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                            333 	;
+                            334 	; SBC
+                            335 	;
+                            336 	; Subtract with carry (byte) Register, Register
+   0376 22 37               337 	sbc	y3,y7		; 22 37
+   0378 23 35               338 	sbc	y3,(y5)		; 23 35
+   037A 24 90 50            339 	sbc	Y50,Y90		; 24 90 50
+   037D 24 90 D3            340 	sbc	y3,Y90		; 24 90 D3
+   0380 24 D7 50            341 	sbc	Y50,y7		; 24 D7 50
+   0383 E6 30 26            342 	sbc	(y6),Y30	; E6 30 26
+   0386 E6 D3 2A            343 	sbc	(yA),y3		; E6 D3 2A
+   0389 E7 2C 40            344 	sbc	Y40,(yC)	; E7 2C 40
+                            345 
+                            346 	; Subtract with carry (byte) Register, Memory
+   038C 72 23 07            347 	sbc	Y7,(yy2)	; 72 23 07
+   038F 72 25 D6            348 	sbc	y6,(yy4)	; 72 25 D6
+   0392 B4 27 05            349 	sbc	Y5,(yy6)+	; B4 27 05
+   0395 B4 29 D4            350 	sbc	y4,(yy8)+	; B4 29 D4
+   0398 C2 2B 03            351 	sbc	Y3,-(yyA)	; C2 2B 03
+   039B C2 2D D2            352 	sbc	y2,-(yyC)	; C2 2D D2
+   039E 60 9E 21            353 	sbc	y1,yy8(yyE)	; 60 9E 21
+   03A1 7F 23 12 05         354 	sbc	Y5,N(yy2)	; 7F 23 12 05
+   03A5 7F 25 12 DF         355 	sbc	yF,N(yy4)	; 7F 25 12 DF
+   03A9 C4 2C 56 78         356 	sbc	yC,NN		; C4 2C 56 78
+   03AD 7F 26 56 78 01      357 	sbc	Y1,NN(yy6)	; 7F 26 56 78 01
+   03B2 7F 28 56 78 D2      358 	sbc	y2,NN(yy8)	; 7F 28 56 78 D2
+                     0001   359 .ifdef	GLOBAL
+   03B7 7F 23r12 05         360 	sbc	Y5,*M(yy2)	; 7F 23 12 05		; Global -> Forced Short Form
+   03BB 7F 25r12 DF         361 	sbc	yF,*M(yy4)	; 7F 25 12 DF		; Global -> Forced Short Form
+   03BF 7F 22s00r12 05      362 	sbc	Y5,M(yy2)	; 7F 22 00 12 05	; Global -> Long Form
+   03C4 7F 24s00r12 DF      363 	sbc	yF,M(yy4)	; 7F 24 00 12 DF	; Global -> Long Form
+   03C9 C4 2Cs56r78         364 	sbc	yC,MM		; C4 2C 56 78
+   03CD 7F 26s56r78 01      365 	sbc	Y1,MM(yy6)	; 7F 26 56 78 01
+   03D2 7F 28s56r78 D2      366 	sbc	y2,MM(yy8)	; 7F 28 56 78 D2
+                            367 .endif
+                            368 
+                            369 	; Subtract with carry (byte) Memory, Register
+   03D7 72 20 50            370 	sbc	(yy0),Y50	; 72 20 50
+   03DA 72 22 D8            371 	sbc	(yy2),y8	; 72 22 D8
+   03DD B4 24 60            372 	sbc	(yy4)+,Y60	; B4 24 60
+   03E0 B4 26 D7            373 	sbc	(yy6)+,y7	; B4 26 D7
+   03E3 C2 28 70            374 	sbc	-(yy8),Y70	; C2 28 70
+   03E6 C2 2A D6            375 	sbc	-(yyA),y6	; C2 2A D6
+   03E9 60 DF 25            376 	sbc	yyC(yyE),y5	; 60 DF 25
+   03EC 26 2B 12 80         377 	sbc	N(yyA),Y80	; 26 2B 12 80
+   03F0 26 29 12 D4         378 	sbc	N(yy8),y4	; 26 29 12 D4
+   03F4 C5 23 56 78         379 	sbc	NN,y3		; C5 23 56 78
+   03F8 26 26 56 78 90      380 	sbc	NN(yy6),Y90	; 26 26 56 78 90
+   03FD 26 24 56 78 D2      381 	sbc	NN(yy4),y2	; 26 24 56 78 D2
+                     0001   382 .ifdef	GLOBAL
+   0402 26 2Br12 80         383 	sbc	*M(yyA),Y80	; 26 2B 12 80		; Global -> Forced Short Form
+   0406 26 29r12 D4         384 	sbc	*M(yy8),y4	; 26 29 12 D4		; Global -> Forced Short Form
+   040A 26 2As00r12 80      385 	sbc	M(yyA),Y80	; 26 2A 00 12 80	; Global -> Long Form
+   040F 26 28s00r12 D4      386 	sbc	M(yy8),y4	; 26 28 00 12 D4	; Global -> Long Form
+   0414 C5 23s56r78         387 	sbc	MM,y3		; C5 23 56 78
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 8
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0418 26 26s56r78 90      388 	sbc	MM(yy6),Y90	; 26 26 56 78 90
+   041D 26 24s56r78 D2      389 	sbc	MM(yy4),y2	; 26 24 56 78 D2
+                            390 .endif
+                            391 
+                            392 	; Subtract with carry (byte) Memory, Memory
+   0422 73 24 60            393 	sbc	(YY60),(yy4)	; 73 24 60
+   0425 73 28 D6            394 	sbc	(yy6),(yy8)	; 73 28 D6
+                            395 
+                            396 	; Subtract with carry (byte) All, Immediate
+   0428 25 70 12            397 	sbc	Y70,#N		; 25 70 12
+   042B 25 DB 12            398 	sbc	yB,#N		; 25 DB 12
+   042E F3 22 12            399 	sbc	(yy2),#N	; F3 22 12
+   0431 2F 21 12 56 78      400 	sbc	NN,#N		; 2F 21 12 56 78
+                     0001   401 .ifdef	GLOBAL
+   0436 25 70r12            402 	sbc	Y70,#M		; 25 70 12
+   0439 25 DBr12            403 	sbc	yB,#M		; 25 DB 12
+   043C F3 22r12            404 	sbc	(yy2),#M	; F3 22 12
+   043F 2F 21r12s56r78      405 	sbc	MM,#M		; 2F 21 12 56 78
+                            406 .endif
+                            407 
+                            408 	;
+                            409 	; SBCW
+                            410 	;
+                            411 	; Subtract With Carry (Word) - Register, Register
+   0444 2E 24               412 	sbcw	yy2,yy4		; 2E 24
+   0446 27 20 06            413 	sbcw	YY6,YY20	; 27 20 06
+   0449 27 30 D8            414 	sbcw	yy8,YY30	; 27 30 D8
+   044C 27 DA 40            415 	sbcw	YY40,yyA	; 27 DA 40
+   044F 96 50 20            416 	sbcw	(y0),YY50	; 96 50 20
+   0452 96 DC 21            417 	sbcw	(y1),yyC	; 96 DC 21
+   0455 A6 22 60            418 	sbcw	YY60,(y2)	; A6 22 60
+   0458 A6 24 DE            419 	sbcw	yyE,(y4)	; A6 24 DE
+                            420 
+                            421 	; Subtract With Carry (Word) - Register, Memory
+   045B 2E 03               422 	sbcw	yy0,(yy2)	; 2E 03
+   045D 7E 24 10            423 	sbcw	YY10,(yy4)	; 7E 24 10
+   0460 D5 27 20            424 	sbcw	YY20,(yy6)+	; D5 27 20
+   0463 D5 2B D8            425 	sbcw	yy8,(yyA)+	; D5 2B D8
+   0466 C3 2D 30            426 	sbcw	YY30,-(yyC)	; C3 2D 30
+   0469 C3 21 DE            427 	sbcw	yyE,-(yy0)	; C3 21 DE
+   046C 60 46 22            428 	sbcw	yy2,yy4(yy6)	; 60 46 22
+   046F 86 29 12 40         429 	sbcw	YY40,N(yy8)	; 86 29 12 40
+   0473 86 2D 12 DA         430 	sbcw	yyA,N(yyC)	; 86 2D 12 DA
+   0477 E2 2E 56 78         431 	sbcw	yyE,NN		; E2 2E 56 78
+   047B 86 20 56 78 50      432 	sbcw	YY50,NN(yy0)	; 86 20 56 78 50
+   0480 86 24 56 78 D2      433 	sbcw	yy2,NN(yy4)	; 86 24 56 78 D2
+                     0001   434 .ifdef	GLOBAL
+   0485 86 29r12 40         435 	sbcw	YY40,*M(yy8)	; 86 29 12 40		; Global -> Forced Short Form
+   0489 86 2Dr12 DA         436 	sbcw	yyA,*M(yyC)	; 86 2D 12 DA		; Global -> Forced Short Form
+   048D 86 28s00r12 40      437 	sbcw	YY40,M(yy8)	; 86 28 00 12 40	; Global -> Long Form
+   0492 86 2Cs00r12 DA      438 	sbcw	yyA,M(yyC)	; 86 2C 00 12 DA	; Global -> Long Form
+   0497 E2 2Es56r78         439 	sbcw	yyE,MM		; E2 2E 56 78
+   049B 86 20s56r78 50      440 	sbcw	YY50,MM(yy0)	; 86 20 56 78 50
+   04A0 86 24s56r78 D2      441 	sbcw	yy2,MM(yy4)	; 86 24 56 78 D2
+                            442 .endif
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                      Page 9
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                            443 
+                            444 	; Subtract With Carry (Word) - Memory, Register
+   04A5 2E 12               445 	sbcw	(yy0),yy2	; 2E 12
+   04A7 BE 25 10            446 	sbcw	(yy4),YY10	; BE 25 10
+   04AA D5 26 20            447 	sbcw	(yy6)+,YY20	; D5 26 20
+   04AD D5 28 DA            448 	sbcw	(yy8)+,yyA	; D5 28 DA
+   04B0 C3 2C 30            449 	sbcw	-(yyC),YY30	; C3 2C 30
+   04B3 C3 2E D0            450 	sbcw	-(yyE),yy0	; C3 2E D0
+   04B6 60 25 26            451 	sbcw	yy2(yy4),yy6	; 60 25 26
+   04B9 86 29 12 41         452 	sbcw	N(yy8),YY40	; 86 29 12 41
+   04BD 86 2B 12 DD         453 	sbcw	N(yyA),yyC	; 86 2B 12 DD
+   04C1 E2 2D 56 78         454 	sbcw	NN,yyC		; E2 2D 56 78
+   04C5 86 2E 56 78 61      455 	sbcw	NN(yyE),YY60	; 86 2E 56 78 61
+   04CA 86 20 56 78 D3      456 	sbcw	NN(yy0),yy2	; 86 20 56 78 D3
+                     0001   457 .ifdef	GLOBAL
+   04CF 86 29r12 41         458 	sbcw	*M(yy8),YY40	; 86 29 12 41		; Global -> Forced Short Form
+   04D3 86 2Br12 DD         459 	sbcw	*M(yyA),yyC	; 86 2B 12 DD		; Global -> Forced Short Form
+   04D7 86 28s00r12 41      460 	sbcw	M(yy8),YY40	; 86 28 00 12 41	; Global -> Long Form
+   04DC 86 2As00r12 DD      461 	sbcw	M(yyA),yyC	; 86 2A 00 12 DD	; Global -> Long Form
+   04E1 E2 2Ds56r78         462 	sbcw	MM,yyC		; E2 2D 56 78
+   04E5 86 2Es56r78 61      463 	sbcw	MM(yyE),YY60	; 86 2E 56 78 61
+   04EA 86 20s56r78 D3      464 	sbcw	MM(yy0),yy2	; 86 20 56 78 D3
+                            465 .endif
+                            466 
+                            467 	; Subtract With Carry (Word) - Memory, Memory
+   04EF 2E 13               468 	sbcw	(yy0),(yy2)	; 2E 13
+                            469 
+                            470 	; Subtract With Carry (Word) - All, Immediate
+   04F1 27 11 56 78         471 	sbcw	YY10,#NN	; 27 11 56 78
+   04F5 27 D5 56 78         472 	sbcw	yy4,#NN		; 27 D5 56 78
+   04F9 BE 28 56 78         473 	sbcw	(yy8),#NN	; BE 28 56 78
+   04FD 06 2B 12 56 78      474 	sbcw	N(yyA),#NN	; 06 2B 12 56 78
+   0502 06 2C 56 78 56 78   475 	sbcw	NN(yyC),#NN	; 06 2C 56 78 56;78
+   0508 36 21 56 78 56 78   476 	sbcw	NN,#NN		; 36 21 56 78 56;78
+                     0001   477 .ifdef	GLOBAL
+   050E 27 11s56r78         478 	sbcw	YY10,#MM	; 27 11 56 78
+   0512 27 D5s56r78         479 	sbcw	yy4,#MM		; 27 D5 56 78
+   0516 BE 28s56r78         480 	sbcw	(yy8),#MM	; BE 28 56 78
+   051A 06 2Br12s56r78      481 	sbcw	*M(yyA),#MM	; 06 2B 12 56 78	; Global -> Forced Short Form
+   051F 06 2As00r12s56r78   482 	sbcw	M(yyA),#MM	; 06 2A 00 12 56;78	; Global -> Long Form
+   0525 06 2Cs56r78s56r78   483 	sbcw	MM(yyC),#MM	; 06 2C 56 78 56;78
+   052B 36 21s56r78s56r78   484 	sbcw	MM,#MM		; 36 21 56 78 56;78
+                            485 .endif
+                            486 
+                            487 	;
+                            488 	; ADC
+                            489 	;
+                            490 	; Add with carry (byte) Register, Register
+   0531 32 37               491 	adc	y3,y7		; 32 37
+   0533 33 35               492 	adc	y3,(y5)		; 33 35
+   0535 34 90 50            493 	adc	Y50,Y90		; 34 90 50
+   0538 34 90 D3            494 	adc	y3,Y90		; 34 90 D3
+   053B 34 D7 50            495 	adc	Y50,y7		; 34 D7 50
+   053E E6 30 36            496 	adc	(y6),Y30	; E6 30 36
+   0541 E6 D3 3A            497 	adc	(yA),y3		; E6 D3 3A
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 10
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0544 E7 3C 40            498 	adc	Y40,(yC)	; E7 3C 40
+                            499 
+                            500 	; Add with carry (byte) Register, Memory
+   0547 72 33 07            501 	adc	Y7,(yy2)	; 72 33 07
+   054A 72 35 D6            502 	adc	y6,(yy4)	; 72 35 D6
+   054D B4 37 05            503 	adc	Y5,(yy6)+	; B4 37 05
+   0550 B4 39 D4            504 	adc	y4,(yy8)+	; B4 39 D4
+   0553 C2 3B 03            505 	adc	Y3,-(yyA)	; C2 3B 03
+   0556 C2 3D D2            506 	adc	y2,-(yyC)	; C2 3D D2
+   0559 60 9E 31            507 	adc	y1,yy8(yyE)	; 60 9E 31
+   055C 7F 33 12 05         508 	adc	Y5,N(yy2)	; 7F 33 12 05
+   0560 7F 35 12 DF         509 	adc	yF,N(yy4)	; 7F 35 12 DF
+   0564 C4 3C 56 78         510 	adc	yC,NN		; C4 3C 56 78
+   0568 7F 36 56 78 01      511 	adc	Y1,NN(yy6)	; 7F 36 56 78 01
+   056D 7F 38 56 78 D2      512 	adc	y2,NN(yy8)	; 7F 38 56 78 D2
+                     0001   513 .ifdef	GLOBAL
+   0572 7F 33r12 05         514 	adc	Y5,*M(yy2)	; 7F 33 12 05		; Global -> Forced Short Form
+   0576 7F 35r12 DF         515 	adc	yF,*M(yy4)	; 7F 35 12 DF		; Global -> Forced Short Form
+   057A 7F 32s00r12 05      516 	adc	Y5,M(yy2)	; 7F 32 00 12 05	; Global -> Long Form
+   057F 7F 34s00r12 DF      517 	adc	yF,M(yy4)	; 7F 34 00 12 DF	; Global -> Long Form
+   0584 C4 3Cs56r78         518 	adc	yC,MM		; C4 3C 56 78
+   0588 7F 36s56r78 01      519 	adc	Y1,MM(yy6)	; 7F 36 56 78 01
+   058D 7F 38s56r78 D2      520 	adc	y2,MM(yy8)	; 7F 38 56 78 D2
+                            521 .endif
+                            522 
+                            523 	; Add with carry (byte) Memory, Register
+   0592 72 30 50            524 	adc	(yy0),Y50	; 72 30 50
+   0595 72 32 D8            525 	adc	(yy2),y8	; 72 32 D8
+   0598 B4 34 60            526 	adc	(yy4)+,Y60	; B4 34 60
+   059B B4 36 D7            527 	adc	(yy6)+,y7	; B4 36 D7
+   059E C2 38 70            528 	adc	-(yy8),Y70	; C2 38 70
+   05A1 C2 3A D6            529 	adc	-(yyA),y6	; C2 3A D6
+   05A4 60 DF 35            530 	adc	yyC(yyE),y5	; 60 DF 35
+   05A7 26 3B 12 80         531 	adc	N(yyA),Y80	; 26 3B 12 80
+   05AB 26 39 12 D4         532 	adc	N(yy8),y4	; 26 39 12 D4
+   05AF C5 33 56 78         533 	adc	NN,y3		; C5 33 56 78
+   05B3 26 36 56 78 90      534 	adc	NN(yy6),Y90	; 26 36 56 78 90
+   05B8 26 34 56 78 D2      535 	adc	NN(yy4),y2	; 26 34 56 78 D2
+                     0001   536 .ifdef	GLOBAL
+   05BD 26 3Br12 80         537 	adc	*M(yyA),Y80	; 26 3B 12 80		; Global -> Forced Short Form
+   05C1 26 39r12 D4         538 	adc	*M(yy8),y4	; 26 39 12 D4		; Global -> Forced Short Form
+   05C5 26 3As00r12 80      539 	adc	M(yyA),Y80	; 26 3A 00 12 80	; Global -> Long Form
+   05CA 26 38s00r12 D4      540 	adc	M(yy8),y4	; 26 38 00 12 D4	; Global -> Long Form
+   05CF C5 33s56r78         541 	adc	MM,y3		; C5 33 56 78
+   05D3 26 36s56r78 90      542 	adc	MM(yy6),Y90	; 26 36 56 78 90
+   05D8 26 34s56r78 D2      543 	adc	MM(yy4),y2	; 26 34 56 78 D2
+                            544 .endif
+                            545 
+                            546 	; Add with carry (byte) Memory, Memory
+   05DD 73 34 60            547 	adc	(YY60),(yy4)	; 73 34 60
+   05E0 73 38 D6            548 	adc	(yy6),(yy8)	; 73 38 D6
+                            549 
+                            550 	; Add with carry (byte) All, Immediate
+   05E3 35 70 12            551 	adc	Y70,#N		; 35 70 12
+   05E6 35 DB 12            552 	adc	yB,#N		; 35 DB 12
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 11
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   05E9 F3 32 12            553 	adc	(yy2),#N	; F3 32 12
+   05EC 2F 31 12 56 78      554 	adc	NN,#N		; 2F 31 12 56 78
+                     0001   555 .ifdef	GLOBAL
+   05F1 35 70r12            556 	adc	Y70,#M		; 35 70 12
+   05F4 35 DBr12            557 	adc	yB,#M		; 35 DB 12
+   05F7 F3 32r12            558 	adc	(yy2),#M	; F3 32 12
+   05FA 2F 31r12s56r78      559 	adc	MM,#M		; 2F 31 12 56 78
+                            560 .endif
+                            561 
+                            562 	;
+                            563 	; ADCW
+                            564 	;
+                            565 	; Add With Carry (Word) - Register, Register
+   05FF 3E 24               566 	adcw	yy2,yy4		; 3E 24
+   0601 37 20 06            567 	adcw	YY6,YY20	; 37 20 06
+   0604 37 30 D8            568 	adcw	yy8,YY30	; 37 30 D8
+   0607 37 DA 40            569 	adcw	YY40,yyA	; 37 DA 40
+   060A 96 50 30            570 	adcw	(y0),YY50	; 96 50 30
+   060D 96 DC 31            571 	adcw	(y1),yyC	; 96 DC 31
+   0610 A6 32 60            572 	adcw	YY60,(y2)	; A6 32 60
+   0613 A6 34 DE            573 	adcw	yyE,(y4)	; A6 34 DE
+                            574 
+                            575 	; Add With Carry (Word) - Register, Memory
+   0616 3E 03               576 	adcw	yy0,(yy2)	; 3E 03
+   0618 7E 34 10            577 	adcw	YY10,(yy4)	; 7E 34 10
+   061B D5 37 20            578 	adcw	YY20,(yy6)+	; D5 37 20
+   061E D5 3B D8            579 	adcw	yy8,(yyA)+	; D5 3B D8
+   0621 C3 3D 30            580 	adcw	YY30,-(yyC)	; C3 3D 30
+   0624 C3 31 DE            581 	adcw	yyE,-(yy0)	; C3 31 DE
+   0627 60 46 32            582 	adcw	yy2,yy4(yy6)	; 60 46 32
+   062A 86 39 12 40         583 	adcw	YY40,N(yy8)	; 86 39 12 40
+   062E 86 3D 12 DA         584 	adcw	yyA,N(yyC)	; 86 3D 12 DA
+   0632 E2 3E 56 78         585 	adcw	yyE,NN		; E2 3E 56 78
+   0636 86 30 56 78 50      586 	adcw	YY50,NN(yy0)	; 86 30 56 78 50
+   063B 86 34 56 78 D2      587 	adcw	yy2,NN(yy4)	; 86 34 56 78 D2
+                     0001   588 .ifdef	GLOBAL
+   0640 86 39r12 40         589 	adcw	YY40,*M(yy8)	; 86 39 12 40		; Global -> Forced Short Form
+   0644 86 3Dr12 DA         590 	adcw	yyA,*M(yyC)	; 86 3D 12 DA		; Global -> Forced Short Form
+   0648 86 38s00r12 40      591 	adcw	YY40,M(yy8)	; 86 38 00 12 40	; Global -> Long Form
+   064D 86 3Cs00r12 DA      592 	adcw	yyA,M(yyC)	; 86 3C 00 12 DA	; Global -> Long Form
+   0652 E2 3Es56r78         593 	adcw	yyE,MM		; E2 3E 56 78
+   0656 86 30s56r78 50      594 	adcw	YY50,MM(yy0)	; 86 30 56 78 50
+   065B 86 34s56r78 D2      595 	adcw	yy2,MM(yy4)	; 86 34 56 78 D2
+                            596 .endif
+                            597 
+                            598 	; Add With Carry (Word) - Memory, Register
+   0660 3E 12               599 	adcw	(yy0),yy2	; 3E 12
+   0662 BE 35 10            600 	adcw	(yy4),YY10	; BE 35 10
+   0665 D5 36 20            601 	adcw	(yy6)+,YY20	; D5 36 20
+   0668 D5 38 DA            602 	adcw	(yy8)+,yyA	; D5 38 DA
+   066B C3 3C 30            603 	adcw	-(yyC),YY30	; C3 3C 30
+   066E C3 3E D0            604 	adcw	-(yyE),yy0	; C3 3E D0
+   0671 60 25 36            605 	adcw	yy2(yy4),yy6	; 60 25 36
+   0674 86 39 12 41         606 	adcw	N(yy8),YY40	; 86 39 12 41
+   0678 86 3B 12 DD         607 	adcw	N(yyA),yyC	; 86 3B 12 DD
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 12
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   067C E2 3D 56 78         608 	adcw	NN,yyC		; E2 3D 56 78
+   0680 86 3E 56 78 61      609 	adcw	NN(yyE),YY60	; 86 3E 56 78 61
+   0685 86 30 56 78 D3      610 	adcw	NN(yy0),yy2	; 86 30 56 78 D3
+                     0001   611 .ifdef	GLOBAL
+   068A 86 39r12 41         612 	adcw	*M(yy8),YY40	; 86 39 12 41		; Global -> Forced Short Form
+   068E 86 3Br12 DD         613 	adcw	*M(yyA),yyC	; 86 3B 12 DD		; Global -> Forced Short Form
+   0692 86 38s00r12 41      614 	adcw	M(yy8),YY40	; 86 38 00 12 41	; Global -> Long Form
+   0697 86 3As00r12 DD      615 	adcw	M(yyA),yyC	; 86 3A 00 12 DD	; Global -> Long Form
+   069C E2 3Ds56r78         616 	adcw	MM,yyC		; E2 3D 56 78
+   06A0 86 3Es56r78 61      617 	adcw	MM(yyE),YY60	; 86 3E 56 78 61
+   06A5 86 30s56r78 D3      618 	adcw	MM(yy0),yy2	; 86 30 56 78 D3
+                            619 .endif
+                            620 
+                            621 	; Add With Carry (Word) - Memory, Memory
+   06AA 3E 13               622 	adcw	(yy0),(yy2)	; 3E 13
+                            623 
+                            624 	; Add With Carry (Word) - All, Immediate
+   06AC 37 11 56 78         625 	adcw	YY10,#NN	; 37 11 56 78
+   06B0 37 D5 56 78         626 	adcw	yy4,#NN		; 37 D5 56 78
+   06B4 BE 38 56 78         627 	adcw	(yy8),#NN	; BE 38 56 78
+   06B8 06 3B 12 56 78      628 	adcw	N(yyA),#NN	; 06 3B 12 56 78
+   06BD 06 3C 56 78 56 78   629 	adcw	NN(yyC),#NN	; 06 3C 56 78 56;78
+   06C3 36 31 56 78 56 78   630 	adcw	NN,#NN		; 36 31 56 78 56;78
+                     0001   631 .ifdef	GLOBAL
+   06C9 37 11s56r78         632 	adcw	YY10,#MM	; 37 11 56 78
+   06CD 37 D5s56r78         633 	adcw	yy4,#MM		; 37 D5 56 78
+   06D1 BE 38s56r78         634 	adcw	(yy8),#MM	; BE 38 56 78
+   06D5 06 3Br12s56r78      635 	adcw	*M(yyA),#MM	; 06 3B 12 56 78	; Global -> Forced Short Form
+   06DA 06 3As00r12s56r78   636 	adcw	M(yyA),#MM	; 06 3A 00 12 56;78	; Global -> Long Form
+   06E0 06 3Cs56r78s56r78   637 	adcw	MM(yyC),#MM	; 06 3C 56 78 56;78
+   06E6 36 31s56r78s56r78   638 	adcw	MM,#MM		; 36 31 56 78 56;78
+                            639 .endif
+                            640 
+                            641 	;
+                            642 	; ADD
+                            643 	;
+                            644 	; Add (byte) Register, Register
+   06EC 42 37               645 	add	y3,y7		; 42 37
+   06EE 43 35               646 	add	y3,(y5)		; 43 35
+   06F0 44 90 50            647 	add	Y50,Y90		; 44 90 50
+   06F3 44 90 D3            648 	add	y3,Y90		; 44 90 D3
+   06F6 44 D7 50            649 	add	Y50,y7		; 44 D7 50
+   06F9 E6 30 46            650 	add	(y6),Y30	; E6 30 46
+   06FC E6 D3 4A            651 	add	(yA),y3		; E6 D3 4A
+   06FF E7 4C 40            652 	add	Y40,(yC)	; E7 4C 40
+                            653 
+                            654 	; Add (byte) Register, Memory
+   0702 72 43 07            655 	add	Y7,(yy2)	; 72 43 07
+   0705 72 45 D6            656 	add	y6,(yy4)	; 72 45 D6
+   0708 B4 47 05            657 	add	Y5,(yy6)+	; B4 47 05
+   070B B4 49 D4            658 	add	y4,(yy8)+	; B4 49 D4
+   070E C2 4B 03            659 	add	Y3,-(yyA)	; C2 4B 03
+   0711 C2 4D D2            660 	add	y2,-(yyC)	; C2 4D D2
+   0714 60 9E 41            661 	add	y1,yy8(yyE)	; 60 9E 41
+   0717 7F 43 12 05         662 	add	Y5,N(yy2)	; 7F 43 12 05
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 13
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   071B 7F 45 12 DF         663 	add	yF,N(yy4)	; 7F 45 12 DF
+   071F C4 4C 56 78         664 	add	yC,NN		; C4 4C 56 78
+   0723 7F 46 56 78 01      665 	add	Y1,NN(yy6)	; 7F 46 56 78 01
+   0728 7F 48 56 78 D2      666 	add	y2,NN(yy8)	; 7F 48 56 78 D2
+                     0001   667 .ifdef	GLOBAL
+   072D 7F 43r12 05         668 	add	Y5,*M(yy2)	; 7F 43 12 05		; Global -> Forced Short Form
+   0731 7F 45r12 DF         669 	add	yF,*M(yy4)	; 7F 45 12 DF		; Global -> Forced Short Form
+   0735 7F 42s00r12 05      670 	add	Y5,M(yy2)	; 7F 42 00 12 05	; Global -> Long Form
+   073A 7F 44s00r12 DF      671 	add	yF,M(yy4)	; 7F 44 00 12 DF	; Global -> Long Form
+   073F C4 4Cs56r78         672 	add	yC,MM		; C4 4C 56 78
+   0743 7F 46s56r78 01      673 	add	Y1,MM(yy6)	; 7F 46 56 78 01
+   0748 7F 48s56r78 D2      674 	add	y2,MM(yy8)	; 7F 48 56 78 D2
+                            675 .endif
+                            676 
+                            677 	; Add (byte) Memory, Register
+   074D 72 40 50            678 	add	(yy0),Y50	; 72 40 50
+   0750 72 42 D8            679 	add	(yy2),y8	; 72 42 D8
+   0753 B4 44 60            680 	add	(yy4)+,Y60	; B4 44 60
+   0756 B4 46 D7            681 	add	(yy6)+,y7	; B4 46 D7
+   0759 C2 48 70            682 	add	-(yy8),Y70	; C2 48 70
+   075C C2 4A D6            683 	add	-(yyA),y6	; C2 4A D6
+   075F 60 DF 45            684 	add	yyC(yyE),y5	; 60 DF 45
+   0762 26 4B 12 80         685 	add	N(yyA),Y80	; 26 4B 12 80
+   0766 26 49 12 D4         686 	add	N(yy8),y4	; 26 49 12 D4
+   076A C5 43 56 78         687 	add	NN,y3		; C5 43 56 78
+   076E 26 46 56 78 90      688 	add	NN(yy6),Y90	; 26 46 56 78 90
+   0773 26 44 56 78 D2      689 	add	NN(yy4),y2	; 26 44 56 78 D2
+                     0001   690 .ifdef	GLOBAL
+   0778 26 4Br12 80         691 	add	*M(yyA),Y80	; 26 4B 12 80		; Global -> Forced Short Form
+   077C 26 49r12 D4         692 	add	*M(yy8),y4	; 26 49 12 D4		; Global -> Forced Short Form
+   0780 26 4As00r12 80      693 	add	M(yyA),Y80	; 26 4A 00 12 80	; Global -> Long Form
+   0785 26 48s00r12 D4      694 	add	M(yy8),y4	; 26 48 00 12 D4	; Global -> Long Form
+   078A C5 43s56r78         695 	add	MM,y3		; C5 43 56 78
+   078E 26 46s56r78 90      696 	add	MM(yy6),Y90	; 26 46 56 78 90
+   0793 26 44s56r78 D2      697 	add	MM(yy4),y2	; 26 44 56 78 D2
+                            698 .endif
+                            699 
+                            700 	; Add (byte) Memory, Memory
+   0798 73 44 60            701 	add	(YY60),(yy4)	; 73 44 60
+   079B 73 48 D6            702 	add	(yy6),(yy8)	; 73 48 D6
+                            703 
+                            704 	; Add (byte) All, Immediate
+   079E 45 70 12            705 	add	Y70,#N		; 45 70 12
+   07A1 45 DB 12            706 	add	yB,#N		; 45 DB 12
+   07A4 F3 42 12            707 	add	(yy2),#N	; F3 42 12
+   07A7 2F 41 12 56 78      708 	add	NN,#N		; 2F 41 12 56 78
+                     0001   709 .ifdef	GLOBAL
+   07AC 45 70r12            710 	add	Y70,#M		; 45 70 12
+   07AF 45 DBr12            711 	add	yB,#M		; 45 DB 12
+   07B2 F3 42r12            712 	add	(yy2),#M	; F3 42 12
+   07B5 2F 41r12s56r78      713 	add	MM,#M		; 2F 41 12 56 78
+                            714 .endif
+                            715 
+                            716 	;
+                            717 	; ADDW
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 14
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                            718 	;
+                            719 	; Add (Word) - Register, Register
+   07BA 4E 24               720 	addw	yy2,yy4		; 4E 24
+   07BC 47 20 06            721 	addw	YY6,YY20	; 47 20 06
+   07BF 47 30 D8            722 	addw	yy8,YY30	; 47 30 D8
+   07C2 47 DA 40            723 	addw	YY40,yyA	; 47 DA 40
+   07C5 96 50 40            724 	addw	(y0),YY50	; 96 50 40
+   07C8 96 DC 41            725 	addw	(y1),yyC	; 96 DC 41
+   07CB A6 42 60            726 	addw	YY60,(y2)	; A6 42 60
+   07CE A6 44 DE            727 	addw	yyE,(y4)	; A6 44 DE
+                            728 
+                            729 	; Add (Word) - Register, Memory
+   07D1 4E 03               730 	addw	yy0,(yy2)	; 4E 03
+   07D3 7E 44 10            731 	addw	YY10,(yy4)	; 7E 44 10
+   07D6 D5 47 20            732 	addw	YY20,(yy6)+	; D5 47 20
+   07D9 D5 4B D8            733 	addw	yy8,(yyA)+	; D5 4B D8
+   07DC C3 4D 30            734 	addw	YY30,-(yyC)	; C3 4D 30
+   07DF C3 41 DE            735 	addw	yyE,-(yy0)	; C3 41 DE
+   07E2 60 46 42            736 	addw	yy2,yy4(yy6)	; 60 46 42
+   07E5 86 49 12 40         737 	addw	YY40,N(yy8)	; 86 49 12 40
+   07E9 86 4D 12 DA         738 	addw	yyA,N(yyC)	; 86 4D 12 DA
+   07ED E2 4E 56 78         739 	addw	yyE,NN		; E2 4E 56 78
+   07F1 86 40 56 78 50      740 	addw	YY50,NN(yy0)	; 86 40 56 78 50
+   07F6 86 44 56 78 D2      741 	addw	yy2,NN(yy4)	; 86 44 56 78 D2
+                     0001   742 .ifdef	GLOBAL
+   07FB 86 49r12 40         743 	addw	YY40,*M(yy8)	; 86 49 12 40		; Global -> Forced Short Form
+   07FF 86 4Dr12 DA         744 	addw	yyA,*M(yyC)	; 86 4D 12 DA		; Global -> Forced Short Form
+   0803 86 48s00r12 40      745 	addw	YY40,M(yy8)	; 86 48 00 12 40	; Global -> Long Form
+   0808 86 4Cs00r12 DA      746 	addw	yyA,M(yyC)	; 86 4C 00 12 DA	; Global -> Long Form
+   080D E2 4Es56r78         747 	addw	yyE,MM		; E2 4E 56 78
+   0811 86 40s56r78 50      748 	addw	YY50,MM(yy0); 86 40 56 78 50
+   0816 86 44s56r78 D2      749 	addw	yy2,MM(yy4)	; 86 44 56 78 D2
+                            750 .endif
+                            751 
+                            752 	; Add (Word) - Memory, Register
+   081B 4E 12               753 	addw	(yy0),yy2	; 4E 12
+   081D BE 45 10            754 	addw	(yy4),YY10	; BE 45 10
+   0820 D5 46 20            755 	addw	(yy6)+,YY20	; D5 46 20
+   0823 D5 48 DA            756 	addw	(yy8)+,yyA	; D5 48 DA
+   0826 C3 4C 30            757 	addw	-(yyC),YY30	; C3 4C 30
+   0829 C3 4E D0            758 	addw	-(yyE),yy0	; C3 4E D0
+   082C 60 25 46            759 	addw	yy2(yy4),yy6	; 60 25 46
+   082F 86 49 12 41         760 	addw	N(yy8),YY40	; 86 49 12 41
+   0833 86 4B 12 DD         761 	addw	N(yyA),yyC	; 86 4B 12 DD
+   0837 E2 4D 56 78         762 	addw	NN,yyC		; E2 4D 56 78
+   083B 86 4E 56 78 61      763 	addw	NN(yyE),YY60	; 86 4E 56 78 61
+   0840 86 40 56 78 D3      764 	addw	NN(yy0),yy2	; 86 40 56 78 D3
+                     0001   765 .ifdef	GLOBAL
+   0845 86 49r12 41         766 	addw	*M(yy8),YY40	; 86 49 12 41		; Global -> Forced Short Form
+   0849 86 4Br12 DD         767 	addw	*M(yyA),yyC	; 86 4B 12 DD		; Global -> Forced Short Form
+   084D 86 48s00r12 41      768 	addw	M(yy8),YY40	; 86 48 00 12 41	; Global -> Long Form
+   0852 86 4As00r12 DD      769 	addw	M(yyA),yyC	; 86 4A 00 12 DD	; Global -> Long Form
+   0857 E2 4Ds56r78         770 	addw	MM,yyC		; E2 4D 56 78
+   085B 86 4Es56r78 61      771 	addw	MM(yyE),YY60	; 86 4E 56 78 61
+   0860 86 40s56r78 D3      772 	addw	MM(yy0),yy2	; 86 40 56 78 D3
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 15
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                            773 .endif
+                            774 
+                            775 	; Add (Word) - Memory, Memory
+   0865 4E 13               776 	addw	(yy0),(yy2)	; 4E 13
+                            777 
+                            778 	; Add (Word) - All, Immediate
+   0867 47 11 56 78         779 	addw	YY10,#NN	; 47 11 56 78
+   086B 47 D5 56 78         780 	addw	yy4,#NN		; 47 D5 56 78
+   086F BE 48 56 78         781 	addw	(yy8),#NN	; BE 48 56 78
+   0873 06 4B 12 56 78      782 	addw	N(yyA),#NN	; 06 4B 12 56 78
+   0878 06 4C 56 78 56 78   783 	addw	NN(yyC),#NN	; 06 4C 56 78 56;78
+   087E 36 41 56 78 56 78   784 	addw	NN,#NN		; 36 41 56 78 56;78
+                     0001   785 .ifdef	GLOBAL
+   0884 47 11s56r78         786 	addw	YY10,#MM	; 47 11 56 78
+   0888 47 D5s56r78         787 	addw	yy4,#MM		; 47 D5 56 78
+   088C BE 48s56r78         788 	addw	(yy8),#MM	; BE 48 56 78
+   0890 06 4Br12s56r78      789 	addw	*M(yyA),#MM	; 06 4B 12 56 78	; Global -> Forced Short Form
+   0895 06 4As00r12s56r78   790 	addw	M(yyA),#MM	; 06 4A 00 12 56;78	; Global -> Long Form
+   089B 06 4Cs56r78s56r78   791 	addw	MM(yyC),#MM	; 06 4C 56 78 56;78
+   08A1 36 41s56r78s56r78   792 	addw	MM,#MM		; 36 41 56 78 56;78
+                            793 .endif
+                            794 
+                            795 	;
+                            796 	; SUB
+                            797 	;
+                            798 	; Subtract (byte) Register, Register
+   08A7 52 37               799 	sub	y3,y7		; 52 37
+   08A9 53 35               800 	sub	y3,(y5)		; 53 35
+   08AB 54 90 50            801 	sub	Y50,Y90		; 54 90 50
+   08AE 54 90 D3            802 	sub	y3,Y90		; 54 90 D3
+   08B1 54 D7 50            803 	sub	Y50,y7		; 54 D7 50
+   08B4 E6 30 56            804 	sub	(y6),Y30	; E6 30 56
+   08B7 E6 D3 5A            805 	sub	(yA),y3		; E6 D3 5A
+   08BA E7 5C 40            806 	sub	Y40,(yC)	; E7 5C 40
+                            807 
+                            808 	; Subtract (byte) Register, Memory
+   08BD 72 53 07            809 	sub	Y7,(yy2)	; 72 53 07
+   08C0 72 55 D6            810 	sub	y6,(yy4)	; 72 55 D6
+   08C3 B4 57 05            811 	sub	Y5,(yy6)+	; B4 57 05
+   08C6 B4 59 D4            812 	sub	y4,(yy8)+	; B4 59 D4
+   08C9 C2 5B 03            813 	sub	Y3,-(yyA)	; C2 5B 03
+   08CC C2 5D D2            814 	sub	y2,-(yyC)	; C2 5D D2
+   08CF 60 9E 51            815 	sub	y1,yy8(yyE)	; 60 9E 51
+   08D2 7F 53 12 05         816 	sub	Y5,N(yy2)	; 7F 53 12 05
+   08D6 7F 55 12 DF         817 	sub	yF,N(yy4)	; 7F 55 12 DF
+   08DA C4 5C 56 78         818 	sub	yC,NN		; C4 5C 56 78
+   08DE 7F 56 56 78 01      819 	sub	Y1,NN(yy6)	; 7F 56 56 78 01
+   08E3 7F 58 56 78 D2      820 	sub	y2,NN(yy8)	; 7F 58 56 78 D2
+                     0001   821 .ifdef	GLOBAL
+   08E8 7F 53r12 05         822 	sub	Y5,*M(yy2)	; 7F 53 12 05		; Global -> Forced Short Form
+   08EC 7F 55r12 DF         823 	sub	yF,*M(yy4)	; 7F 55 12 DF		; Global -> Forced Short Form
+   08F0 7F 52s00r12 05      824 	sub	Y5,M(yy2)	; 7F 52 00 12 05	; Global -> Long Form
+   08F5 7F 54s00r12 DF      825 	sub	yF,M(yy4)	; 7F 54 00 12 DF	; Global -> Long Form
+   08FA C4 5Cs56r78         826 	sub	yC,MM		; C4 5C 56 78
+   08FE 7F 56s56r78 01      827 	sub	Y1,MM(yy6)	; 7F 56 56 78 01
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 16
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0903 7F 58s56r78 D2      828 	sub	y2,MM(yy8)	; 7F 58 56 78 D2
+                            829 .endif
+                            830 
+                            831 	; Subtract (byte) Memory, Register
+   0908 72 50 50            832 	sub	(yy0),Y50	; 72 50 50
+   090B 72 52 D8            833 	sub	(yy2),y8	; 72 52 D8
+   090E B4 54 60            834 	sub	(yy4)+,Y60	; B4 54 60
+   0911 B4 56 D7            835 	sub	(yy6)+,y7	; B4 56 D7
+   0914 C2 58 70            836 	sub	-(yy8),Y70	; C2 58 70
+   0917 C2 5A D6            837 	sub	-(yyA),y6	; C2 5A D6
+   091A 60 DF 55            838 	sub	yyC(yyE),y5	; 60 DF 55
+   091D 26 5B 12 80         839 	sub	N(yyA),Y80	; 26 5B 12 80
+   0921 26 59 12 D4         840 	sub	N(yy8),y4	; 26 59 12 D4
+   0925 C5 53 56 78         841 	sub	NN,y3		; C5 53 56 78
+   0929 26 56 56 78 90      842 	sub	NN(yy6),Y90	; 26 56 56 78 90
+   092E 26 54 56 78 D2      843 	sub	NN(yy4),y2	; 26 54 56 78 D2
+                     0001   844 .ifdef	GLOBAL
+   0933 26 5Br12 80         845 	sub	*M(yyA),Y80	; 26 5B 12 80		; Global -> Forced Short Form
+   0937 26 59r12 D4         846 	sub	*M(yy8),y4	; 26 59 12 D4		; Global -> Forced Short Form
+   093B 26 5As00r12 80      847 	sub	M(yyA),Y80	; 26 5A 00 12 80	; Global -> Long Form
+   0940 26 58s00r12 D4      848 	sub	M(yy8),y4	; 26 58 00 12 D4	; Global -> Long Form
+   0945 C5 53s56r78         849 	sub	MM,y3		; C5 53 56 78
+   0949 26 56s56r78 90      850 	sub	MM(yy6),Y90	; 26 56 56 78 90
+   094E 26 54s56r78 D2      851 	sub	MM(yy4),y2	; 26 54 56 78 D2
+                            852 .endif
+                            853 
+                            854 	; Subtract (byte) Memory, Memory
+   0953 73 54 60            855 	sub	(YY60),(yy4)	; 73 54 60
+   0956 73 58 D6            856 	sub	(yy6),(yy8)	; 73 58 D6
+                            857 
+                            858 	; Subtract (byte) All, Immediate
+   0959 55 70 12            859 	sub	Y70,#N		; 55 70 12
+   095C 55 DB 12            860 	sub	yB,#N		; 55 DB 12
+   095F F3 52 12            861 	sub	(yy2),#N	; F3 52 12
+   0962 2F 51 12 56 78      862 	sub	NN,#N		; 2F 51 12 56 78
+                     0001   863 .ifdef	GLOBAL
+   0967 55 70r12            864 	sub	Y70,#M		; 55 70 12
+   096A 55 DBr12            865 	sub	yB,#M		; 55 DB 12
+   096D F3 52r12            866 	sub	(yy2),#M	; F3 52 12
+   0970 2F 51r12s56r78      867 	sub	MM,#M		; 2F 51 12 56 78
+                            868 .endif
+                            869 
+                            870 	;
+                            871 	; SUBW
+                            872 	;
+                            873 	; Subtract (Word) - Register, Register
+   0975 5E 24               874 	subw	yy2,yy4		; 5E 24
+   0977 57 20 06            875 	subw	YY6,YY20	; 57 20 06
+   097A 57 30 D8            876 	subw	yy8,YY30	; 57 30 D8
+   097D 57 DA 40            877 	subw	YY40,yyA	; 57 DA 40
+   0980 96 50 50            878 	subw	(y0),YY50	; 96 50 50
+   0983 96 DC 51            879 	subw	(y1),yyC	; 96 DC 51
+   0986 A6 52 60            880 	subw	YY60,(y2)	; A6 52 60
+   0989 A6 54 DE            881 	subw	yyE,(y4)	; A6 54 DE
+                            882 
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 17
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                            883 	; Subtract (Word) - Register, Memory
+   098C 5E 03               884 	subw	yy0,(yy2)	; 5E 03
+   098E 7E 54 10            885 	subw	YY10,(yy4)	; 7E 54 10
+   0991 D5 57 20            886 	subw	YY20,(yy6)+	; D5 57 20
+   0994 D5 5B D8            887 	subw	yy8,(yyA)+	; D5 5B D8
+   0997 C3 5D 30            888 	subw	YY30,-(yyC)	; C3 5D 30
+   099A C3 51 DE            889 	subw	yyE,-(yy0)	; C3 51 DE
+   099D 60 46 52            890 	subw	yy2,yy4(yy6)	; 60 46 52
+   09A0 86 59 12 40         891 	subw	YY40,N(yy8)	; 86 59 12 40
+   09A4 86 5D 12 DA         892 	subw	yyA,N(yyC)	; 86 5D 12 DA
+   09A8 E2 5E 56 78         893 	subw	yyE,NN		; E2 5E 56 78
+   09AC 86 50 56 78 50      894 	subw	YY50,NN(yy0)	; 86 50 56 78 50
+   09B1 86 54 56 78 D2      895 	subw	yy2,NN(yy4)	; 86 54 56 78 D2
+                     0001   896 .ifdef	GLOBAL
+   09B6 86 59r12 40         897 	subw	YY40,*M(yy8)	; 86 59 12 40		; Global -> Forced Short Form
+   09BA 86 5Dr12 DA         898 	subw	yyA,*M(yyC)	; 86 5D 12 DA		; Global -> Forced Short Form
+   09BE 86 58s00r12 40      899 	subw	YY40,M(yy8)	; 86 58 00 12 40	; Global -> Long Form
+   09C3 86 5Cs00r12 DA      900 	subw	yyA,M(yyC)	; 86 5C 00 12 DA	; Global -> Long Form
+   09C8 E2 5Es56r78         901 	subw	yyE,MM		; E2 5E 56 78
+   09CC 86 50s56r78 50      902 	subw	YY50,MM(yy0)	; 86 50 56 78 50
+   09D1 86 54s56r78 D2      903 	subw	yy2,MM(yy4)	; 86 54 56 78 D2
+                            904 .endif
+                            905 
+                            906 	; Subtract (Word) - Memory, Register
+   09D6 5E 12               907 	subw	(yy0),yy2	; 5E 12
+   09D8 BE 55 10            908 	subw	(yy4),YY10	; BE 55 10
+   09DB D5 56 20            909 	subw	(yy6)+,YY20	; D5 56 20
+   09DE D5 58 DA            910 	subw	(yy8)+,yyA	; D5 58 DA
+   09E1 C3 5C 30            911 	subw	-(yyC),YY30	; C3 5C 30
+   09E4 C3 5E D0            912 	subw	-(yyE),yy0	; C3 5E D0
+   09E7 60 25 56            913 	subw	yy2(yy4),yy6	; 60 25 56
+   09EA 86 59 12 41         914 	subw	N(yy8),YY40	; 86 59 12 41
+   09EE 86 5B 12 DD         915 	subw	N(yyA),yyC	; 86 5B 12 DD
+   09F2 E2 5D 56 78         916 	subw	NN,yyC		; E2 5D 56 78
+   09F6 86 5E 56 78 61      917 	subw	NN(yyE),YY60	; 86 5E 56 78 61
+   09FB 86 50 56 78 D3      918 	subw	NN(yy0),yy2	; 86 50 56 78 D3
+                     0001   919 .ifdef	GLOBAL
+   0A00 86 59r12 41         920 	subw	*M(yy8),YY40	; 86 59 12 41		; Global -> Forced Short Form
+   0A04 86 5Br12 DD         921 	subw	*M(yyA),yyC	; 86 5B 12 DD		; Global -> Forced Short Form
+   0A08 86 58s00r12 41      922 	subw	M(yy8),YY40	; 86 58 00 12 41	; Global -> Long Form
+   0A0D 86 5As00r12 DD      923 	subw	M(yyA),yyC	; 86 5A 00 12 DD	; Global -> Long Form
+   0A12 E2 5Ds56r78         924 	subw	MM,yyC		; E2 5D 56 78
+   0A16 86 5Es56r78 61      925 	subw	MM(yyE),YY60	; 86 5E 56 78 61
+   0A1B 86 50s56r78 D3      926 	subw	MM(yy0),yy2	; 86 50 56 78 D3
+                            927 .endif
+                            928 
+                            929 	; SSubtract (Word) - Memory, Memory
+   0A20 5E 13               930 	subw	(yy0),(yy2)	; 5E 13
+                            931 
+                            932 	; Subtract (Word) - All, Immediate
+   0A22 57 11 56 78         933 	subw	YY10,#NN	; 57 11 56 78
+   0A26 57 D5 56 78         934 	subw	yy4,#NN		; 57 D5 56 78
+   0A2A BE 58 56 78         935 	subw	(yy8),#NN	; BE 58 56 78
+   0A2E 06 5B 12 56 78      936 	subw	N(yyA),#NN	; 06 5B 12 56 78
+   0A33 06 5C 56 78 56 78   937 	subw	NN(yyC),#NN	; 06 5C 56 78 56;78
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 18
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0A39 36 51 56 78 56 78   938 	subw	NN,#NN		; 36 51 56 78 56;78
+                     0001   939 .ifdef	GLOBAL
+   0A3F 06 5Br12s56r78      940 	subw	*M(yyA),#MM	; 06 5B 12 56 78
+   0A44 57 11s56r78         941 	subw	YY10,#MM	; 57 11 56 78
+   0A48 57 D5s56r78         942 	subw	yy4,#MM		; 57 D5 56 78
+   0A4C BE 58s56r78         943 	subw	(yy8),#MM	; BE 58 56 78
+   0A50 06 5Br12s56r78      944 	subw	*M(yyA),#MM	; 06 5B 12 56 78	; Global -> Forced Short Form
+   0A55 06 5As00r12s56r78   945 	subw	M(yyA),#MM	; 06 5A 00 12 56;78	; Global -> Long Form
+   0A5B 06 5Cs56r78s56r78   946 	subw	MM(yyC),#MM	; 06 5C 56 78 56;78
+   0A61 36 51s56r78s56r78   947 	subw	MM,#MM		; 36 51 56 78 56;78
+                            948 .endif
+                            949 
+                            950 	;
+                            951 	; XOR
+                            952 	;
+                            953 	; Exclusive OR (byte) Register, Register
+   0A67 62 37               954 	xor	y3,y7		; 62 37
+   0A69 63 35               955 	xor	y3,(y5)		; 63 35
+   0A6B 64 90 50            956 	xor	Y50,Y90		; 64 90 50
+   0A6E 64 90 D3            957 	xor	y3,Y90		; 64 90 D3
+   0A71 64 D7 50            958 	xor	Y50,y7		; 64 D7 50
+   0A74 E6 30 66            959 	xor	(y6),Y30	; E6 30 66
+   0A77 E6 D3 6A            960 	xor	(yA),y3		; E6 D3 6A
+   0A7A E7 6C 40            961 	xor	Y40,(yC)	; E7 6C 40
+                            962 
+                            963 	; XOR (byte) Register, Memory
+   0A7D 72 63 07            964 	xor	Y7,(yy2)	; 72 63 07
+   0A80 72 65 D6            965 	xor	y6,(yy4)	; 72 65 D6
+   0A83 B4 67 05            966 	xor	Y5,(yy6)+	; B4 67 05
+   0A86 B4 69 D4            967 	xor	y4,(yy8)+	; B4 69 D4
+   0A89 C2 6B 03            968 	xor	Y3,-(yyA)	; C2 6B 03
+   0A8C C2 6D D2            969 	xor	y2,-(yyC)	; C2 6D D2
+   0A8F 60 9E 61            970 	xor	y1,yy8(yyE)	; 60 9E 61
+   0A92 7F 63 12 05         971 	xor	Y5,N(yy2)	; 7F 63 12 05
+   0A96 7F 65 12 DF         972 	xor	yF,N(yy4)	; 7F 65 12 DF
+   0A9A C4 6C 56 78         973 	xor	yC,NN		; C4 6C 56 78
+   0A9E 7F 66 56 78 01      974 	xor	Y1,NN(yy6)	; 7F 66 56 78 01
+   0AA3 7F 68 56 78 D2      975 	xor	y2,NN(yy8)	; 7F 68 56 78 D2
+                     0001   976 .ifdef	GLOBAL
+   0AA8 7F 63r12 05         977 	xor	Y5,*M(yy2)	; 7F 63 12 05		; Global -> Forced Short Form
+   0AAC 7F 65r12 DF         978 	xor	yF,*M(yy4)	; 7F 65 12 DF		; Global -> Forced Short Form
+   0AB0 7F 62s00r12 05      979 	xor	Y5,M(yy2)	; 7F 62 00 12 05	; Global -> Long Form
+   0AB5 7F 64s00r12 DF      980 	xor	yF,M(yy4)	; 7F 64 00 12 DF	; Global -> Long Form
+   0ABA C4 6Cs56r78         981 	xor	yC,MM		; C4 6C 56 78
+   0ABE 7F 66s56r78 01      982 	xor	Y1,MM(yy6)	; 7F 66 56 78 01
+   0AC3 7F 68s56r78 D2      983 	xor	y2,MM(yy8)	; 7F 68 56 78 D2
+                            984 .endif
+                            985 
+                            986 	; XOR (byte) Memory, Register
+   0AC8 72 60 50            987 	xor	(yy0),Y50	; 72 60 50
+   0ACB 72 62 D8            988 	xor	(yy2),y8	; 72 62 D8
+   0ACE B4 64 60            989 	xor	(yy4)+,Y60	; B4 64 60
+   0AD1 B4 66 D7            990 	xor	(yy6)+,y7	; B4 66 D7
+   0AD4 C2 68 70            991 	xor	-(yy8),Y70	; C2 68 70
+   0AD7 C2 6A D6            992 	xor	-(yyA),y6	; C2 6A D6
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 19
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0ADA 60 DF 65            993 	xor	yyC(yyE),y5	; 60 DF 65
+   0ADD 26 6B 12 80         994 	xor	N(yyA),Y80	; 26 6B 12 80
+   0AE1 26 69 12 D4         995 	xor	N(yy8),y4	; 26 69 12 D4
+   0AE5 C5 63 56 78         996 	xor	NN,y3		; C5 63 56 78
+   0AE9 26 66 56 78 90      997 	xor	NN(yy6),Y90	; 26 66 56 78 90
+   0AEE 26 64 56 78 D2      998 	xor	NN(yy4),y2	; 26 64 56 78 D2
+                     0001   999 .ifdef	GLOBAL
+   0AF3 26 6Br12 80        1000 	xor	*M(yyA),Y80	; 26 6B 12 80		; Global -> Forced Short Form
+   0AF7 26 69r12 D4        1001 	xor	*M(yy8),y4	; 26 69 12 D4		; Global -> Forced Short Form
+   0AFB 26 6As00r12 80     1002 	xor	M(yyA),Y80	; 26 6A 00 12 80	; Global -> Long Form
+   0B00 26 68s00r12 D4     1003 	xor	M(yy8),y4	; 26 68 00 12 D4	; Global -> Long Form
+   0B05 C5 63s56r78        1004 	xor	MM,y3		; C5 63 56 78
+   0B09 26 66s56r78 90     1005 	xor	MM(yy6),Y90	; 26 66 56 78 90
+   0B0E 26 64s56r78 D2     1006 	xor	MM(yy4),y2	; 26 64 56 78 D2
+                           1007 .endif
+                           1008 
+                           1009 	; XOR (byte) Memory, Memory
+   0B13 73 64 60           1010 	xor	(YY60),(yy4)	; 73 64 60
+   0B16 73 68 D6           1011 	xor	(yy6),(yy8)	; 73 68 D6
+                           1012 
+                           1013 	; XOR (byte) All, Immediate
+   0B19 65 70 12           1014 	xor	Y70,#N		; 65 70 12
+   0B1C 65 DB 12           1015 	xor	yB,#N		; 65 DB 12
+   0B1F F3 62 12           1016 	xor	(yy2),#N	; F3 62 12
+   0B22 2F 61 12 56 78     1017 	xor	NN,#N		; 2F 61 12 56 78
+                     0001  1018 .ifdef	GLOBAL
+   0B27 65 70r12           1019 	xor	Y70,#M		; 65 70 12
+   0B2A 65 DBr12           1020 	xor	yB,#M		; 65 DB 12
+   0B2D F3 62r12           1021 	xor	(yy2),#M	; F3 62 12
+   0B30 2F 61r12s56r78     1022 	xor	MM,#M		; 2F 61 12 56 78
+                           1023 .endif
+                           1024 
+                           1025 	;
+                           1026 	; XORW
+                           1027 	;
+                           1028 	; XOR (Word) - Register, Register
+   0B35 6E 24              1029 	xorw	yy2,yy4		; 6E 24
+   0B37 67 20 06           1030 	xorw	YY6,YY20	; 67 20 06
+   0B3A 67 30 D8           1031 	xorw	yy8,YY30	; 67 30 D8
+   0B3D 67 DA 40           1032 	xorw	YY40,yyA	; 67 DA 40
+   0B40 96 50 60           1033 	xorw	(y0),YY50	; 96 50 60
+   0B43 96 DC 61           1034 	xorw	(y1),yyC	; 96 DC 61
+   0B46 A6 62 60           1035 	xorw	YY60,(y2)	; A6 62 60
+   0B49 A6 64 DE           1036 	xorw	yyE,(y4)	; A6 64 DE
+                           1037 
+                           1038 	; XOR (Word) - Register, Memory
+   0B4C 6E 03              1039 	xorw	yy0,(yy2)	; 6E 03
+   0B4E 7E 64 10           1040 	xorw	YY10,(yy4)	; 7E 64 10
+   0B51 D5 67 20           1041 	xorw	YY20,(yy6)+	; D5 67 20
+   0B54 D5 6B D8           1042 	xorw	yy8,(yyA)+	; D5 6B D8
+   0B57 C3 6D 30           1043 	xorw	YY30,-(yyC)	; C3 6D 30
+   0B5A C3 61 DE           1044 	xorw	yyE,-(yy0)	; C3 61 DE
+   0B5D 60 46 62           1045 	xorw	yy2,yy4(yy6)	; 60 46 62
+   0B60 86 69 12 40        1046 	xorw	YY40,N(yy8)	; 86 69 12 40
+   0B64 86 6D 12 DA        1047 	xorw	yyA,N(yyC)	; 86 6D 12 DA
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 20
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0B68 E2 6E 56 78        1048 	xorw	yyE,NN		; E2 6E 56 78
+   0B6C 86 60 56 78 50     1049 	xorw	YY50,NN(yy0)	; 86 60 56 78 50
+   0B71 86 64 56 78 D2     1050 	xorw	yy2,NN(yy4)	; 86 64 56 78 D2
+                     0001  1051 .ifdef	GLOBAL
+   0B76 86 69r12 40        1052 	xorw	YY40,*M(yy8)	; 86 69 12 40		; Global -> Forced Short Form
+   0B7A 86 6Dr12 DA        1053 	xorw	yyA,*M(yyC)	; 86 6D 12 DA		; Global -> Forced Short Form
+   0B7E 86 68s00r12 40     1054 	xorw	YY40,M(yy8)	; 86 68 00 12 40	; Global -> Long Form
+   0B83 86 6Cs00r12 DA     1055 	xorw	yyA,M(yyC)	; 86 6C 00 12 DA	; Global -> Long Form
+   0B88 E2 6Es56r78        1056 	xorw	yyE,MM		; E2 6E 56 78
+   0B8C 86 60s56r78 50     1057 	xorw	YY50,MM(yy0)	; 86 60 56 78 50
+   0B91 86 64s56r78 D2     1058 	xorw	yy2,MM(yy4)	; 86 64 56 78 D2
+                           1059 .endif
+                           1060 
+                           1061 	; XOR (Word) - Memory, Register
+   0B96 6E 12              1062 	xorw	(yy0),yy2	; 6E 12
+   0B98 BE 65 10           1063 	xorw	(yy4),YY10	; BE 65 10
+   0B9B D5 66 20           1064 	xorw	(yy6)+,YY20	; D5 66 20
+   0B9E D5 68 DA           1065 	xorw	(yy8)+,yyA	; D5 68 DA
+   0BA1 C3 6C 30           1066 	xorw	-(yyC),YY30	; C3 6C 30
+   0BA4 C3 6E D0           1067 	xorw	-(yyE),yy0	; C3 6E D0
+   0BA7 60 25 66           1068 	xorw	yy2(yy4),yy6	; 60 25 66
+   0BAA 86 69 12 41        1069 	xorw	N(yy8),YY40	; 86 69 12 41
+   0BAE 86 6B 12 DD        1070 	xorw	N(yyA),yyC	; 86 6B 12 DD
+   0BB2 E2 6D 56 78        1071 	xorw	NN,yyC		; E2 6D 56 78
+   0BB6 86 6E 56 78 61     1072 	xorw	NN(yyE),YY60	; 86 6E 56 78 61
+   0BBB 86 60 56 78 D3     1073 	xorw	NN(yy0),yy2	; 86 60 56 78 D3
+                     0001  1074 .ifdef	GLOBAL
+   0BC0 86 69r12 41        1075 	xorw	*M(yy8),YY40	; 86 69 12 41		; Global -> Forced Short Form
+   0BC4 86 6Br12 DD        1076 	xorw	*M(yyA),yyC	; 86 6B 12 DD		; Global -> Forced Short Form
+   0BC8 86 68s00r12 41     1077 	xorw	M(yy8),YY40	; 86 68 00 12 41	; Global -> Long Form
+   0BCD 86 6As00r12 DD     1078 	xorw	M(yyA),yyC	; 86 6A 00 12 DD	; Global -> Long Form
+   0BD2 E2 6Ds56r78        1079 	xorw	MM,yyC		; E2 6D 56 78
+   0BD6 86 6Es56r78 61     1080 	xorw	MM(yyE),YY60	; 86 6E 56 78 61
+   0BDB 86 60s56r78 D3     1081 	xorw	MM(yy0),yy2	; 86 60 56 78 D3
+                           1082 .endif
+                           1083 
+                           1084 	; XOR (Word) - Memory, Memory
+   0BE0 6E 13              1085 	xorw	(yy0),(yy2)	; 6E 13
+                           1086 
+                           1087 	; XOR (Word) - All, Immediate
+   0BE2 67 11 56 78        1088 	xorw	YY10,#NN	; 67 11 56 78
+   0BE6 67 D5 56 78        1089 	xorw	yy4,#NN		; 67 D5 56 78
+   0BEA BE 68 56 78        1090 	xorw	(yy8),#NN	; BE 68 56 78
+   0BEE 06 6B 12 56 78     1091 	xorw	N(yyA),#NN	; 06 6B 12 56 78
+   0BF3 06 6C 56 78 56 78  1092 	xorw	NN(yyC),#NN	; 06 6C 56 78 56;78
+   0BF9 36 61 56 78 56 78  1093 	xorw	NN,#NN		; 36 61 56 78 56;78
+                     0001  1094 .ifdef	GLOBAL
+   0BFF 67 11s56r78        1095 	xorw	YY10,#MM	; 67 11 56 78
+   0C03 67 D5s56r78        1096 	xorw	yy4,#MM		; 67 D5 56 78
+   0C07 BE 68s56r78        1097 	xorw	(yy8),#MM	; BE 68 56 78
+   0C0B 06 6Br12 56 78     1098 	xorw	*M(yyA),#NN	; 06 6B 12 56 78	; Global -> Forced Short Form
+   0C10 06 6As00r12s56r78  1099 	xorw	M(yyA),#MM	; 06 6A 00 12 56;78	; Global -> Long Form
+   0C16 06 6Cs56r78s56r78  1100 	xorw	MM(yyC),#MM	; 06 6C 56 78 56;78
+   0C1C 36 61s56r78s56r78  1101 	xorw	MM,#MM		; 36 61 56 78 56;78
+                           1102 .endif
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 21
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           1103 
+                           1104 	;
+                           1105 	; TCM
+                           1106 	;
+                           1107 	; Test complement under mask (byte) Register, Register
+   0C22 82 37              1108 	tcm	y3,y7		; 82 37
+   0C24 83 35              1109 	tcm	y3,(y5)		; 83 35
+   0C26 84 90 50           1110 	tcm	Y50,Y90		; 84 90 50
+   0C29 84 90 D3           1111 	tcm	y3,Y90		; 84 90 D3
+   0C2C 84 D7 50           1112 	tcm	Y50,y7		; 84 D7 50
+   0C2F E6 30 86           1113 	tcm	(y6),Y30	; E6 30 86
+   0C32 E6 D3 8A           1114 	tcm	(yA),y3		; E6 D3 8A
+   0C35 E7 8C 40           1115 	tcm	Y40,(yC)	; E7 8C 40
+                           1116 
+                           1117 	; Test complement under mask (byte) Register, Memory
+   0C38 72 83 07           1118 	tcm	Y7,(yy2)	; 72 83 07
+   0C3B 72 85 D6           1119 	tcm	y6,(yy4)	; 72 85 D6
+   0C3E B4 87 05           1120 	tcm	Y5,(yy6)+	; B4 87 05
+   0C41 B4 89 D4           1121 	tcm	y4,(yy8)+	; B4 89 D4
+   0C44 C2 8B 03           1122 	tcm	Y3,-(yyA)	; C2 8B 03
+   0C47 C2 8D D2           1123 	tcm	y2,-(yyC)	; C2 8D D2
+   0C4A 60 9E 81           1124 	tcm	y1,yy8(yyE)	; 60 9E 81
+   0C4D 7F 83 12 05        1125 	tcm	Y5,N(yy2)	; 7F 83 12 05
+   0C51 7F 85 12 DF        1126 	tcm	yF,N(yy4)	; 7F 85 12 DF
+   0C55 C4 8C 56 78        1127 	tcm	yC,NN		; C4 8C 56 78
+   0C59 7F 86 56 78 01     1128 	tcm	Y1,NN(yy6)	; 7F 86 56 78 01
+   0C5E 7F 88 56 78 D2     1129 	tcm	y2,NN(yy8)	; 7F 88 56 78 D2
+                     0001  1130 .ifdef	GLOBAL
+   0C63 7F 83r12 05        1131 	tcm	Y5,*M(yy2)	; 7F 83 12 05		; Global -> Forced Short Form
+   0C67 7F 85r12 DF        1132 	tcm	yF,*M(yy4)	; 7F 85 12 DF		; Global -> Forced Short Form
+   0C6B 7F 82s00r12 05     1133 	tcm	Y5,M(yy2)	; 7F 82 00 12 05	; Global -> Long Form
+   0C70 7F 84s00r12 DF     1134 	tcm	yF,M(yy4)	; 7F 84 00 12 DF	; Global -> Long Form
+   0C75 C4 8Cs56r78        1135 	tcm	yC,MM		; C4 8C 56 78
+   0C79 7F 86s56r78 01     1136 	tcm	Y1,MM(yy6)	; 7F 86 56 78 01
+   0C7E 7F 88s56r78 D2     1137 	tcm	y2,MM(yy8)	; 7F 88 56 78 D2
+                           1138 .endif
+                           1139 
+                           1140 	; Test complement under mask (byte) Memory, Register
+   0C83 72 80 50           1141 	tcm	(yy0),Y50	; 72 80 50
+   0C86 72 82 D8           1142 	tcm	(yy2),y8	; 72 82 D8
+   0C89 B4 84 60           1143 	tcm	(yy4)+,Y60	; B4 84 60
+   0C8C B4 86 D7           1144 	tcm	(yy6)+,y7	; B4 86 D7
+   0C8F C2 88 70           1145 	tcm	-(yy8),Y70	; C2 88 70
+   0C92 C2 8A D6           1146 	tcm	-(yyA),y6	; C2 8A D6
+   0C95 60 DF 85           1147 	tcm	yyC(yyE),y5	; 60 DF 85
+   0C98 26 8B 12 80        1148 	tcm	N(yyA),Y80	; 26 8B 12 80
+   0C9C 26 89 12 D4        1149 	tcm	N(yy8),y4	; 26 89 12 D4
+   0CA0 C5 83s56r78        1150 	tcm	MM,y3		; C5 83 56 78
+   0CA4 26 86s56r78 90     1151 	tcm	MM(yy6),Y90	; 26 86 56 78 90
+   0CA9 26 84s56r78 D2     1152 	tcm	MM(yy4),y2	; 26 84 56 78 D2
+                     0001  1153 .ifdef	GLOBAL
+   0CAE 26 8Br12 80        1154 	tcm	*M(yyA),Y80	; 26 8B 12 80		; Global -> Forced Short Form
+   0CB2 26 89r12 D4        1155 	tcm	*M(yy8),y4	; 26 89 12 D4		; Global -> Forced Short Form
+   0CB6 26 8As00r12 80     1156 	tcm	M(yyA),Y80	; 26 8A 00 12 80	; Global -> Long Form
+   0CBB 26 88s00r12 D4     1157 	tcm	M(yy8),y4	; 26 88 00 12 D4	; Global -> Long Form
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 22
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0CC0 C5 83s56r78        1158 	tcm	MM,y3		; C5 83 56 78
+   0CC4 26 86s56r78 90     1159 	tcm	MM(yy6),Y90	; 26 86 56 78 90
+   0CC9 26 84s56r78 D2     1160 	tcm	MM(yy4),y2	; 26 84 56 78 D2
+                           1161 .endif
+                           1162 
+                           1163 	; Test complement under mask (byte) Memory, Memory
+   0CCE 73 84 60           1164 	tcm	(YY60),(yy4)	; 73 84 60
+   0CD1 73 88 D6           1165 	tcm	(yy6),(yy8)	; 73 88 D6
+                           1166 
+                           1167 	; Test complement under mask (byte) All, Immediate
+   0CD4 85 70 12           1168 	tcm	Y70,#N		; 85 70 12
+   0CD7 85 DB 12           1169 	tcm	yB,#N		; 85 DB 12
+   0CDA F3 82 12           1170 	tcm	(yy2),#N	; F3 82 12
+   0CDD 2F 81 12 56 78     1171 	tcm	NN,#N		; 2F 81 12 56 78
+                     0001  1172 .ifdef	GLOBAL
+   0CE2 85 70r12           1173 	tcm	Y70,#M		; 85 70 12
+   0CE5 85 DBr12           1174 	tcm	yB,#M		; 85 DB 12
+   0CE8 F3 82r12           1175 	tcm	(yy2),#M	; F3 82 12
+   0CEB 2F 81r12s56r78     1176 	tcm	MM,#M		; 2F 81 12 56 78
+                           1177 .endif
+                           1178 
+                           1179 	;
+                           1180 	; TCMW
+                           1181 	;
+                           1182 	;  Test Complement Under Mask (Word) - Register, Register
+   0CF0 8E 24              1183 	tcmw	yy2,yy4		; 8E 24
+   0CF2 87 20 06           1184 	tcmw	YY6,YY20	; 87 20 06
+   0CF5 87 30 D8           1185 	tcmw	yy8,YY30	; 87 30 D8
+   0CF8 87 DA 40           1186 	tcmw	YY40,yyA	; 87 DA 40
+   0CFB 96 50 80           1187 	tcmw	(y0),YY50	; 96 50 80
+   0CFE 96 DC 81           1188 	tcmw	(y1),yyC	; 96 DC 81
+   0D01 A6 82 60           1189 	tcmw	YY60,(y2)	; A6 82 60
+   0D04 A6 84 DE           1190 	tcmw	yyE,(y4)	; A6 84 DE
+                           1191 
+                           1192 	; Test Complement Under Mask (Word) - Register, Memory
+   0D07 8E 03              1193 	tcmw	yy0,(yy2)	; 8E 03
+   0D09 7E 84 10           1194 	tcmw	YY10,(yy4)	; 7E 84 10
+   0D0C D5 87 20           1195 	tcmw	YY20,(yy6)+	; D5 87 20
+   0D0F D5 8B D8           1196 	tcmw	yy8,(yyA)+	; D5 8B D8
+   0D12 C3 8D 30           1197 	tcmw	YY30,-(yyC)	; C3 8D 30
+   0D15 C3 81 DE           1198 	tcmw	yyE,-(yy0)	; C3 81 DE
+   0D18 60 46 82           1199 	tcmw	yy2,yy4(yy6)	; 60 46 82
+   0D1B 86 89 12 40        1200 	tcmw	YY40,N(yy8)	; 86 89 12 40
+   0D1F 86 8D 12 DA        1201 	tcmw	yyA,N(yyC)	; 86 8D 12 DA
+   0D23 E2 8E 56 78        1202 	tcmw	yyE,NN		; E2 8E 56 78
+   0D27 86 80 56 78 50     1203 	tcmw	YY50,NN(yy0)	; 86 80 56 78 50
+   0D2C 86 84 56 78 D2     1204 	tcmw	yy2,NN(yy4)	; 86 84 56 78 D2
+                     0001  1205 .ifdef	GLOBAL
+   0D31 86 89r12 40        1206 	tcmw	YY40,*M(yy8)	; 86 89 12 40		; Global -> Forced Short Form
+   0D35 86 8Dr12 DA        1207 	tcmw	yyA,*M(yyC)	; 86 8D 12 DA		; Global -> Forced Short Form
+   0D39 86 88s00r12 40     1208 	tcmw	YY40,M(yy8)	; 86 88 00 12 40	; Global -> Long Form
+   0D3E 86 8Cs00r12 DA     1209 	tcmw	yyA,M(yyC)	; 86 8C 00 12 DA	; Global -> Long Form
+   0D43 E2 8Es56r78        1210 	tcmw	yyE,MM		; E2 8E 56 78
+   0D47 86 80s56r78 50     1211 	tcmw	YY50,MM(yy0)	; 86 80 56 78 50
+   0D4C 86 84s56r78 D2     1212 	tcmw	yy2,MM(yy4)	; 86 84 56 78 D2
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 23
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           1213 .endif
+                           1214 
+                           1215 	; Test Complement Under Mask (Word) - Memory, Register
+   0D51 8E 12              1216 	tcmw	(yy0),yy2	; 8E 12
+   0D53 BE 85 10           1217 	tcmw	(yy4),YY10	; BE 85 10
+   0D56 D5 86 20           1218 	tcmw	(yy6)+,YY20	; D5 86 20
+   0D59 D5 88 DA           1219 	tcmw	(yy8)+,yyA	; D5 88 DA
+   0D5C C3 8C 30           1220 	tcmw	-(yyC),YY30	; C3 8C 30
+   0D5F C3 8E D0           1221 	tcmw	-(yyE),yy0	; C3 8E D0
+   0D62 60 25 86           1222 	tcmw	yy2(yy4),yy6	; 60 25 86
+   0D65 86 89 12 41        1223 	tcmw	N(yy8),YY40	; 86 89 12 41
+   0D69 86 8B 12 DD        1224 	tcmw	N(yyA),yyC	; 86 8B 12 DD
+   0D6D E2 8D 56 78        1225 	tcmw	NN,yyC		; E2 8D 56 78
+   0D71 86 8E 56 78 61     1226 	tcmw	NN(yyE),YY60	; 86 8E 56 78 61
+   0D76 86 80 56 78 D3     1227 	tcmw	NN(yy0),yy2	; 86 80 56 78 D3
+                     0001  1228 .ifdef	GLOBAL
+   0D7B 86 89r12 41        1229 	tcmw	*M(yy8),YY40	; 86 89 12 41		; Global -> Forced Short Form
+   0D7F 86 8Br12 DD        1230 	tcmw	*M(yyA),yyC	; 86 8B 12 DD		; Global -> Forced Short Form
+   0D83 86 88s00r12 41     1231 	tcmw	M(yy8),YY40	; 86 88 00 12 41	; Global -> Long Form
+   0D88 86 8As00r12 DD     1232 	tcmw	M(yyA),yyC	; 86 8A 00 12 DD	; Global -> Long Form
+   0D8D E2 8Ds56r78        1233 	tcmw	MM,yyC		; E2 8D 56 78
+   0D91 86 8Es56r78 61     1234 	tcmw	MM(yyE),YY60	; 86 8E 56 78 61
+   0D96 86 80s56r78 D3     1235 	tcmw	MM(yy0),yy2	; 86 80 56 78 D3
+                           1236 .endif
+                           1237 
+                           1238 	; Test Complement Under Mask (Word) - Memory, Memory
+   0D9B 8E 13              1239 	tcmw	(yy0),(yy2)	; 8E 13
+                           1240 
+                           1241 	; Test Complement Under Mask (Word) - All, Immediate
+   0D9D 87 11 56 78        1242 	tcmw	YY10,#NN	; 87 11 56 78
+   0DA1 87 D5 56 78        1243 	tcmw	yy4,#NN		; 87 D5 56 78
+   0DA5 BE 88 56 78        1244 	tcmw	(yy8),#NN	; BE 88 56 78
+   0DA9 06 8B 12 56 78     1245 	tcmw	N(yyA),#NN	; 06 8B 12 56 78
+   0DAE 06 8C 56 78 56 78  1246 	tcmw	NN(yyC),#NN	; 06 8C 56 78 56;78
+   0DB4 36 81 56 78 56 78  1247 	tcmw	NN,#NN		; 36 81 56 78 56;78
+                     0001  1248 .ifdef	GLOBAL
+   0DBA 87 11s56r78        1249 	tcmw	YY10,#MM	; 87 11 56 78
+   0DBE 87 D5s56r78        1250 	tcmw	yy4,#MM		; 87 D5 56 78
+   0DC2 BE 88s56r78        1251 	tcmw	(yy8),#MM	; BE 88 56 78
+   0DC6 06 8Br12 56 78     1252 	tcmw	*M(yyA),#NN	; 06 8B 12 56 78	; Global -> Forced Short Form
+   0DCB 06 8As00r12s56r78  1253 	tcmw	M(yyA),#MM	; 06 8A 00 12 56;78	; Global -> Long Form
+   0DD1 06 8Cs56r78s56r78  1254 	tcmw	MM(yyC),#MM	; 06 8C 56 78 56;78
+   0DD7 36 81s56r78s56r78  1255 	tcmw	MM,#MM		; 36 81 56 78 56;78
+                           1256 .endif
+                           1257 
+                           1258 	;
+                           1259 	; CP
+                           1260 	;
+                           1261 	; CP (byte) Register, Register
+   0DDD 92 37              1262 	cp	y3,y7		; 92 37
+   0DDF 93 35              1263 	cp	y3,(y5)		; 93 35
+   0DE1 94 90 50           1264 	cp	Y50,Y90		; 94 90 50
+   0DE4 94 90 D3           1265 	cp	y3,Y90		; 94 90 D3
+   0DE7 94 D7 50           1266 	cp	Y50,y7		; 94 D7 50
+   0DEA E6 30 96           1267 	cp	(y6),Y30	; E6 30 96
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 24
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0DED E6 D3 9A           1268 	cp	(yA),y3		; E6 D3 9A
+   0DF0 E7 9C 40           1269 	cp	Y40,(yC)	; E7 9C 40
+                           1270 
+                           1271 	; CP (byte) Register, Memory
+   0DF3 72 93 07           1272 	cp	Y7,(yy2)	; 72 93 07
+   0DF6 72 95 D6           1273 	cp	y6,(yy4)	; 72 95 D6
+   0DF9 B4 97 05           1274 	cp	Y5,(yy6)+	; B4 97 05
+   0DFC B4 99 D4           1275 	cp	y4,(yy8)+	; B4 99 D4
+   0DFF C2 9B 03           1276 	cp	Y3,-(yyA)	; C2 9B 03
+   0E02 C2 9D D2           1277 	cp	y2,-(yyC)	; C2 9D D2
+   0E05 60 9E 91           1278 	cp	y1,yy8(yyE)	; 60 9E 91
+   0E08 7F 93 12 05        1279 	cp	Y5,N(yy2)	; 7F 93 12 05
+   0E0C 7F 95 12 DF        1280 	cp	yF,N(yy4)	; 7F 95 12 DF
+   0E10 C4 9C 56 78        1281 	cp	yC,NN		; C4 9C 56 78
+   0E14 7F 96 56 78 01     1282 	cp	Y1,NN(yy6)	; 7F 96 56 78 01
+   0E19 7F 98 56 78 D2     1283 	cp	y2,NN(yy8)	; 7F 98 56 78 D2
+                     0001  1284 .ifdef	GLOBAL
+   0E1E 7F 93r12 05        1285 	cp	Y5,*M(yy2)	; 7F 93 12 05		; Global -> Forced Short Form
+   0E22 7F 95r12 DF        1286 	cp	yF,*M(yy4)	; 7F 95 12 DF		; Global -> Forced Short Form
+   0E26 7F 92s00r12 05     1287 	cp	Y5,M(yy2)	; 7F 92 00 12 05	; Global -> Long Form
+   0E2B 7F 94s00r12 DF     1288 	cp	yF,M(yy4)	; 7F 94 00 12 DF	; Global -> Long Form
+   0E30 C4 9Cs56r78        1289 	cp	yC,MM		; C4 9C 56 78
+   0E34 7F 96s56r78 01     1290 	cp	Y1,MM(yy6)	; 7F 96 56 78 01
+   0E39 7F 98s56r78 D2     1291 	cp	y2,MM(yy8)	; 7F 98 56 78 D2
+                           1292 .endif
+                           1293 
+                           1294 	; CP (byte) Memory, Register
+   0E3E 72 90 50           1295 	cp	(yy0),Y50	; 72 90 50
+   0E41 72 92 D8           1296 	cp	(yy2),y8	; 72 92 D8
+   0E44 B4 94 60           1297 	cp	(yy4)+,Y60	; B4 94 60
+   0E47 B4 96 D7           1298 	cp	(yy6)+,y7	; B4 96 D7
+   0E4A C2 98 70           1299 	cp	-(yy8),Y70	; C2 98 70
+   0E4D C2 9A D6           1300 	cp	-(yyA),y6	; C2 9A D6
+   0E50 60 DF 95           1301 	cp	yyC(yyE),y5	; 60 DF 95
+   0E53 26 9B 12 80        1302 	cp	N(yyA),Y80	; 26 9B 12 80
+   0E57 26 99 12 D4        1303 	cp	N(yy8),y4	; 26 99 12 D4
+   0E5B C5 93 56 78        1304 	cp	NN,y3		; C5 93 56 78
+   0E5F 26 96 56 78 90     1305 	cp	NN(yy6),Y90	; 26 96 56 78 90
+   0E64 26 94 56 78 D2     1306 	cp	NN(yy4),y2	; 26 94 56 78 D2
+                     0001  1307 .ifdef	GLOBAL
+   0E69 26 9Br12 80        1308 	cp	*M(yyA),Y80	; 26 9B 12 80		; Global -> Forced Short Form
+   0E6D 26 99r12 D4        1309 	cp	*M(yy8),y4	; 26 99 12 D4		; Global -> Forced Short Form
+   0E71 26 9As00r12 80     1310 	cp	M(yyA),Y80	; 26 9A 00 12 80	; Global -> Long Form
+   0E76 26 98s00r12 D4     1311 	cp	M(yy8),y4	; 26 98 00 12 D4	; Global -> Long Form
+   0E7B C5 93s56r78        1312 	cp	MM,y3		; C5 93 56 78
+   0E7F 26 96s56r78 90     1313 	cp	MM(yy6),Y90	; 26 96 56 78 90
+   0E84 26 94s56r78 D2     1314 	cp	MM(yy4),y2	; 26 94 56 78 D2
+                           1315 .endif
+                           1316 
+                           1317 	; CP (byte) Memory, Memory
+   0E89 73 94 60           1318 	cp	(YY60),(yy4)	; 73 94 60
+   0E8C 73 98 D6           1319 	cp	(yy6),(yy8)	; 73 98 D6
+                           1320 
+                           1321 	; CP (byte) All, Immediate
+   0E8F 95 70 12           1322 	cp	Y70,#N		; 95 70 12
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 25
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0E92 95 DB 12           1323 	cp	yB,#N		; 95 DB 12
+   0E95 F3 92 12           1324 	cp	(yy2),#N	; F3 92 12
+   0E98 2F 91 12 56 78     1325 	cp	NN,#N		; 2F 91 12 56 78
+                     0001  1326 .ifdef	GLOBAL
+   0E9D 95 70r12           1327 	cp	Y70,#M		; 95 70 12
+   0EA0 95 DBr12           1328 	cp	yB,#M		; 95 DB 12
+   0EA3 F3 92r12           1329 	cp	(yy2),#M	; F3 92 12
+   0EA6 2F 91r12s56r78     1330 	cp	MM,#M		; 2F 91 12 56 78
+                           1331 .endif
+                           1332 
+                           1333 	;
+                           1334 	; CPW
+                           1335 	;
+                           1336 	; CP (Word) - Register, Register
+   0EAB 9E 24              1337 	cpw	yy2,yy4		; 9E 24
+   0EAD 97 20 06           1338 	cpw	YY6,YY20	; 97 20 06
+   0EB0 97 30 D8           1339 	cpw	yy8,YY30	; 97 30 D8
+   0EB3 97 DA 40           1340 	cpw	YY40,yyA	; 97 DA 40
+   0EB6 96 50 90           1341 	cpw	(y0),YY50	; 96 50 90
+   0EB9 96 DC 91           1342 	cpw	(y1),yyC	; 96 DC 91
+   0EBC A6 92 60           1343 	cpw	YY60,(y2)	; A6 92 60
+   0EBF A6 94 DE           1344 	cpw	yyE,(y4)	; A6 94 DE
+                           1345 
+                           1346 	; CP (Word) - Register, Memory
+   0EC2 9E 03              1347 	cpw	yy0,(yy2)	; 9E 03
+   0EC4 7E 94 10           1348 	cpw	YY10,(yy4)	; 7E 94 10
+   0EC7 D5 97 20           1349 	cpw	YY20,(yy6)+	; D5 97 20
+   0ECA D5 9B D8           1350 	cpw	yy8,(yyA)+	; D5 9B D8
+   0ECD C3 9D 30           1351 	cpw	YY30,-(yyC)	; C3 9D 30
+   0ED0 C3 91 DE           1352 	cpw	yyE,-(yy0)	; C3 91 DE
+   0ED3 60 46 92           1353 	cpw	yy2,yy4(yy6)	; 60 46 92
+   0ED6 86 99 12 40        1354 	cpw	YY40,N(yy8)	; 86 99 12 40
+   0EDA 86 9D 12 DA        1355 	cpw	yyA,N(yyC)	; 86 9D 12 DA
+   0EDE E2 9E 56 78        1356 	cpw	yyE,NN		; E2 9E 56 78
+   0EE2 86 90 56 78 50     1357 	cpw	YY50,NN(yy0)	; 86 90 56 78 50
+   0EE7 86 94 56 78 D2     1358 	cpw	yy2,NN(yy4)	; 86 94 56 78 D2
+                     0001  1359 .ifdef	GLOBAL
+   0EEC 86 99r12 40        1360 	cpw	YY40,*M(yy8)	; 86 99 12 40		; Global -> Forced Short Form
+   0EF0 86 9Dr12 DA        1361 	cpw	yyA,*M(yyC)	; 86 9D 12 DA		; Global -> Forced Short Form
+   0EF4 86 98s00r12 40     1362 	cpw	YY40,M(yy8)	; 86 98 00 12 40	; Global -> Long Form
+   0EF9 86 9Cs00r12 DA     1363 	cpw	yyA,M(yyC)	; 86 9C 00 12 DA	; Global -> Long Form
+   0EFE E2 9Es56r78        1364 	cpw	yyE,MM		; E2 9E 56 78
+   0F02 86 90s56r78 50     1365 	cpw	YY50,MM(yy0)	; 86 90 56 78 50
+   0F07 86 94s56r78 D2     1366 	cpw	yy2,MM(yy4)	; 86 94 56 78 D2
+                           1367 .endif
+                           1368 
+                           1369 	; CP (Word) - Memory, Register
+   0F0C 9E 12              1370 	cpw	(yy0),yy2	; 9E 12
+   0F0E BE 95 10           1371 	cpw	(yy4),YY10	; BE 95 10
+   0F11 D5 96 20           1372 	cpw	(yy6)+,YY20	; D5 96 20
+   0F14 D5 98 DA           1373 	cpw	(yy8)+,yyA	; D5 98 DA
+   0F17 C3 9C 30           1374 	cpw	-(yyC),YY30	; C3 9C 30
+   0F1A C3 9E D0           1375 	cpw	-(yyE),yy0	; C3 9E D0
+   0F1D 60 25 96           1376 	cpw	yy2(yy4),yy6	; 60 25 96
+   0F20 86 99 12 41        1377 	cpw	N(yy8),YY40	; 86 99 12 41
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 26
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0F24 86 9B 12 DD        1378 	cpw	N(yyA),yyC	; 86 9B 12 DD
+   0F28 E2 9D 56 78        1379 	cpw	NN,yyC		; E2 9D 56 78
+   0F2C 86 9E 56 78 61     1380 	cpw	NN(yyE),YY60	; 86 9E 56 78 61
+   0F31 86 90 56 78 D3     1381 	cpw	NN(yy0),yy2	; 86 90 56 78 D3
+                     0001  1382 .ifdef	GLOBAL
+   0F36 86 99r12 41        1383 	cpw	*M(yy8),YY40	; 86 99 12 41		; Global -> Forced Short Form
+   0F3A 86 9Br12 DD        1384 	cpw	*M(yyA),yyC	; 86 9B 12 DD		; Global -> Forced Short Form
+   0F3E 86 98s00r12 41     1385 	cpw	M(yy8),YY40	; 86 98 00 12 41	; Global -> Long Form
+   0F43 86 9As00r12 DD     1386 	cpw	M(yyA),yyC	; 86 9A 00 12 DD	; Global -> Long Form
+   0F48 E2 9Ds56r78        1387 	cpw	MM,yyC		; E2 9D 56 78
+   0F4C 86 9Es56r78 61     1388 	cpw	MM(yyE),YY60	; 86 9E 56 78 61
+   0F51 86 90s56r78 D3     1389 	cpw	MM(yy0),yy2	; 86 90 56 78 D3
+                           1390 .endif
+                           1391 
+                           1392 	; CP (Word) - Memory, Memory
+   0F56 9E 13              1393 	cpw	(yy0),(yy2)	; 9E 13
+                           1394 
+                           1395 	; CP (Word) - All, Immediate
+   0F58 97 11 56 78        1396 	cpw	YY10,#NN	; 97 11 56 78
+   0F5C 97 D5 56 78        1397 	cpw	yy4,#NN		; 97 D5 56 78
+   0F60 BE 98 56 78        1398 	cpw	(yy8),#NN	; BE 98 56 78
+   0F64 06 9B 12 56 78     1399 	cpw	N(yyA),#NN	; 06 9B 12 56 78
+   0F69 06 9C 56 78 56 78  1400 	cpw	NN(yyC),#NN	; 06 9C 56 78 56;78
+   0F6F 36 91 56 78 56 78  1401 	cpw	NN,#NN		; 36 91 56 78 56;78
+                     0001  1402 .ifdef	GLOBAL
+   0F75 97 11s56r78        1403 	cpw	YY10,#MM	; 97 11 56 78
+   0F79 97 D5s56r78        1404 	cpw	yy4,#MM		; 97 D5 56 78
+   0F7D BE 98s56r78        1405 	cpw	(yy8),#MM	; BE 98 56 78
+   0F81 06 9Br12s56r78     1406 	cpw	*M(yyA),#MM	; 06 9B 12 56 78	; Global -> Forced Short Form
+   0F86 06 9As00r12s56r78  1407 	cpw	M(yyA),#MM	; 06 9A 00 12 56;78	; Global -> Long Form
+   0F8C 06 9Cs56r78s56r78  1408 	cpw	MM(yyC),#MM	; 06 9C 56 78 56;78
+   0F92 36 91s56r78s56r78  1409 	cpw	MM,#MM		; 36 91 56 78 56;78
+                           1410 .endif
+                           1411 
+                           1412 	;
+                           1413 	; TM
+                           1414 	;
+                           1415 	; Test under mask (byte) Register, Register
+   0F98 A2 37              1416 	tm	y3,y7		; A2 37
+   0F9A A3 35              1417 	tm	y3,(y5)		; A3 35
+   0F9C A4 90 50           1418 	tm	Y50,Y90		; A4 90 50
+   0F9F A4 90 D3           1419 	tm	y3,Y90		; A4 90 D3
+   0FA2 A4 D7 50           1420 	tm	Y50,y7		; A4 D7 50
+   0FA5 E6 30 A6           1421 	tm	(y6),Y30	; E6 30 A6
+   0FA8 E6 D3 AA           1422 	tm	(yA),y3		; E6 D3 AA
+   0FAB E7 AC 40           1423 	tm	Y40,(yC)	; E7 AC 40
+                           1424 
+                           1425 	; Test under mask (byte) Register, Memory
+   0FAE 72 A3 07           1426 	tm	Y7,(yy2)	; 72 A3 07
+   0FB1 72 A5 D6           1427 	tm	y6,(yy4)	; 72 A5 D6
+   0FB4 B4 A7 05           1428 	tm	Y5,(yy6)+	; B4 A7 05
+   0FB7 B4 A9 D4           1429 	tm	y4,(yy8)+	; B4 A9 D4
+   0FBA C2 AB 03           1430 	tm	Y3,-(yyA)	; C2 AB 03
+   0FBD C2 AD D2           1431 	tm	y2,-(yyC)	; C2 AD D2
+   0FC0 60 9E A1           1432 	tm	y1,yy8(yyE)	; 60 9E A1
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 27
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   0FC3 7F A3 12 05        1433 	tm	Y5,N(yy2)	; 7F A3 12 05
+   0FC7 7F A5 12 DF        1434 	tm	yF,N(yy4)	; 7F A5 12 DF
+   0FCB C4 AC 56 78        1435 	tm	yC,NN		; C4 AC 56 78
+   0FCF 7F A6 56 78 01     1436 	tm	Y1,NN(yy6)	; 7F A6 56 78 01
+   0FD4 7F A8 56 78 D2     1437 	tm	y2,NN(yy8)	; 7F A8 56 78 D2
+                     0001  1438 .ifdef	GLOBAL
+   0FD9 7F A3r12 05        1439 	tm	Y5,*M(yy2)	; 7F A3 12 05		; Global -> Forced Short Form
+   0FDD 7F A5r12 DF        1440 	tm	yF,*M(yy4)	; 7F A5 12 DF		; Global -> Forced Short Form
+   0FE1 7F A2s00r12 05     1441 	tm	Y5,M(yy2)	; 7F A2 00 12 05	; Global -> Long Form
+   0FE6 7F A4s00r12 DF     1442 	tm	yF,M(yy4)	; 7F A4 00 12 DF	; Global -> Long Form
+   0FEB C4 ACs56r78        1443 	tm	yC,MM		; C4 AC 56 78
+   0FEF 7F A6s56r78 01     1444 	tm	Y1,MM(yy6)	; 7F A6 56 78 01
+   0FF4 7F A8s56r78 D2     1445 	tm	y2,MM(yy8)	; 7F A8 56 78 D2
+                           1446 .endif
+                           1447 
+                           1448 	; Test under mask (byte) Memory, Register
+   0FF9 72 A0 50           1449 	tm	(yy0),Y50	; 72 A0 50
+   0FFC 72 A2 D8           1450 	tm	(yy2),y8	; 72 A2 D8
+   0FFF B4 A4 60           1451 	tm	(yy4)+,Y60	; B4 A4 60
+   1002 B4 A6 D7           1452 	tm	(yy6)+,y7	; B4 A6 D7
+   1005 C2 A8 70           1453 	tm	-(yy8),Y70	; C2 A8 70
+   1008 C2 AA D6           1454 	tm	-(yyA),y6	; C2 AA D6
+   100B 60 DF A5           1455 	tm	yyC(yyE),y5	; 60 DF A5
+   100E 26 AB 12 80        1456 	tm	N(yyA),Y80	; 26 AB 12 80
+   1012 26 A9 12 D4        1457 	tm	N(yy8),y4	; 26 A9 12 D4
+   1016 C5 A3 56 78        1458 	tm	NN,y3		; C5 A3 56 78
+   101A 26 A6 56 78 90     1459 	tm	NN(yy6),Y90	; 26 A6 56 78 90
+   101F 26 A4 56 78 D2     1460 	tm	NN(yy4),y2	; 26 A4 56 78 D2
+                     0001  1461 .ifdef	GLOBAL
+   1024 26 ABr12 80        1462 	tm	*M(yyA),Y80	; 26 AB 12 80		; Global -> Forced Short Form
+   1028 26 A9r12 D4        1463 	tm	*M(yy8),y4	; 26 A9 12 D4		; Global -> Forced Short Form
+   102C 26 AAs00r12 80     1464 	tm	M(yyA),Y80	; 26 AA 00 12 80	; Global -> Long Form
+   1031 26 A8s00r12 D4     1465 	tm	M(yy8),y4	; 26 A8 00 12 D4	; Global -> Long Form
+   1036 C5 A3s56r78        1466 	tm	MM,y3		; C5 A3 56 78
+   103A 26 A6s56r78 90     1467 	tm	MM(yy6),Y90	; 26 A6 56 78 90
+   103F 26 A4s56r78 D2     1468 	tm	MM(yy4),y2	; 26 A4 56 78 D2
+                           1469 .endif
+                           1470 
+                           1471 	; Test under mask (byte) Memory, Memory
+   1044 73 A4 60           1472 	tm	(YY60),(yy4)	; 73 A4 60
+   1047 73 A8 D6           1473 	tm	(yy6),(yy8)	; 73 A8 D6
+                           1474 
+                           1475 	; Test under mask (byte) All, Immediate
+   104A A5 70 12           1476 	tm	Y70,#N		; A5 70 12
+   104D A5 DB 12           1477 	tm	yB,#N		; A5 DB 12
+   1050 F3 A2 12           1478 	tm	(yy2),#N	; F3 A2 12
+   1053 2F A1 12 56 78     1479 	tm	NN,#N		; 2F A1 12 56 78
+                     0001  1480 .ifdef	GLOBAL
+   1058 A5 70r12           1481 	tm	Y70,#M		; A5 70 12
+   105B A5 DBr12           1482 	tm	yB,#M		; A5 DB 12
+   105E F3 A2r12           1483 	tm	(yy2),#M	; F3 A2 12
+   1061 2F A1r12s56r78     1484 	tm	MM,#M		; 2F A1 12 56 78
+                           1485 .endif
+                           1486 
+                           1487 	;
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 28
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           1488 	; TMW
+                           1489 	;
+                           1490 	; Test Under Mask (Word) - Register, Register
+   1066 AE 24              1491 	tmw	yy2,yy4		; AE 24
+   1068 A7 20 06           1492 	tmw	YY6,YY20	; A7 20 06
+   106B A7 30 D8           1493 	tmw	yy8,YY30	; A7 30 D8
+   106E A7 DA 40           1494 	tmw	YY40,yyA	; A7 DA 40
+   1071 96 50 A0           1495 	tmw	(y0),YY50	; 96 50 A0
+   1074 96 DC A1           1496 	tmw	(y1),yyC	; 96 DC A1
+   1077 A6 A2 60           1497 	tmw	YY60,(y2)	; A6 A2 60
+   107A A6 A4 DE           1498 	tmw	yyE,(y4)	; A6 A4 DE
+                           1499 
+                           1500 	; Test Under Mask (Word) - Register, Memory
+   107D AE 03              1501 	tmw	yy0,(yy2)	; AE 03
+   107F 7E A4 10           1502 	tmw	YY10,(yy4)	; 7E A4 10
+   1082 D5 A7 20           1503 	tmw	YY20,(yy6)+	; D5 A7 20
+   1085 D5 AB D8           1504 	tmw	yy8,(yyA)+	; D5 AB D8
+   1088 C3 AD 30           1505 	tmw	YY30,-(yyC)	; C3 AD 30
+   108B C3 A1 DE           1506 	tmw	yyE,-(yy0)	; C3 A1 DE
+   108E 60 46 A2           1507 	tmw	yy2,yy4(yy6)	; 60 46 A2
+   1091 86 A9 12 40        1508 	tmw	YY40,N(yy8)	; 86 A9 12 40
+   1095 86 AD 12 DA        1509 	tmw	yyA,N(yyC)	; 86 AD 12 DA
+   1099 E2 AE 56 78        1510 	tmw	yyE,NN		; E2 AE 56 78
+   109D 86 A0 56 78 50     1511 	tmw	YY50,NN(yy0)	; 86 A0 56 78 50
+   10A2 86 A4 56 78 D2     1512 	tmw	yy2,NN(yy4)	; 86 A4 56 78 D2
+                     0001  1513 .ifdef	GLOBAL
+   10A7 86 A9r12 40        1514 	tmw	YY40,*M(yy8)	; 86 A9 12 40		; Global -> Forced Short Form
+   10AB 86 ADr12 DA        1515 	tmw	yyA,*M(yyC)	; 86 AD 12 DA		; Global -> Forced Short Form
+   10AF 86 A8s00r12 40     1516 	tmw	YY40,M(yy8)	; 86 A8 00 12 40	; Global -> Long Form
+   10B4 86 ACs00r12 DA     1517 	tmw	yyA,M(yyC)	; 86 AC 00 12 DA	; Global -> Long Form
+   10B9 E2 AEs56r78        1518 	tmw	yyE,MM		; E2 AE 56 78
+   10BD 86 A0s56r78 50     1519 	tmw	YY50,MM(yy0)	; 86 A0 56 78 50
+   10C2 86 A4s56r78 D2     1520 	tmw	yy2,MM(yy4)	; 86 A4 56 78 D2
+                           1521 .endif
+                           1522 
+                           1523 	; Test Under Mask (Word) - Memory, Register
+   10C7 AE 12              1524 	tmw	(yy0),yy2	; AE 12
+   10C9 BE A5 10           1525 	tmw	(yy4),YY10	; BE A5 10
+   10CC D5 A6 20           1526 	tmw	(yy6)+,YY20	; D5 A6 20
+   10CF D5 A8 DA           1527 	tmw	(yy8)+,yyA	; D5 A8 DA
+   10D2 C3 AC 30           1528 	tmw	-(yyC),YY30	; C3 AC 30
+   10D5 C3 AE D0           1529 	tmw	-(yyE),yy0	; C3 AE D0
+   10D8 60 25 A6           1530 	tmw	yy2(yy4),yy6	; 60 25 A6
+   10DB 86 A9 12 41        1531 	tmw	N(yy8),YY40	; 86 A9 12 41
+   10DF 86 AB 12 DD        1532 	tmw	N(yyA),yyC	; 86 AB 12 DD
+   10E3 E2 AD 56 78        1533 	tmw	NN,yyC		; E2 AD 56 78
+   10E7 86 AE 56 78 61     1534 	tmw	NN(yyE),YY60	; 86 AE 56 78 61
+   10EC 86 A0 56 78 D3     1535 	tmw	NN(yy0),yy2	; 86 A0 56 78 D3
+                     0001  1536 .ifdef	GLOBAL
+   10F1 86 A9r12 41        1537 	tmw	*M(yy8),YY40	; 86 A9 12 41		; Global -> Forced Short Form
+   10F5 86 ABr12 DD        1538 	tmw	*M(yyA),yyC	; 86 AB 12 DD		; Global -> Forced Short Form
+   10F9 86 A8s00r12 41     1539 	tmw	M(yy8),YY40	; 86 A8 00 12 41	; Global -> Long Form
+   10FE 86 AAs00r12 DD     1540 	tmw	M(yyA),yyC	; 86 AA 00 12 DD	; Global -> Long Form
+   1103 E2 ADs56r78        1541 	tmw	MM,yyC		; E2 AD 56 78
+   1107 86 AEs56r78 61     1542 	tmw	MM(yyE),YY60	; 86 AE 56 78 61
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 29
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   110C 86 A0s56r78 D3     1543 	tmw	MM(yy0),yy2	; 86 A0 56 78 D3
+                           1544 .endif
+                           1545 
+                           1546 	; Test Under Mask (Word) - Memory, Memory
+   1111 AE 13              1547 	tmw	(yy0),(yy2)	; AE 13
+                           1548 
+                           1549 	; Test Under Mask (Word) - All, Immediate
+   1113 A7 11 56 78        1550 	tmw	YY10,#NN	; A7 11 56 78
+   1117 A7 D5 56 78        1551 	tmw	yy4,#NN		; A7 D5 56 78
+   111B BE A8 56 78        1552 	tmw	(yy8),#NN	; BE A8 56 78
+   111F 06 AB 12 56 78     1553 	tmw	N(yyA),#NN	; 06 AB 12 56 78
+   1124 06 AC 56 78 56 78  1554 	tmw	NN(yyC),#NN	; 06 AC 56 78 56;78
+   112A 36 A1 56 78 56 78  1555 	tmw	NN,#NN		; 36 A1 56 78 56;78
+                     0001  1556 .ifdef	GLOBAL
+   1130 A7 11s56r78        1557 	tmw	YY10,#MM	; A7 11 56 78
+   1134 A7 D5s56r78        1558 	tmw	yy4,#MM		; A7 D5 56 78
+   1138 BE A8s56r78        1559 	tmw	(yy8),#MM	; BE A8 56 78
+   113C 06 ABr12s56r78     1560 	tmw	*M(yyA),#MM	; 06 AB 12 56 78	; Global -> Forced Short Form
+   1141 06 AAs00r12s56r78  1561 	tmw	M(yyA),#MM	; 06 AA 00 12 56;78	; Global -> Long Form
+   1147 06 ACs56r78s56r78  1562 	tmw	MM(yyC),#MM	; 06 AC 56 78 56;78
+   114D 36 A1s56r78s56r78  1563 	tmw	MM,#MM		; 36 A1 56 78 56;78
+                           1564 .endif
+                           1565 
+                           1566 	;
+                           1567 	; LD
+                           1568 	;
+                           1569 	; Load (byte) Register, Register
+   1153 18 07              1570 	ld	y1,Y7		; 18 07
+   1155 28 D7              1571 	ld	y2,y7		; 28 D7
+   1157 69 0A              1572 	ld	YA,y6		; 69 0A
+   1159 E6 38              1573 	ld	(y3),y8		; E6 38
+   115B E4 94              1574 	ld	y9,(y4)		; E4 94
+   115D E6 40 F7           1575 	ld	(y7),Y40	; E6 40 F7
+   1160 E7 F1 50           1576 	ld	Y50,(y1)	; E7 F1 50
+   1163 B2 35 12           1577 	ld	N(y5),y3	; B2 35 12
+   1166 B3 24 12           1578 	ld	y2,N(y4)	; B3 24 12
+   1169 F4 90 04           1579 	ld	Y4,Y90		; F4 90 04
+                           1580 
+                           1581 	; Load (byte) Register, Memory
+   116C B5 36              1582 	ld	y3,(yy6)	; B5 36
+   116E D7 13              1583 	ld	(y1)+,(yy2)+	; D7 13
+   1170 B4 F5 20           1584 	ld	Y20,(yy4)+	; B4 F5 20
+   1173 B4 F7 D3           1585 	ld	y3,(yy6)+	; B4 F7 D3
+   1176 C2 F1 30           1586 	ld	Y30,-(yy0)	; C2 F1 30
+   1179 C2 F3 03           1587 	ld	Y3,-(yy2)	; C2 F3 03
+   117C 72 F5 40           1588 	ld	Y40,(yy4)	; 72 F5 40
+   117F 60 96 F1           1589 	ld	y1,yy8(yy6)	; 60 96 F1
+   1182 7F FB 12 02        1590 	ld	Y2,N(yyA)	; 7F FB 12 02
+   1186 7F F9 12 D3        1591 	ld	y3,N(yy8)	; 7F F9 12 D3
+   118A C4 F5 56 78        1592 	ld	y5,NN		; C4 F5 56 78
+   118E 7F F2 56 78 07     1593 	ld	Y7,NN(yy2)	; 7F F2 56 78 07
+   1193 7F F6 56 78 D1     1594 	ld	y1,NN(yy6)	; 7F F6 56 78 D1
+                     0001  1595 .ifdef	GLOBAL
+   1198 7F FBr12 02        1596 	ld	Y2,*M(yyA)	; 7F FB 12 02		; Global -> Forced Short Form
+   119C 7F F9r12 D3        1597 	ld	y3,*M(yy8)	; 7F F9 12 D3		; Global -> Forced Short Form
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 30
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   11A0 7F FAs00r12 02     1598 	ld	Y2,M(yyA)	; 7F FA 00 12 02	; Global -> Long Form
+   11A5 7F F8s00r12 D3     1599 	ld	y3,M(yy8)	; 7F F8 00 12 D3	; Global -> Long Form
+   11AA C4 F5s56r78        1600 	ld	y5,MM		; C4 F5 56 78
+   11AE 7F F2s56r78 07     1601 	ld	Y7,MM(yy2)	; 7F F2 56 78 07
+   11B3 7F F6s56r78 D1     1602 	ld	y1,MM(yy6)	; 7F F6 56 78 D1
+                           1603 .endif
+                           1604 
+                           1605 	; Load (byte) Memory, Register
+   11B8 D7 72              1606 	ld	(yy2)+,(y7)+	; D7 72
+   11BA B5 37              1607 	ld	(yy6),y3	; B5 37
+   11BC B4 F8 30           1608 	ld	(yy8)+,Y30	; B4 F8 30
+   11BF B4 FA D9           1609 	ld	(yyA)+,y9	; B4 FA D9
+   11C2 C2 F4 40           1610 	ld	-(yy4),Y40	; C2 F4 40
+   11C5 C2 FC D0           1611 	ld	-(yyC),y0	; C2 FC D0
+   11C8 72 F2 60           1612 	ld	(yy2),Y60	; 72 F2 60
+   11CB 60 79 F3           1613 	ld	yy6(yy8),y3	; 60 79 F3
+   11CE 26 F5 12 10        1614 	ld	N(yy4),Y10	; 26 F5 12 10
+   11D2 26 F9 12 DA        1615 	ld	N(yy8),yA	; 26 F9 12 DA
+   11D6 C5 F7 56 78        1616 	ld	NN,y7		; C5 F7 56 78
+   11DA 26 F6 56 78 70     1617 	ld	NN(yy6),Y70	; 26 F6 56 78 70
+   11DF 26 F2 56 78 D7     1618 	ld	NN(yy2),r7	; 26 F2 56 78 D7
+                     0001  1619 .ifdef	GLOBAL
+   11E4 26 F5u12 10        1620 	ld	*M(yy4),Y10	; 26 F5 12 10		; Global -> Forced Short Form
+   11E8 26 F9u12 DA        1621 	ld	*M(yy8),yA	; 26 F9 12 DA		; Global -> Forced Short Form
+   11EC 26 F4s00r12 10     1622 	ld	M(yy4),Y10	; 26 F4 00 12 10	; Global -> Long Form
+   11F1 26 F8s00r12 DA     1623 	ld	M(yy8),yA	; 26 F8 00 12 DA	; Global -> Long Form
+   11F6 C5 F7s56r78        1624 	ld	MM,y7		; C5 F7 56 78
+   11FA 26 F6s56r78 70     1625 	ld	MM(yy6),Y70	; 26 F6 56 78 70
+   11FF 26 F2s56r78 D7     1626 	ld	MM(yy2),r7	; 26 F2 56 78 D7
+                           1627 .endif
+                           1628 
+                           1629 	; Load (Byte) Memory, Memory
+   1204 73 F4 50           1630 	ld	(YY50),(yy4)	; 73 F4 50
+   1207 73 F8 D6           1631 	ld	(yy6),(yy8)	; 73 F8 D6
+                           1632 
+                           1633 	; Load (Byte) All, Immediate
+   120A 1C 12              1634 	ld	y1,#N		; 1C 12
+   120C F5 07 12           1635 	ld	R7,#N		; F5 07 12
+   120F F3 F4 12           1636 	ld	(yy4),#N	; F3 F4 12
+   1212 2F F1 12 56 78     1637 	ld	NN,#N		; 2F F1 12 56 78
+                     0001  1638 .ifdef	GLOBAL
+   1217 1Cr12              1639 	ld	y1,#M		; 1C 12
+   1219 F5 07r12           1640 	ld	R7,#M		; F5 07 12
+   121C F3 F4r12           1641 	ld	(yy4),#M	; F3 F4 12
+   121F 2F F1r12s56r78     1642 	ld	MM,#M		; 2F F1 12 56 78
+                           1643 .endif
+                           1644 
+                           1645 	;
+                           1646 	; LDW
+                           1647 	;
+                           1648 	; Load (Word) Register, Register
+   1224 E3 46              1649 	ldw	yy4,yy6		; E3 46
+   1226 96 20 F1           1650 	ldw	(y1),YY20	; 96 20 F1
+   1229 96 D4 F3           1651 	ldw	(y3),yy4	; 96 D4 F3
+   122C A6 F5 50           1652 	ldw	YY50,(y5)	; A6 F5 50
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 31
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   122F A6 F1 D6           1653 	ldw	yy6,(y1)	; A6 F1 D6
+   1232 DE 91 12           1654 	ldw	N(y1),yy8	; DE 91 12
+   1235 DE 23 12           1655 	ldw	yy2,N(y3)	; DE 23 12
+   1238 EF 80 30           1656 	ldw	YY30,YY80	; EF 80 30
+   123B EF 40 D6           1657 	ldw	yy6,YY40	; EF 40 D6
+   123E EF D2 70           1658 	ldw	YY70,yy2	; EF D2 70
+                     0001  1659 .ifdef	GLOBAL
+   1241 DE 91u12           1660 	ldw	*M(y1),yy8	; DE 91 12		; Global -> Always Short Form
+   1244 DE 23u12           1661 	ldw	yy2,*M(y3)	; DE 23 12		; Global -> Always Short Form
+   1247 DE 91u12           1662 	ldw	M(y1),yy8	; DE 91 12		; Global -> Always Short Form
+   124A DE 23u12           1663 	ldw	yy2,M(y3)	; DE 23 12		; Global -> Always Short Form
+                           1664 .endif
+                           1665 
+                           1666 	; Load (Word) Register, Memory
+   124D E3 25              1667 	ldw	yy2,(yy4)	; E3 25
+   124F D5 F3 40           1668 	ldw	YY40,(yy2)+	; D5 F3 40
+   1252 D5 FB D6           1669 	ldw	yy6,(yyA)+	; D5 FB D6
+   1255 C3 F7 30           1670 	ldw	YY30,-(yy6)	; C3 F7 30
+   1258 C3 F9 D2           1671 	ldw	yy2,-(yy8)	; C3 F9 D2
+   125B 7E FC 50           1672 	ldw	YY50,(yyC)	; 7E FC 50
+   125E 60 24 F8           1673 	ldw	yy8,yy2(yy4)	; 60 24 F8
+   1261 86 F1 12 40        1674 	ldw	YY40,N(yy0)	; 86 F1 12 40
+   1265 86 F3 12 D4        1675 	ldw	yy4,N(yy2)	; 86 F3 12 D4
+   1269 E2 F2 56 78        1676 	ldw	yy2,NN		; E2 F2 56 78
+   126D 86 F6 56 78 60     1677 	ldw	YY60,NN(yy6)	; 86 F6 56 78 60
+   1272 86 FA 56 78 D8     1678 	ldw	yy8,NN(yyA)	; 86 FA 56 78 D8
+                     0001  1679 .ifdef	GLOBAL
+   1277 86 F1r12 40        1680 	ldw	YY40,*M(yy0)	; 86 F1 12 40		; Global -> Forced Short Form
+   127B 86 F3r12 D4        1681 	ldw	yy4,*M(yy2)	; 86 F3 12 D4		; Global -> Forced Short Form
+   127F 86 F0s00r12 40     1682 	ldw	YY40,M(yy0)	; 86 F0 00 12 40	; Global -> Long Form
+   1284 86 F2s00r12 D4     1683 	ldw	yy4,M(yy2)	; 86 F2 00 12 D4	; Global -> Long Form
+   1289 E2 F2s56r78        1684 	ldw	yy2,MM		; E2 F2 56 78
+   128D 86 F6s56r78 60     1685 	ldw	YY60,MM(yy6)	; 86 F6 56 78 60
+   1292 86 FAs56r78 D8     1686 	ldw	yy8,MM(yyA)	; 86 FA 56 78 D8
+                           1687 .endif
+                           1688 
+                           1689 	; Load (Word) Memory, Register
+   1297 E3 34              1690 	ldw	(yy2),yy4	; E3 34
+   1299 D5 F0 40           1691 	ldw	(yy0)+,YY40	; D5 F0 40
+   129C D5 F4 D0           1692 	ldw	(yy4)+,yy0	; D5 F4 D0
+   129F C3 F6 60           1693 	ldw	-(yy6),YY60	; C3 F6 60
+   12A2 C3 F8 D2           1694 	ldw	-(yy8),yy2	; C3 F8 D2
+   12A5 BE FB 50           1695 	ldw	(yyA),YY50	; BE FB 50
+   12A8 60 25 F6           1696 	ldw	yy2(yy4),yy6	; 60 25 F6
+   12AB 86 F3 12 21        1697 	ldw	N(yy2),YY20	; 86 F3 12 21
+   12AF 86 F5 12 D7        1698 	ldw	N(yy4),yy6	; 86 F5 12 D7
+   12B3 E2 F1 56 78        1699 	ldw	NN,yy0		; E2 F1 56 78
+   12B7 86 F4 56 78 81     1700 	ldw	NN(yy4),YY80	; 86 F4 56 78 81
+   12BC 86 F6 56 78 D9     1701 	ldw	NN(yy6),yy8	; 86 F6 56 78 D9
+                     0001  1702 .ifdef	GLOBAL
+   12C1 86 F3r12 21        1703 	ldw	*M(yy2),YY20	; 86 F3 12 21		; Global -> Forced Short Form
+   12C5 86 F5r12 D7        1704 	ldw	*M(yy4),yy6	; 86 F5 12 D7		; Global -> Forced Short Form
+   12C9 86 F2s00r12 21     1705 	ldw	M(yy2),YY20	; 86 F2 00 12 21	; Global -> Long Form
+   12CE 86 F4s00r12 D7     1706 	ldw	M(yy4),yy6	; 86 F4 00 12 D7	; Global -> Long Form
+   12D3 E2 F1s56r78        1707 	ldw	MM,yy0		; E2 F1 56 78
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 32
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   12D7 86 F4s56r78 81     1708 	ldw	MM(yy4),YY80	; 86 F4 56 78 81
+   12DC 86 F6s56r78 D9     1709 	ldw	MM(yy6),yy8	; 86 F6 56 78 D9
+                           1710 .endif
+                           1711 
+                           1712 	; Load (Word) Memory, Memory
+   12E1 E3 13              1713 	ldw	(yy0),(yy2)	; E3 13
+                           1714 
+                           1715 	; Load (Word) All, Immediate
+   12E3 BF 20 56 78        1716 	ldw	YY20,#NN	; BF 20 56 78
+   12E7 BF D4 56 78        1717 	ldw	yy4,#NN		; BF D4 56 78
+   12EB BF F6 56 78        1718 	ldw	(yy6),#NN	; BF F6 56 78
+   12EF 06 F9 12 56 78 09  1719 	ldw	N(yy8),#NN	; 06 F9 12 56 78
+   12F5 06 F2 56 78 56 78  1720 	ldw	NN(yy2),#NN	; 06 F2 56 78 56 78
+        03
+   12FC 36 F1 56 78 56 78  1721 	ldw	NN,#NN		; 36 F1 56 78 56 78
+                     0001  1722 .ifdef	GLOBAL
+   1302 BF 20s56r78        1723 	ldw	YY20,#MM	; BF 20 56 78
+   1306 BF D4s56r78        1724 	ldw	yy4,#MM		; BF D4 56 78
+   130A BF F6s56r78        1725 	ldw	(yy6),#MM	; BF F6 56 78
+   130E 06 F9r12s56r78 09  1726 	ldw	*M(yy8),#MM	; 06 F9 12 56 78	; Global -> Forced Short Form
+   1314 06 F8s00r12s56r78  1727 	ldw	M(yy8),#MM	; 06 F8 00 12 56;78	; Global -> Long Form
+        09
+   131B 06 F2s56r78s56r78  1728 	ldw	MM(yy2),#MM	; 06 F2 56 78 56;78
+        03
+   1322 36 F1s56r78s56r78  1729 	ldw	MM,#MM		; 36 F1 56 78 56;78
+                           1730 .endif
+                           1731 
+                           1732 	;
+                           1733 	; BAND
+                           1734 	;
+                           1735 	; Bit AND
+   1328 1F F4 9A           1736 	band	r4.7,r10.4	; 1F F4 9A
+   132B 1F 58 86           1737 	band	r8.2,r6.!4	; 1F 58 86
+   132E 1F 73 B2           1738 	band	r3.3,r2.B5	; 1F 73 B2
+   1331 1F 30 A5           1739 	band	r0.1,r5.!B5	; 1F 30 A5
+                     0001  1740 .ifdef	GLOBAL
+   1334 1F 73u12           1741 	band	r3.3,r2.X5	; 1F 73 B2
+   1337 1F 30u05           1742 	band	r0.1,r5.!X5	; 1F 30 A5
+                           1743 .endif
+                           1744 	;
+                           1745 	; BCPL
+                           1746 	;
+                           1747 	; Bit Complment
+   133A 6F C2              1748 	bcpl	r2.6		; 6F C2
+   133C 6F A4              1749 	bcpl	r4.B5		; 6F A4
+                     0001  1750 .ifdef	GLOBAL
+   133E 6Fu04              1751 	bcpl	r4.X5		; 6F A4
+                           1752 .endif
+                           1753 
+                           1754 	;
+                           1755 	; BLD
+                           1756 	;
+                           1757 	; Bit Load
+   1340 F2 35 68           1758 	bld	r8.3,r5.1	; F2 35 68
+   1343 F2 B3 57           1759 	bld	r7.2,r3.!5	; F2 B3 57
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 33
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   1346 F2 35 68           1760 	bld	r8.3,r5.B1	; F2 35 68
+   1349 F2 B3 57           1761 	bld	r7.2,r3.!B5	; F2 B3 57
+                     0001  1762 .ifdef	GLOBAL
+   134C F2u15 68           1763 	bld	r8.3,r5.X1	; F2 35 68
+   134F F2u13 57           1764 	bld	r7.2,r3.!X5	; F2 B3 57
+                           1765 .endif
+                           1766 
+                           1767 	;
+                           1768 	; BOR
+                           1769 	;
+                           1770 	; Bit OR
+   1352 0F 19 6E           1771 	bor	r9.0,r14.3	; 0F 19 6E
+   1355 0F 3A D2           1772 	bor	r10.1,r2.!6	; 0F 3A D2
+   1358 0F 19 6E           1773 	bor	r9.0,r14.B3	; 0F 19 6E
+   135B 0F 3A D2           1774 	bor	r10.1,r2.!B6	; 0F 3A D2
+                     0001  1775 .ifdef	GLOBAL
+   135E 0F 19u0E           1776 	bor	r9.0,r14.X3	; 0F 19 6E
+   1361 0F 3Au12           1777 	bor	r10.1,r2.!X6	; 0F 3A D2
+                           1778 .endif
+                           1779 
+                           1780 	;
+                           1781 	; BRES
+                           1782 	;
+                           1783 	; Bit Reset
+   1364 1F 83              1784 	bres	r3.4		; 1F 83
+   1366 1F 83              1785 	bres	r3.B4		; 1F 83
+                     0001  1786 .ifdef	GLOBAL
+   1368 1Fu03              1787 	bres	r3.X4		; 1F 83
+                           1788 .endif
+                           1789 
+                           1790 	;
+                           1791 	; BSET
+                           1792 	;
+                           1793 	; Bit Set
+   136A 0F A7              1794 	bset	r7.5		; 0F A7
+   136C 0F A7              1795 	bset	r7.B5		; 0F A7
+                     0001  1796 .ifdef	GLOBAL
+   136E 0Fu07              1797 	bset	r7.X5		; 0F A7
+                           1798 .endif
+                           1799 
+                           1800 	;
+                           1801 	; BTJF / BRJT
+                           1802 	;
+                           1803 	; Bit Test And Jump
+   1370 AF B4 FD           1804 	btjf	r4.5,.		; AF B4 FD
+   1373 AF E6 FD           1805 	btjt	r6.7,.		; AF E6 FD
+   1376 AF B4 FD           1806 	btjf	r4.B5,.		; AF B4 FD
+   1379 AF E6 FD           1807 	btjt	r6.B7,.		; AF E6 FD
+                     0001  1808 .ifdef	GLOBAL
+   137C AFu14 FD           1809 	btjf	r4.X5,.		; AF B4 FD
+   137F AFu06 FD           1810 	btjt	r6.X7,.		; AF E6 FD
+                           1811 .endif
+                           1812 
+   1382 AF B4 0F           1813 	btjf	r4.5,.+N	; AF B4 0F
+   1385 AF E6 0F           1814 	btjt	r6.7,.+N	; AF E6 0F
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 34
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   1388 AF B4 0F           1815 	btjf	r4.B5,.+N	; AF B4 0F
+   138B AF E6 0F           1816 	btjt	r6.B7,.+N	; AF E6 0F
+                     0001  1817 .ifdef	GLOBAL
+   138E AFu14 0F           1818 	btjf	r4.X5,.+N	; AF B4 0F
+   1391 AFu06 0F           1819 	btjt	r6.X7,.+N	; AF E6 0F
+                           1820 .endif
+                           1821 
+   1394 AF B4 FD           1822 btjf:	btjf	r4.5,btjf	; AF B4 FD
+   1397 AF E6 FA           1823 	btjt	r6.7,btjf	; AF E6 FA
+                     0001  1824 .ifdef	GLOBAL
+   139A AF B4p00           1825 	btjf	r4.5,.+M	; AF B4 0F
+   139D AF E6p00           1826 	btjt	r6.7,.+M	; AF E6 0F
+   13A0 AFu14p00           1827 	btjf	r4.X5,.+M	; AF B4 0F
+   13A3 AFu06p00           1828 	btjt	r6.X7,.+M	; AF E6 0F
+                           1829 .endif
+                           1830 
+                           1831 	;
+                           1832 	; BTSET
+                           1833 	;
+                           1834 	; Bit Test And Set
+   13A6 F2 47              1835 	btset	r7.2		; F2 47
+   13A8 F6 48              1836 	btset	(rr8).2		; F6 48
+   13AA F2 47              1837 	btset	r7.B2		; F2 47
+   13AC F6 48              1838 	btset	(rr8).B2	; F6 48
+                     0001  1839 .ifdef	GLOBAL
+   13AE F2u07              1840 	btset	r7.X2		; F2 47
+   13B0 F6u08              1841 	btset	(rr8).X2	; F6 48
+                           1842 .endif
+                           1843 
+                           1844 	;
+                           1845 	; BXOR
+                           1846 	;
+                           1847 	; Bit XOR
+   13B2 6F 72 A7           1848 	bxor	r2.3,r7.5	; 6F 72 A7
+   13B5 6F 79 D4           1849 	bxor	r9.3,r4.!6	; 6F 79 D4
+   13B8 6F 72 A7           1850 	bxor	r2.3,r7.B5	; 6F 72 A7
+   13BB 6F 79 D4           1851 	bxor	r9.3,r4.!B6	; 6F 79 D4
+                     0001  1852 .ifdef	GLOBAL
+   13BE 6F 72u07           1853 	bxor	r2.3,r7.X5	; 6F 72 A7
+   13C1 6F 79u14           1854 	bxor	r9.3,r4.!X6	; 6F 79 D4
+                           1855 .endif
+                           1856 
+                           1857 	;
+                           1858 	; CALL, CALLS
+                           1859 	;
+                           1860 	; Unconditional Call (Segment)
+   13C4 74 51              1861 	call	(YY50)		; 74 51
+   13C6 74 D9              1862 	call	(yy8)		; 74 D9
+   13C8 D2 56 78           1863 	call	NN		; D2 56 78
+                     0001  1864 .ifdef	GLOBAL
+   13CB D2s56r78           1865 	call	MM		; D2 56 78
+                           1866 .endif
+   13CE 3F 52 56 78        1867 	calls	N,NN		; 3F 52 56 78
+                     0001  1868 .ifdef	GLOBAL
+   13D2 3Fu52s56r78        1869 	calls	M,MM		; 3F 52 56 78
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 35
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           1870 .endif
+   13D6 73 D7 20           1871 	calls	(Y20),(yy6)	; 73 D7 20
+   13D9 73 DB D3           1872 	calls	(y3),(yyA)	; 73 DB D3
+                           1873 	;
+                           1874 	; CCF
+                           1875 	;
+                           1876 	; Complement Cary Flag
+   13DC 61                 1877 	ccf			; 61
+                           1878 
+                           1879 	;
+                           1880 	; CLR
+                           1881 	;
+                           1882 	; Clear Register
+   13DD 90 30              1883 	clr	Y30		; 90 30
+   13DF 90 D5              1884 	clr	y5		; 90 D5
+   13E1 91 40              1885 	clr	(Y40)		; 91 40
+   13E3 91 D2              1886 	clr	(y2)		; 91 D2
+                           1887 
+                           1888 	; 
+                           1889 	; CPJFI, CPJTI
+                           1890 	;
+                           1891 	; Compare And Jump False/True Otherwise Post-Increment
+   13E5 9F A3 FD           1892 	cpjfi	y3,(yyA),.	; 9F A3 FD
+   13E8 9F D4 FD           1893 	cpjti	y4,(yyC),.	; 9F D4 FD
+                           1894 
+   13EB 9F A3 0F           1895 	cpjfi	y3,(yyA),.+N	; 9F A3 0F
+   13EE 9F D4 0F           1896 	cpjti	y4,(yyC),.+N	; 9F D4 0F
+                           1897 
+   13F1 9F A3 FD           1898 cpjfi:	cpjfi	y3,(yyA),cpjfi	; 9F A3 FD
+   13F4 9F D4 FA           1899 	cpjti	y4,(yyC),cpjfi	; 9F D4 FA
+                     0001  1900 .ifdef	GLOBAL
+   13F7 9F A3p00           1901 	cpjfi	y3,(yyA),.+M	; 9F A3 0F
+   13FA 9F D4p00           1902 	cpjti	y4,(yyC),.+M	; 9F D4 0F
+                           1903 .endif
+                           1904 
+                           1905 	;
+                           1906 	; CPL
+                           1907 	;
+                           1908 	; Complement Register
+   13FD 80 60              1909 	cpl	Y60		; 80 60
+   13FF 80 D9              1910 	cpl	y9		; 80 D9
+   1401 81 70              1911 	cpl	(Y70)		; 81 70
+   1403 81 D1              1912 	cpl	(y1)		; 81 D1
+                           1913 
+                           1914 	;
+                           1915 	; DA
+                           1916 	;
+                           1917 	; Decimal Adjust
+                           1918 	;
+   1405 70 30              1919 	da	Y30		; 70 30
+   1407 70 D7              1920 	da	y7		; 70 D7
+   1409 71 40              1921 	da	(Y40)		; 71 40
+   140B 71 D2              1922 	da	(y2)		; 71 D2
+                           1923 
+                           1924 	;
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 36
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           1925 	; DEC, DECW
+                           1926 	;
+                           1927 	; Decrement Register (Word Register
+   140D 40 20              1928 	dec	Y20		; 40 20
+   140F 40 DE              1929 	dec	yE		; 40 DE
+   1411 41 80              1930 	dec	(Y80)		; 41 80
+   1413 41 DF              1931 	dec	(yF)		; 41 DF
+                           1932 
+   1415 CF 30              1933 	decw	YY30		; CF 30
+   1417 CF D4              1934 	decw	yy4		; CF D4
+                           1935 
+                           1936 	;
+                           1937 	; DI
+                           1938 	;
+                           1939 	; Disable Interrupts
+   1419 10                 1940 	di			; 10
+                           1941 
+                           1942 	;
+                           1943 	; DIV
+                           1944 	;
+                           1945 	; Divide (16/8)
+   141A 5F A1              1946 	div	yyA,y1		; 5F A1
+                           1947 
+                           1948 	;
+                           1949 	; DIVWS
+                           1950 	;
+                           1951 	; Divide Word Stepped (32/16)
+   141C 56 10 20           1952 	divws	yy2,yy0,YY10	; 56 10 20
+   141F 56 D0 64           1953 	divws	yy6,yy4,yy0	; 56 D0 64
+                           1954 
+                           1955 	;
+                           1956 	; DJNZ
+                           1957 	;
+                           1958 	; Decrement And Jump If Not Zero
+   1422 1A FE              1959 	djnz	y1,.		; 1A FE
+   1424 2A 10              1960 	djnz	y2,.+N		; 2A 10
+                           1961 
+   1426 3A FE              1962 djnz:	djnz	y3,djnz		; 3A FE
+   1428 4A FC              1963 	djnz	y4,djnz		; 4A FC
+                     0001  1964 .ifdef	GLOBAL
+   142A 3Ap00              1965 	djnz	y3,.+M		; 3A 10
+                           1966 .endif
+                           1967 
+                           1968 	;
+                           1969 	; DWJNZ
+                           1970 	;
+                           1971 	; Decrement Word And Jump If Not Zero
+   142C C6 90 FD           1972 	dwjnz	YY90,.		; C6 90 FD
+   142F C6 D4 FD           1973 	dwjnz	yy4,.		; C6 D4 FD
+                           1974 
+   1432 C6 90 0F           1975 	dwjnz	YY90,.+N	; C6 90 0F
+   1435 C6 D4 0F           1976 	dwjnz	yy4,.+N		; C6 D4 0F
+                           1977 
+   1438 C6 90 FD           1978 dwjnz:	dwjnz	YY90,dwjnz	; C6 90 FD
+   143B C6 D4 FA           1979 	dwjnz	yy4,dwjnz	; C6 D4 FA
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 37
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                     0001  1980 .ifdef	GLOBAL
+   143E C6 90p00           1981 	dwjnz	YY90,.+M	; C6 90 0F
+                           1982 .endif
+                           1983 
+                           1984 	;
+                           1985 	; EI
+                           1986 	;
+                           1987 	; Enable Global Interrupts
+   1441 00                 1988 	ei			; 00
+                           1989 
+                           1990 	;
+                           1991 	; EXT
+                           1992 	;
+                           1993 	; Sign Extend
+   1442 C6 41              1994 	ext	YY40		; C6 41
+   1444 C6 D7              1995 	ext	yy6		; C6 D7
+                           1996 
+                           1997 	;
+                           1998 	; HALT
+                           1999 	;
+                           2000 	; Halt
+   1446 BF 01              2001 	halt			; BF 01
+                           2002 
+                           2003 	;
+                           2004 	; INC, INCW
+                           2005 	;
+                           2006 	; Increment Register (Word)
+   1448 50 30              2007 	inc	Y30		; 50 30
+   144A 50 D5              2008 	inc	y5		; 50 D5
+   144C 51 20              2009 	inc	(Y20)		; 51 20
+   144E 51 D3              2010 	inc	(y3)		; 51 D3
+                           2011 
+   1450 DF 40              2012 	incw	YY40		; DF 40
+   1452 DF D8              2013 	incw	yy8		; DF D8
+                           2014 
+                           2015 	;
+                           2016 	; IRET
+                           2017 	;
+                           2018 	; Interrupt Return
+   1454 D3                 2019 	iret			; D3
+                           2020 
+                           2021 	;
+                           2022 	; JP
+                           2023 	;
+                           2024 	; Unconditional Jump
+   1455 D4 70              2025 	jp	(YY70)		; D4 70
+   1457 D4 D2              2026 	jp	(yy2)		; D4 D2
+                           2027 
+   1459 8D 00 12           2028 	jp	N		; 8D 00 12
+   145C 8D 56 78           2029 	jp	NN		; 8D 56 78
+                     0001  2030 .ifdef	GLOBAL
+   145F 8Ds00r12           2031 	jp	M		; 8D 00 12
+   1462 8Ds56r78           2032 	jp	MM		; 8D 56 78
+                           2033 .endif
+                           2034 
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 38
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           2035 	;
+                           2036 	; JPS
+                           2037 	;
+                           2038 	; Unconditional Jump Segment
+   1465 73 C5 D1           2039 	jps	(y1),(yy4)	; 73 C5 D1
+   1468 73 C7 0A           2040 	jps	(YA),(yy6)	; 73 C7 0A
+   146B 3F D2 56 78        2041 	jps	N,NN		; 3F D2 56 78
+                     0001  2042 .ifdef	GLOBAL
+   146F 3FuD2s56r78        2043 	jps	M,MM		; 3F D2 56 78
+                           2044 .endif
+                           2045 
+                           2046 	;
+                           2047 	; JPcc
+                           2048 	;   f	0x0
+                           2049 	;   t	0x8
+                           2050 	;   c	0x7
+                           2051 	;   nc	0xF
+                           2052 	;   z	0x6
+                           2053 	;   nz	0xE
+                           2054 	;   pl	0xD
+                           2055 	;   mi	0x5
+                           2056 	;   ov	0x4
+                           2057 	;   nov	0xC
+                           2058 	;   eq	0x6
+                           2059 	;   ne	0xE
+                           2060 	;   ge	0x9
+                           2061 	;   lt	0x1
+                           2062 	;   gt	0xA
+                           2063 	;   le	0x2
+                           2064 	;   uge	0xF
+                           2065 	;   ult	0x7
+                           2066 	;   ugt	0xB
+                           2067 	;   ule	0x3
+                           2068 	;
+                           2069 	; Conditional Jump
+   1473 0D 56 78           2070 	jpf	NN		; 0D 56 78
+   1476 8D 00 12           2071 	jpt	N		; 8D 00 12
+   1479 7D 56 78           2072 	jpc	NN		; 7D 56 78
+   147C FD 00 12           2073 	jpnc	N		; FD 00 12
+   147F 6D 56 78           2074 	jpz	NN		; 6D 56 78
+   1482 ED 00 12           2075 	jpnz	N		; ED 00 12
+   1485 DD 56 78           2076 	jppl	NN		; DD 56 78
+   1488 5D 00 12           2077 	jpmi	N		; 5D 00 12
+   148B 4D 56 78           2078 	jpov	NN		; 4D 56 78
+   148E CD 00 12           2079 	jpnov	N		; CD 00 12
+   1491 6D 56 78           2080 	jpeq	NN		; 6D 56 78
+   1494 ED 00 12           2081 	jpne	N		; ED 00 12
+   1497 9D 56 78           2082 	jpge	NN		; 9D 56 78
+   149A 1D 00 12           2083 	jplt	N		; 1D 00 12
+   149D AD 56 78           2084 	jpgt	NN		; AD 56 78
+   14A0 2D 00 12           2085 	jple	N		; 2D 00 12
+   14A3 FD 56 78           2086 	jpuge	NN		; FD 56 78
+   14A6 7D 00 12           2087 	jpult	N		; 7D 00 12
+   14A9 BD 56 78           2088 	jpugt	NN		; BD 56 78
+   14AC 3D 00 12           2089 	jpule	N		; 3D 00 12
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 39
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           2090 
+                     0001  2091 .ifdef	GLOBAL
+   14AF 0Ds56r78           2092 	jpf	MM		; 0D 56 78
+   14B2 8Ds00r12           2093 	jpt	M		; 8D 00 12
+                           2094 .endif
+                           2095 
+                           2096 	;
+                           2097 	; Jrcc
+                           2098 	;   f	0x0
+                           2099 	;   t	0x8
+                           2100 	;   c	0x7
+                           2101 	;   nc	0xF
+                           2102 	;   z	0x6
+                           2103 	;   nz	0xE
+                           2104 	;   pl	0xD
+                           2105 	;   mi	0x5
+                           2106 	;   ov	0x4
+                           2107 	;   nov	0xC
+                           2108 	;   eq	0x6
+                           2109 	;   ne	0xE
+                           2110 	;   ge	0x9
+                           2111 	;   lt	0x1
+                           2112 	;   gt	0xA
+                           2113 	;   le	0x2
+                           2114 	;   uge	0xF
+                           2115 	;   ult	0x7
+                           2116 	;   ugt	0xB
+                           2117 	;   ule	0x3
+                           2118 	;
+                           2119 	; Conditional Jump Relative
+   14B5 0B FE              2120 	jrf	.		; 0B FE
+   14B7 8B FE              2121 	jrt	.		; 8B FE
+   14B9 7B FE              2122 	jrc	.		; 7B FE
+   14BB FB FE              2123 	jrnc	.		; FB FE
+   14BD 6B FE              2124 	jrz	.		; 6B FE
+   14BF EB FE              2125 	jrnz	.		; EB FE
+   14C1 DB FE              2126 	jrpl	.		; DB FE
+   14C3 5B FE              2127 	jrmi	.		; 5B FE
+   14C5 4B FE              2128 	jrov	.		; 4B FE
+   14C7 CB FE              2129 	jrnov	.		; CB FE
+   14C9 6B FE              2130 	jreq	.		; 6B FE
+   14CB EB FE              2131 	jrne	.		; EB FE
+   14CD 9B FE              2132 	jrge	.		; 9B FE
+   14CF 1B FE              2133 	jrlt	.		; 1B FE
+   14D1 AB FE              2134 	jrgt	.		; AB FE
+   14D3 2B FE              2135 	jrle	.		; 2B FE
+   14D5 FB FE              2136 	jruge	.		; FB FE
+   14D7 7B FE              2137 	jrult	.		; 7B FE
+   14D9 BB FE              2138 	jrugt	.		; BB FE
+   14DB 3B FE              2139 	jrule	.		; 3B FE
+                           2140 
+   14DD 8B FE              2141 jrcc:	jrt	jrcc		; 8B FE
+   14DF 8B FC              2142 	jrt	jrcc		; 8B FC
+   14E1 8B 10              2143 	jrt	.+N		; 8B 10
+                     0001  2144 .ifdef	GLOBAL
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 40
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   14E3 8Bp00              2145 	jrt	.+M		; 8B 10
+                           2146 .endif
+                           2147 
+                           2148 	;
+                           2149 	; link. linku
+                           2150 	;
+                           2151 	; Link code
+   14E5 D4 21 12           2152 	link	YY20,#N		; D4 21 12
+   14E8 B6 D3 12           2153 	linku	yy2,#N		; B6 D3 12
+                     0001  2154 .ifdef	GLOBAL
+   14EB D4 21u12           2155 	link	YY20,#M		; D4 21 12
+   14EE B6 D3u12           2156 	linku	yy2,#M		; B6 D3 12
+                           2157 .endif
+                           2158 
+                           2159 	;
+                           2160 	; MUL
+                           2161 	;
+                           2162 	; Multiply (8x8)
+   14F1 4F 03              2163 	mul	yy0,y3		; 4F 03
+                           2164 
+                           2165 	;
+                           2166 	; NOP
+                           2167 	;
+                           2168 	; No Operation
+   14F3 FF                 2169 	nop			; FF
+                           2170 
+                           2171 	;
+                           2172 	; PEA
+                           2173 	;
+                           2174 	; Push Effective Address on System Stack
+   14F4 BF 01 10 12        2175 	pea	N(YY10)		; BF 01 10 12
+   14F8 BF 01 DA 12        2176 	pea	N(yyA)		; BF 01 DA 12
+   14FC BF 01 21 56 78     2177 	pea	NN(YY20)	; BF 01 21 56 78
+   1501 BF 01 D5 56 78     2178 	pea	NN(yy4)		; BF 01 D5 56 78
+                     0001  2179 .ifdef	GLOBAL
+   1506 BF 01 10u12        2180 	pea	*M(YY10)	; BF 01 10 12		; Global -> Forced Short Form
+   150A BF 01 DAu12        2181 	pea	*M(yyA)		; BF 01 DA 12		; Global -> Forced Short Form
+   150E BF 01 11s00r12     2182 	pea	M(YY10)		; BF 01 11 00 12	; Global -> Long Form
+   1513 BF 01 DBs00r12     2183 	pea	M(yyA)		; BF 01 DB 00 12	; Global -> Long Form
+   1518 BF 01 21s56r78     2184 	pea	MM(YY20)	; BF 01 21 56 78
+   151D BF 01 D5s56r78     2185 	pea	MM(yy4)		; BF 01 D5 56 78
+                           2186 .endif
+                           2187 
+                           2188 	;
+                           2189 	; PEAU
+                           2190 	;
+                           2191 	; 	Push Effective Address on User Stack
+   1522 BF 03 10 12        2192 	peau	N(YY10)		; BF 03 10 12
+   1526 BF 03 DA 12        2193 	peau	N(yyA)		; BF 03 DA 12
+   152A BF 03 21 56 78     2194 	peau	NN(YY20)	; BF 03 21 56 78
+   152F BF 03 D5 56 78     2195 	peau	NN(yy4)		; BF 03 D5 56 78
+                     0001  2196 .ifdef	GLOBAL
+   1534 BF 03 10u12        2197 	peau	*M(YY10)	; BF 03 10 12		; Global -> Forced Short Form
+   1538 BF 03 DAu12        2198 	peau	*M(yyA)		; BF 03 DA 12		; Global -> Forced Short Form
+   153C BF 03 11s00r12     2199 	peau	M(YY10)		; BF 03 11 00 12	; Global -> Long Form
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 41
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   1541 BF 03 DBs00r12     2200 	peau	M(yyA)		; BF 03 DB 00 12	; Global -> Long Form
+   1546 BF 03 21s56r78     2201 	peau	MM(YY20)	; BF 03 21 56 78
+   154B BF 03 D5s56r78     2202 	peau	MM(yy4)		; BF 03 D5 56 78
+                           2203 .endif
+                           2204 
+                           2205 	;
+                           2206 	; POP
+                           2207 	;
+                           2208 	; Pop Byte from System Stack
+   1550 76 30              2209 	pop	Y30		; 76 30
+   1552 76 D4              2210 	pop	y4		; 76 D4
+   1554 77 50              2211 	pop	(Y50)		; 77 50
+   1556 77 D8              2212 	pop	(y8)		; 77 D8
+                           2213 
+                           2214 	;
+                           2215 	; POPU
+                           2216 	;
+                           2217 	; Pop Byte from User Stack
+   1558 20 40              2218 	popu	Y40		; 20 40
+   155A 20 D6              2219 	popu	y6		; 20 D6
+   155C 21 60              2220 	popu	(Y60)		; 21 60
+   155E 21 D2              2221 	popu	(y2)		; 21 D2
+                           2222 
+                           2223 	;
+                           2224 	; POPUW
+                           2225 	;
+                           2226 	; Pop Word from User Stack
+   1560 B7 90              2227 	popuw	YY90		; B7 90
+   1562 B7 D0              2228 	popuw	yy0		; B7 D0
+                           2229 
+                           2230 	;
+                           2231 	; POPW
+                           2232 	;
+                           2233 	; Pop Word from System Stack
+   1564 75 10              2234 	popw	YY10		; 75 10
+   1566 75 DC              2235 	popw	yyC		; 75 DC
+                           2236 
+                           2237 	;
+                           2238 	; PUSH
+                           2239 	;
+                           2240 	; Push Byte on System Stack
+   1568 66 0A              2241 	push	YA		; 66 0A
+   156A 66 DB              2242 	push	yB		; 66 DB
+   156C F7 08              2243 	push	(Y8)		; F7 08
+   156E F7 D4              2244 	push	(y4)		; F7 D4
+   1570 BF F1 12           2245 	push	#N		; BF F1 12
+                     0001  2246 .ifdef	GLOBAL
+   1573 BF F1u12           2247 	push	#M		; BF F1 12
+                           2248 .endif
+                           2249 
+                           2250 	;
+                           2251 	; PUSHU
+                           2252 	;
+                           2253 	; Push Byte on User Stack
+   1576 30 70              2254 	pushu	Y70		; 30 70
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 42
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   1578 30 D5              2255 	pushu	y5		; 30 D5
+   157A 31 60              2256 	pushu	(Y60)		; 31 60
+   157C 31 D3              2257 	pushu	(y3)		; 31 D3
+   157E BF F3 12           2258 	pushu	#N		; BF F3 12
+                     0001  2259 .ifdef	GLOBAL
+   1581 BF F3u12           2260 	pushu	#M		; BF F3 12
+                           2261 .endif
+                           2262 
+                           2263 	;
+                           2264 	; PUSHUW
+                           2265 	;
+                           2266 	; Push Word on User Stack
+   1584 B6 20              2267 	pushuw	YY20		; B6 20
+   1586 B6 D8              2268 	pushuw	yy8		; B6 D8
+   1588 BF C3 56 78        2269 	pushuw	#NN		; BF C3 56 78
+                     0001  2270 .ifdef GLOBAL
+   158C BF C3s56r78        2271 	pushuw	#MM		; BF C3 56 78
+                           2272 .endif
+                           2273 	;
+                           2274 	; PUSHW
+                           2275 	;
+                           2276 	; Push Word on System Stack
+   1590 74 40              2277 	pushw	YY40		; 74 40
+   1592 74 D6              2278 	pushw	yy6		; 74 D6
+   1594 BF C1 56 78        2279 	pushw	#NN		; BF C1 56 78
+                     0000  2280 .ifdef	G:OBAL
+                           2281 	pushw	#MM		; BF C1 56 78
+                           2282 .endif
+                           2283 
+                           2284 	;
+                           2285 	; RCF
+                           2286 	;
+                           2287 	; Reset Carry Flag
+   1598 11                 2288 	rcf			; 11
+                           2289 
+                           2290 	;
+                           2291 	; RET
+                           2292 	;
+                           2293 	; Return From Subroutine
+   1599 46                 2294 	ret			; 46
+                           2295 
+                           2296 	;
+                           2297 	; RETS
+                           2298 	;
+                           2299 	; Return From Far Subroutine
+   159A F6 01              2300 	rets			; F6 01
+                           2301 
+                           2302 	;
+                           2303 	; RLC
+                           2304 	;
+                           2305 	; Rotate Left Through Carry
+   159C B0 0F              2306 	rlc	YF		; B0 0F
+   159E B0 D9              2307 	rlc	y9		; B0 D9
+   15A0 B1 0E              2308 	rlc	(YE)		; B1 0E
+   15A2 B1 D8              2309 	rlc	(y8)		; B1 D8
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 43
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           2310 
+                           2311 	;
+                           2312 	; RLCW
+                           2313 	;
+                           2314 	; Rotate Left Through Carry Word
+   15A4 BF 40              2315 	rlcw	YY40		; BF 40
+   15A6 BF D6              2316 	rlcw	yy6		; BF D6
+                           2317 
+                           2318 	;
+                           2319 	; ROL
+                           2320 	;
+                           2321 	; Rotate Left Byte
+   15A8 A0 0C              2322 	rol	YC		; A0 0C
+   15AA A0 DA              2323 	rol	yA		; A0 DA
+   15AC A1 70              2324 	rol	(Y70)		; A1 70
+   15AE A1 D4              2325 	rol	(y4)		; A1 D4
+                           2326 
+                           2327 	;
+                           2328 	; ROR
+                           2329 	;
+                           2330 	; Rotate Right Byte
+   15B0 C0 00              2331 	ror	Y0		; C0 00
+   15B2 C0 D7              2332 	ror	y7		; C0 D7
+   15B4 C1 09              2333 	ror	(Y9)		; C1 09
+   15B6 C1 D7              2334 	ror	(y7)		; C1 D7
+                           2335 
+                           2336 	;
+                           2337 	; RRC
+                           2338 	;
+                           2339 	; Rotate Right Through Carry Byte
+   15B8 D0 30              2340 	rrc	Y30		; D0 30
+   15BA D0 D2              2341 	rrc	y2		; D0 D2
+   15BC D1 40              2342 	rrc	(Y40)		; D1 40
+   15BE D1 D6              2343 	rrc	(y6)		; D1 D6
+                           2344 
+                           2345 	;
+                           2346 	; RRCW
+                           2347 	;
+                           2348 	; Rotate Right Through Carry Word
+   15C0 36 80              2349 	rrcw	YY80		; 36 80
+   15C2 36 D4              2350 	rrcw	yy4		; 36 D4
+                           2351 
+                           2352 	; SCF
+                           2353 	;
+                           2354 	; Set Carry Flag
+   15C4 01                 2355 	scf			; 01
+                           2356 
+                           2357 	;
+                           2358 	; SDM
+                           2359 	;
+                           2360 	; Set Data Memory
+   15C5 FE                 2361 	sdm			; FE
+                           2362 
+                           2363 	;
+                           2364 	; SLA
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 44
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+                           2365 	;
+                           2366 	; Shift Left Arithmetic (Byte)
+   15C6 42 33              2367 	sla	y3		; 42 33
+   15C8 44 30 30           2368 	sla	Y30		; 44 30 30
+   15CB 73 46 D6           2369 	sla	(yy6)		; 73 46 D6
+                           2370 
+                           2371 	;
+                           2372 	; SLAW
+                           2373 	;
+                           2374 	; Shift Left Arithmetic Word
+   15CE 4E 88              2375 	slaw	yy8		; 4E 88
+   15D0 47 50 50           2376 	slaw	YY50		; 47 50 50
+   15D3 4E D3 D3           2377 	slaw	(yy2)		; 4E D3 D3
+                           2378 
+                           2379 	;
+                           2380 	; SPM
+                           2381 	;
+                           2382 	; Set Program Memory
+   15D6 EE                 2383 	spm			; EE
+                           2384 
+                           2385 	;
+                           2386 	; SPP
+                           2387 	;
+                           2388 	; Set Page Pointer
+   15D7 C7 4A              2389 	spp	#N		; C7 4A
+                     0001  2390 .ifdef	GLOBAL
+   15D9 C7u4A              2391 	spp	#M		; C7 4A
+                           2392 .endif
+                           2393 
+                           2394 	;
+                           2395 	; SRA
+                           2396 	;
+                           2397 	; Shift Right Arithmetic Byte
+   15DB E0 20              2398 	sra	Y20		; E0 20
+   15DD E0 D7              2399 	sra	y7		; E0 D7
+   15DF E1 40              2400 	sra	(Y40)		; E1 40
+   15E1 E1 D4              2401 	sra	(y4)		; E1 D4
+                           2402 
+                           2403 	;
+                           2404 	; SRAW
+                           2405 	;
+                           2406 	; Shift Right Arithmetic Word
+   15E3 2F 06              2407 	sraw	YY6		; 2F 06
+   15E5 2F DA              2408 	sraw	yyA		; 2F DA
+                           2409 
+                           2410 	;
+                           2411 	; SRP
+                           2412 	;
+                           2413 	; Set Register Pointer (,0,1)
+   15E7 C7 90              2414 	srp	#N		; C7 90
+   15E9 C7 94              2415 	srp0	#N		; C7 94
+   15EB C7 95              2416 	srp1	#N		; C7 95
+                     0001  2417 .ifdef	GLOBAL
+   15ED C7u90              2418 	srp	#M		; C7 90
+   15EF C7u94              2419 	srp0	#M		; C7 94
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 45
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+
+
+   15F1 C7u95              2420 	srp1	#M		; C7 95
+                           2421 .endif
+                           2422 
+                           2423 	;
+                           2424 	; SWAP
+                           2425 	;
+                           2426 	; Swap Nibbles
+   15F3 F0 10              2427 	swap	Y10		; F0 10
+   15F5 F0 DB              2428 	swap	yB		; F0 DB
+   15F7 F1 30              2429 	swap	(Y30)		; F1 30
+   15F9 F1 D7              2430 	swap	(y7)		; F1 D7
+                           2431 
+                           2432 	;
+                           2433 	; UNLINK
+                           2434 	;
+                           2435 	; Unlink code
+   15FB 75 61              2436 	unlink	YY60		; 75 61
+   15FD 75 D5              2437 	unlink	yy4		; 75 D5
+                           2438 
+                           2439 	;
+                           2440 	; UNLINKU
+                           2441 	;
+                           2442 	; Unlink code
+   15FF 87 41              2443 	unlinku	YY40		; 87 41
+   1601 87 D9              2444 	unlinku	yy8		; 87 D9
+                           2445 
+                           2446 	;
+                           2447 	; WFI
+                           2448 	;
+                           2449 	; Wait For Interrupt
+   1603 EF 01              2450 	wfi			; EF 01
+                           2451 
+                           2452 	;
+                           2453 	; XCH
+                           2454 	;
+                           2455 	; Exchange Registers
+   1605 16 80 01           2456 	xch	Y1,Y80		; 16 80 01
+   1608 16 D8 02           2457 	xch	Y2,y8		; 16 D8 02
+   160B 16 70 D1           2458 	xch	y1,Y70		; 16 70 D1
+   160E 16 DA D2           2459 	xch	y2,yA		; 16 DA D2
+                           2460 
+                           2461 
+                           2462 	.sbttl	Branching Range Extremes
+                           2463 
+   1611 AF 17 FD           2464 btjfx:	btjf	r7.0,btjfx	; AF 17 FD
+   1614                    2465 1$:	.blkb	125
+   1691 AF 90 80           2466 	btjf	r0.4,1$		; AF 90 80
+   1694 AF B1 7F           2467 	btjf	r1.5,2$		; AF B1 7F
+   1697                    2468 	.blkb	127
+   1716                    2469 2$:
+                           2470 
+   1716 AF 07 FD           2471 btjtx:	btjt	r7.0,btjtx	; AF 07 FD
+   1719                    2472 1$:	.blkb	125
+   1796 AF 80 80           2473 	btjt	r0.4,1$		; AF 80 80
+   1799 AF A1 7F           2474 	btjt	r1.5,2$		; AF A1 7F
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 46
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+Branching Range Extremes
+
+   179C                    2475 	.blkb	127
+   181B                    2476 2$:
+                           2477 
+   181B 9F 20 FD           2478 cpjfix:	cpjfi	r0,(rr2),cpjfix	; 9F 20 FD
+   181E                    2479 1$:	.blkb	125
+   189B 9F 64 80           2480 	cpjfi	r4,(rr6),1$	; 9F 64 80
+   189E 9F A8 7F           2481 	cpjfi	r8,(rr10),2$	; 9F A8 7F
+   18A1                    2482 	.blkb	127
+   1920                    2483 2$:
+                           2484 
+   1920 9F 20 FD           2485 cpjtix:	cpjfi	r0,(rr2),cpjtix	; 9F 20 FD
+   1923                    2486 1$:	.blkb	125
+   19A0 9F 74 80           2487 	cpjti	r4,(rr6),1$	; 9F 74 80
+   19A3 9F B8 7F           2488 	cpjti	r8,(rr10),2$	; 9F B8 7F
+   19A6                    2489 	.blkb	127
+   1A25                    2490 2$:
+                           2491 
+   1A25 0A FE              2492 djnzx:	djnz	r0,djnzx	; 0A FE
+   1A27                    2493 1$:	.blkb	126
+   1AA5 2A 80              2494 	djnz	r2,1$		; 2A 80
+   1AA7 4A 7F              2495 	djnz	r4,2$		; 4A 7F
+   1AA9                    2496 	.blkb	127
+   1B28                    2497 2$:
+                           2498 
+   1B28 C6 00 FD           2499 dwjnzx:	dwjnz	RR0,dwjnzx	; C6 00 FD
+   1B2B                    2500 1$:	.blkb	125
+   1BA8 C6 02 80           2501 	dwjnz	RR2,1$		; C6 02 80
+   1BAB C6 04 7F           2502 	dwjnz	RR4,2$		; C6 04 7F
+   1BAE                    2503 	.blkb	127
+   1C2D                    2504 2$:
+                           2505 
+   1C2D 7B FE              2506 jrcx:	jrc	jrcx		; 7B FE
+   1C2F                    2507 1$:	.blkb	126
+   1CAD 7B 80              2508 	jrc	1$		; 7B 80
+   1CAF 7B 7F              2509 	jrc	2$		; 7B 7F
+   1CB1                    2510 	.blkb	127
+   1D30                    2511 2$:
+                           2512 
+                           2513 
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 47
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+Symbol Table
+
+    .__.$$$.       =   2710 L   |     .__.ABS.       =   0000 G
+    .__.CPU.       =   0000 L   |     .__.H$L.       =   0001 L
+    B0             =   0000 G   |     B1             =   0001 G
+    B2             =   0002 G   |     B3             =   0003 G
+    B4             =   0004 G   |     B5             =   0005 G
+    B6             =   0006 G   |     B7             =   0007 G
+    N              =   0012 G   |     NN             =   5678 G
+    X0                 **** GX  |     X1                 **** GX
+    X2                 **** GX  |     X3                 **** GX
+    X4                 **** GX  |     X5                 **** GX
+    X6                 **** GX  |     X7                 **** GX
+  0 btjf               1394 GR  |   0 btjfx              1611 GR
+  0 btjtx              1716 GR  |   0 cpjfi              13F1 GR
+  0 cpjfix             181B GR  |   0 cpjtix             1920 GR
+  0 djnz               1426 GR  |   0 djnzx              1A25 GR
+  0 dwjnz              1438 GR  |   0 dwjnzx             1B28 GR
+  0 jrcc               14DD GR  |   0 jrcx               1C2D GR
+    xN                 **** GX  |     xNN                **** GX
+
+ASxxxx Assembler V06.00  (STMicroelectronics STM9)                     Page 48
+Hexadecimal [16-Bits]                                 Thu May 14 15:37:30 2026
+ST9 Test
+Area Table
+
+[_CSEG]
+   0 _CODE            size 1D30   flags C180
+[_DSEG]
+   1 _DATA            size    0   flags C0C0
+

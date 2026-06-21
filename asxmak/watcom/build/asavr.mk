@@ -1,6 +1,6 @@
 .after
  copy /Y asavr.exe ..\exe\
 
-project : R:\asxv5pxx\asxmak\watcom\build\asavr.exe .SYMBOLIC
+project : R:\asxv6pxx\asxmak\watcom\build\asavr.exe .SYMBOLIC
 
-!include R:\asxv5pxx\asxmak\watcom\build\asavr.mk1
+!include R:\asxv6pxx\asxmak\watcom\build\asavr.mk1

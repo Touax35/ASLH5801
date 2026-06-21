@@ -3,7 +3,7 @@
 #		'Turbo C++ make'  Version
 #		=========================
 #
-#   21 October 2022
+#   15 April 2026
 #
 ####################################################################
 
@@ -55,6 +55,7 @@ ASXXXX =	as1802		\
 		asst6		\
 		asst7		\
 		asst8		\
+		asst9		\
 		assx		\
 		astlcs90	\
 		asz8		\
@@ -184,6 +185,7 @@ SRCSCMP=	$(ASXBAS)\asscmp
 SRCST6=		$(ASXBAS)\asst6
 SRCST7=		$(ASXBAS)\asst7
 SRCST8=		$(ASXBAS)\asst8
+SRCST9=		$(ASXBAS)\asst9
 SRCTLCS90=	$(ASXBAS)\astlcs90
 SRCSX=		$(ASXBAS)\assx
 SRCZ8=		$(ASXBAS)\asz8
@@ -1380,6 +1382,30 @@ $(LIB)
 
 
 ####################################################################
+# ASST9
+####################################################################
+
+ASST9 =		st9pst.obj st9mch.obj st9adr.obj
+
+st9pst.obj:	$(SRCST9)\st9pst.c $(SRCST9)\st9.h $(SRCASX)\asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCST9) -I$(SRCMISC) $(SRCST9)\st9pst.c $<
+st9mch.obj:	$(SRCST9)\st9mch.c $(SRCST9)\st9.h $(SRCASX)\asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCST9) -I$(SRCMISC) $(SRCST9)\st9mch.c $<
+st9adr.obj:	$(SRCST9)\st9adr.c $(SRCST9)\st9.h $(SRCASX)\asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCST9) -I$(SRCMISC) $(SRCST9)\st9adr.c $<
+
+asst9:		$(ASXX) $(ASST9)
+		$(LD) $(LDFLAGS) @&&!
+$(STARTUP) +
+$(ASXX) +
+$(ASST9)
+$(DSTEXE)\asst9
+asst9
+$(LIB)
+!
+
+
+####################################################################
 # ASTLCS90
 ####################################################################
 
@@ -1609,3 +1635,4 @@ $(LIB)
 
 
 ### end #########################################################
+

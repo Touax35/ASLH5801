@@ -5,3 +5,4 @@ rmdir /s /q .\release
 rmdir /s /q .\.vs\%1\FileContentIndex
 del /q .\.vs\%1\v17\Browse.*
 cd ..
+

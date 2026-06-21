@@ -20,6 +20,12 @@
  * Alan R. Baldwin
  * 721 Berkeley St.
  * Kent, Ohio  44240
+ * 
+ * 
+ * Ported by Lionel Tchernatinsky
+ * from the ASZ80 assembler.
+ *
+ * lionel at tchernatins dot ky
  */
 
 #include "asxxxx.h"

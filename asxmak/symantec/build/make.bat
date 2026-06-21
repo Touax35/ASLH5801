@@ -61,6 +61,7 @@ smake /f asscmp.mak
 smake /f asst6.mak
 smake /f asst7.mak
 smake /f asst8.mak
+smake /f asst9.mak
 smake /f assx.mak
 smake /f astlcs90.mak
 smake /f asz8.mak
@@ -100,7 +101,7 @@ echo as8051    as8085    as89lp    as8x300   as8xcxxx  asavr
 echo ascheck   ascop4    ascop8    asez8     asez80    asf2mc8
 echo asf8      asgb      ash8      asm8c     aspdp11   aspic
 echo asrab     asrs08    asscmp    asst6     asst7     asst8
-echo assx      astlcs90  asz8      asz80     asz280
+echo asst9     assx      astlcs90  asz8      asz80     asz280
 echo --------  --------  --------  --------  --------  --------
 echo aslink    asxcnv    asxscn    s19os9
 echo --------  --------  --------  --------  --------  --------

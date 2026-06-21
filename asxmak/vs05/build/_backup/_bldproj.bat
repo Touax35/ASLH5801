@@ -3,3 +3,4 @@ cd %1
 %VC$BUILD% /rebuild %1.vcproj "Release|Win32"
 @echo off
 cd ..
+

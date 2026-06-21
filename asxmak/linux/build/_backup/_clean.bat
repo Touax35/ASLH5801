@@ -6,3 +6,4 @@ del /q ..\exe\as*
 del /q ..\exe\s19os9
 del /q ..\misc\*.lst
 
+

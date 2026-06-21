@@ -1,6 +1,6 @@
 .after
  copy /Y as8048.exe ..\exe\
 
-project : R:\asxv5pxx\asxmak\watcom\build\as8048.exe .SYMBOLIC
+project : R:\asxv6pxx\asxmak\watcom\build\as8048.exe .SYMBOLIC
 
-!include R:\asxv5pxx\asxmak\watcom\build\as8048.mk1
+!include R:\asxv6pxx\asxmak\watcom\build\as8048.mk1

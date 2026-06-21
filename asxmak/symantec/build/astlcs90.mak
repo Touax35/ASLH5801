@@ -26,7 +26,7 @@ DLLS		=
 
 HEADERS		= ..\..\..\ASTLCS90\t90.h C:\SC\INCLUDE\limits.h ..\..\..\ASXXSRC\asxxxx.h  \
 		C:\SC\INCLUDE\stdlib.h C:\SC\INCLUDE\stdio.h C:\SC\INCLUDE\setjmp.h C:\SC\INCLUDE\string.h  \
-		C:\SC\INCLUDE\time.h 
+		C:\SC\INCLUDE\time.h ..\..\..\..\asxv5pxx\asxxsrc\asxxxx.h 
 
 DEFFILE		= astlcs90.DEF
 
@@ -42,14 +42,14 @@ CFLAGS		=  -ms -C -S -3 -a2 -c -g -gd
 LFLAGS		=  /CO /DE /XN
 DEFINES		= 
 !ELSE
-OUTPUTDIR	= r:\asxv5pxx\asxmak\symantec\build
-!IF EXIST (r:\asxv5pxx\asxmak\symantec\build)
+OUTPUTDIR	= ..\build
+!IF EXIST (..\build)
 CREATEOUTPUTDIR	=
 !ELSE
 CREATEOUTPUTDIR	= if not exist $(OUTPUTDIR)\*.* md $(OUTPUTDIR)
 !ENDIF
-TARGETDIR	= r:\asxv5pxx\asxmak\symantec\exe
-!IF EXIST (r:\asxv5pxx\asxmak\symantec\exe)
+TARGETDIR	= ..\exe
+!IF EXIST (..\exe)
 CREATETARGETDIR	=
 !ELSE
 CREATETARGETDIR	= if not exist $(TARGETDIR)\*.* md $(TARGETDIR)
@@ -76,7 +76,7 @@ PAR		= PROJS BATS OBJS
 
 RCDEFINES	= 
 
-INCLUDES	= -Ir:\asxv5pxx\asxxsrc -Ir:\asxv5pxx\astlcs90
+INCLUDES	= -I..\..\..\asxxsrc 
 
 INCLUDEDOBJS	= 
 

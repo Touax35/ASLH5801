@@ -557,13 +557,13 @@ rm -f ../../../asm8c/tm8cs.lst
 ../exe/asm8c -glacxff ../../../asm8c/tm8cs.asm
 ../exe/asxscn ../../../asm8c/tm8cs.lst
 
-rm ../../../aspdp11/t11.lst
-rm ../../../aspdp11/t11.rel
+rm -f ../../../aspdp11/t11.lst
+rm -f ../../../aspdp11/t11.rel
 ../exe/aspdp11 -locqff -i ".define .lst" ../../../aspdp11/t11
 ../exe/asxscn -q ../../../aspdp11/t11.lst
-rm ../../../aspdp11/t11.lst
-rm ../../../aspdp11/t11.rel
-rm ../../../aspdp11/t11.rst
+rm -f ../../../aspdp11/t11.lst
+rm -f ../../../aspdp11/t11.rel
+rm -f ../../../aspdp11/t11.rst
 ../exe/aspdp11 -locqff -i ".define .rst" ../../../aspdp11/t11
 ../exe/aslink -nqu -g XA=0 ../../../aspdp11/t11.rel
 ../exe/asxscn -qi ../../../aspdp11/t11.rst
@@ -720,3 +720,4 @@ rm -f ../../../asz280/*.rst
 ../exe/aslink -nxuf ../../../asz280/tzx_exr
 ../exe/asxscn ../../../asz280/tzx_exr.rst
 
+

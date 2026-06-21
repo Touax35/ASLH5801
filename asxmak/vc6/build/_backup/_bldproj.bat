@@ -5,3 +5,4 @@ cd %1
 type %1.log
 cd ..
 
+

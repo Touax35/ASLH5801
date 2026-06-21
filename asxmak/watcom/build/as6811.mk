@@ -1,6 +1,6 @@
 .after
  copy /Y as6811.exe ..\exe\
 
-project : R:\asxv5pxx\asxmak\watcom\build\as6811.exe .SYMBOLIC
+project : R:\asxv6pxx\asxmak\watcom\build\as6811.exe .SYMBOLIC
 
-!include R:\asxv5pxx\asxmak\watcom\build\as6811.mk1
+!include R:\asxv6pxx\asxmak\watcom\build\as6811.mk1

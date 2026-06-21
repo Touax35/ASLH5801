@@ -1,4 +1,8 @@
 # Symantec SC++ generated .dpd file. V: 7200
+..\build\s26adr.OBJ: \
+	..\..\..\as2650\s26adr.c \
+	..\..\..\ASXXSRC\asxxxx.h \
+	..\..\..\AS2650\s2650.h 
 ..\build\s26mch.OBJ: \
 	..\..\..\as2650\s26mch.c \
 	..\..\..\ASXXSRC\asxxxx.h \
